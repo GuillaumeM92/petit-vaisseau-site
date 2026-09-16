@@ -107,10 +107,13 @@ deux côtés.
 
 ## 5. Points encore ouverts
 
-- **Le kit presse signe « Guillaume M92 »** alors que le studio s'appelle Petit Vaisseau.
-  Ça concerne `presse/index.html`, les deux `fact_sheet_*.txt` et le contenu du `.zip`.
-  À harmoniser avant d'envoyer les clés presse, en reprenant les sources dans `Marketing/`
-  puis en regénérant l'archive.
+- **Le site du studio n'est pas encore dans les fiches presse.** Une fois le domaine branché,
+  ajouter une ligne « Site » dans `presse/fact_sheet_FR.txt` et `fact_sheet_EN.txt` (et dans les
+  sources correspondantes de `Marketing/PressKit/`), puis regénérer le `.zip` :
+  ```bash
+  cd "…/Marketing" && rm -f Space_Defender_PressKit.zip \
+    && zip -r -q -X Space_Defender_PressKit.zip PressKit -x "*.DS_Store"
+  ```
 - **Le kit presse n'a pas la même identité visuelle** que le site : vert-turquoise `#2FD6B5`
   et rouge, hérités d'avant le nom du studio. Ça se voit au passage d'une page à l'autre.
   Une demi-heure de travail si tu veux l'aligner sur le cyan `#38D6E0`.

@@ -1,6 +1,6 @@
 SPACE DEFENDER: FRONTIER SQUADRON — FICHE PRESSE
 
-Développeur / Éditeur   Guillaume M92 (développeur solo, France)
+Studio                  Petit Vaisseau — Guillaume Merle (développeur solo, France)
 Genre                   Shooter spatial vu de dessus avec progression RPG
 Plateforme              PC (Windows), Steam
 Accès anticipé          mai 2025
@@ -10,7 +10,7 @@ Langues                 français, anglais
 Contrôles               clavier et souris, compatibilité manette complète
 Steam                   https://store.steampowered.com/app/1731170/
 Discord                 https://discord.com/invite/AUMtECDCx8
-Bande-annonce           <LIEN DU TRAILER>
+Bande-annonce           https://www.youtube.com/watch?v=vVd2VChcjos
 Contact                 spacedefender.game@gmail.com
 
 
@@ -38,7 +38,7 @@ HISTORIQUE
 Space Defender est le premier jeu de Guillaume, développé seul à côté d'un travail à plein temps. Il est sorti en accès anticipé sur Steam en mai 2025. Les retours des joueurs ont façonné la 1.0 : le système d'ailiers est né d'une suggestion de joueur. La mise à jour 1.0 ajoute la campagne scénarisée, neuf nouveaux types de contrats, des comportements ennemis, de nouvelles familles d'armes, une interface repensée et une passe d'équilibrage complète, et renomme le jeu Space Defender: Frontier Squadron.
 
 CRÉDITS
-Conception, programmation, écriture : Guillaume M92
+Conception, programmation, écriture : Guillaume Merle
 Musique : Alkakrab (Sci-Fi Music Packs, alkakrab.itch.io)
 Effets sonores : ZapSplat
 Police : Exo 2 de Natanael Gama (SIL Open Font License)
