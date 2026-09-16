@@ -8,7 +8,7 @@ Sortie 1.0              29 septembre 2026, 19 h (heure de Paris)
 Prix                    9,99 €
 Langues                 français, anglais
 Contrôles               clavier et souris, compatibilité manette complète
-Site                    https://petitvaisseau.guillaume-merle.fr
+Site                    https://petitvaisseau.com
 Steam                   https://store.steampowered.com/app/1731170/
 Discord                 https://discord.com/invite/AUMtECDCx8
 Bande-annonce           https://www.youtube.com/watch?v=vVd2VChcjos

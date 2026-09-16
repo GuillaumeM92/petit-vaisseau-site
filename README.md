@@ -3,7 +3,7 @@
 Site statique du studio : deux pages, aucune dépendance, aucun outil de build.
 C'est du HTML et du CSS écrits à la main — on ouvre un fichier, on modifie, on pousse.
 
-En ligne : **https://petitvaisseau.guillaume-merle.fr**
+En ligne : **https://petitvaisseau.com**
 
 ---
 
@@ -68,21 +68,16 @@ git add -A && git commit -m "Site: …" && git push
 
 ## 4. Le domaine
 
-Le site est servi sur **petitvaisseau.guillaume-merle.fr** (branché le 16/09/2026).
-L'ancienne adresse `guillaumem92.github.io/petit-vaisseau-site/` redirige d'elle-même.
+Le site est servi sur **petitvaisseau.com** (domaine acheté chez OVH et branché le 16/09/2026).
+Avant, il était sur `petitvaisseau.guillaume-merle.fr` : cette ancienne adresse ne sert plus le site.
 
-- **Côté DNS (OVH)**, une seule ligne dans la zone de `guillaume-merle.fr` :
-  `CNAME  petitvaisseau  →  guillaumem92.github.io.`
-  Les autres lignes de la zone servent la page perso sur le VPS : ne pas y toucher.
+- **Côté DNS (OVH)**, dans la zone de `petitvaisseau.com` :
+  - quatre lignes `A` sur `@` : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (GitHub Pages) ;
+  - `CNAME  www  →  guillaumem92.github.io.` (GitHub redirige `www` vers le domaine nu) ;
+  - les lignes `NS`, `MX` et `SPF` servent l'e-mail OVH : ne pas y toucher.
 - **Côté GitHub**, le fichier `CNAME` à la racine contient le domaine. Settings → Pages doit
   afficher « DNS check successful » et la case **Enforce HTTPS** cochée.
-- **Ne mets pas `guillaume-merle.fr` tout court** dans Pages : cette adresse sert ta page perso
-  depuis le VPS, GitHub redirigerait alors le site du studio vers elle.
-
-Si un jour tu changes de domaine (par exemple `petitvaisseau.com`) : nouvelle ligne DNS, nouveau
-contenu du fichier `CNAME`, et mettre à jour les adresses absolues — balises `canonical`,
-`og:url` et `og:image` des deux pages, `robots.txt`, `sitemap.xml`, le pied de page des deux
-pages, et la ligne « Site » des fiches presse (puis regénérer le `.zip`, voir §5).
+- La ligne `CNAME petitvaisseau` de la zone `guillaume-merle.fr` ne sert plus : elle peut être supprimée.
 
 ---
 

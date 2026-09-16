@@ -8,7 +8,7 @@ Full release (1.0)      September 29, 2026, 10am PT / 7pm CEST
 Price                   $9.99 / €9.99
 Languages               English, French
 Controls                Mouse and keyboard, full controller support
-Website                 https://petitvaisseau.guillaume-merle.fr
+Website                 https://petitvaisseau.com
 Steam                   https://store.steampowered.com/app/1731170/
 Discord                 https://discord.com/invite/AUMtECDCx8
 Trailer                 https://www.youtube.com/watch?v=vVd2VChcjos
