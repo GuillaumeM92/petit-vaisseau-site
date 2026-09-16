@@ -4,7 +4,7 @@ Studio                  Petit Vaisseau — Guillaume Merle (solo developer, Fran
 Genre                   Top-down space shooter with RPG progression
 Platform                PC (Windows), Steam
 Early Access            May 2025
-Full release (1.0)      September 29, 2026, 10am PT / 7pm CEST
+Full release (1.0)      September 24, 2026, 10am PT / 7pm CEST
 Price                   $9.99 / €9.99
 Languages               English, French
 Controls                Mouse and keyboard, full controller support

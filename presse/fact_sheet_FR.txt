@@ -4,7 +4,7 @@ Studio                  Petit Vaisseau — Guillaume Merle (développeur solo, F
 Genre                   Shooter spatial vu de dessus avec progression RPG
 Plateforme              PC (Windows), Steam
 Accès anticipé          mai 2025
-Sortie 1.0              29 septembre 2026, 19 h (heure de Paris)
+Sortie 1.0              24 septembre 2026, 19 h (heure de Paris)
 Prix                    9,99 €
 Langues                 français, anglais
 Contrôles               clavier et souris, compatibilité manette complète
