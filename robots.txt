@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://guillaumem92.github.io/petit-vaisseau-site/sitemap.xml
+Sitemap: https://petitvaisseau.guillaume-merle.fr/sitemap.xml

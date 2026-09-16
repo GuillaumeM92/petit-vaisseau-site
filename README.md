@@ -3,7 +3,7 @@
 Site statique du studio : deux pages, aucune dépendance, aucun outil de build.
 C'est du HTML et du CSS écrits à la main — on ouvre un fichier, on modifie, on pousse.
 
-En ligne : **https://guillaumem92.github.io/petit-vaisseau-site/**
+En ligne : **https://petitvaisseau.guillaume-merle.fr**
 
 ---
 
@@ -16,7 +16,7 @@ En ligne : **https://guillaumem92.github.io/petit-vaisseau-site/**
 ├── robots.txt              Autorise l'indexation, pointe le sitemap
 ├── sitemap.xml             Liste des 3 pages, pour Google
 ├── .nojekyll               Dit à GitHub Pages de servir les fichiers tels quels
-├── CNAME-a-activer         À renommer en « CNAME » le jour du domaine (voir §4)
+├── CNAME                   Le domaine du site, lu par GitHub Pages (voir §4)
 ├── assets/
 │   ├── css/site.css        TOUT le style, un seul fichier
 │   ├── js/site.js          Le seul JavaScript : bascule FR/EN + trailer YouTube
@@ -66,53 +66,32 @@ git add -A && git commit -m "Site: …" && git push
 
 ---
 
-## 4. Brancher un domaine
+## 4. Le domaine
 
-Le site marche déjà sur l'adresse `github.io`. Pour y mettre un domaine :
+Le site est servi sur **petitvaisseau.guillaume-merle.fr** (branché le 16/09/2026).
+L'ancienne adresse `guillaumem92.github.io/petit-vaisseau-site/` redirige d'elle-même.
 
-**Si `guillaume-merle.fr` ne sert rien d'autre**, tu peux l'utiliser à la racine. Chez ton
-registrar :
+- **Côté DNS (OVH)**, une seule ligne dans la zone de `guillaume-merle.fr` :
+  `CNAME  petitvaisseau  →  guillaumem92.github.io.`
+  Les autres lignes de la zone servent la page perso sur le VPS : ne pas y toucher.
+- **Côté GitHub**, le fichier `CNAME` à la racine contient le domaine. Settings → Pages doit
+  afficher « DNS check successful » et la case **Enforce HTTPS** cochée.
+- **Ne mets pas `guillaume-merle.fr` tout court** dans Pages : cette adresse sert ta page perso
+  depuis le VPS, GitHub redirigerait alors le site du studio vers elle.
 
-| Type  | Nom   | Valeur                    |
-|-------|-------|---------------------------|
-| A     | `@`   | `185.199.108.153`         |
-| A     | `@`   | `185.199.109.153`         |
-| A     | `@`   | `185.199.110.153`         |
-| A     | `@`   | `185.199.111.153`         |
-| CNAME | `www` | `guillaumem92.github.io.` |
-
-**S'il sert déjà quelque chose** (VPS, page perso), prends un sous-domaine — c'est plus simple,
-un seul enregistrement, et rien ne bouge côté serveur :
-
-| Type  | Nom             | Valeur                    |
-|-------|-----------------|---------------------------|
-| CNAME | `petitvaisseau` | `guillaumem92.github.io.` |
-
-Dans les deux cas, ensuite :
-
-1. Attendre que le DNS se propage (quelques minutes à quelques heures).
-2. Renommer `CNAME-a-activer` en `CNAME` avec le domaine choisi dedans, commiter, pousser.
-3. Settings → Pages → Custom domain → le domaine → Save, puis **Enforce HTTPS** dès que la
-   case est disponible.
-4. **Mettre à jour les adresses**, car le site passe du sous-chemin à la racine du domaine :
-   les balises `canonical`, `og:url` et `og:image` des deux pages, `robots.txt`, `sitemap.xml`,
-   et les deux liens de `404.html` (qui pointent vers `/petit-vaisseau-site/`). Remettre aussi
-   le domaine dans le pied de page des deux pages, retiré tant qu'il ne menait pas ici.
-
-⚠️ **Ne renomme pas le fichier en `CNAME` avant d'avoir posé le DNS.** Pages redirigerait
-l'adresse `github.io` vers un domaine qui ne répond pas, et le site serait injoignable des
-deux côtés.
+Si un jour tu changes de domaine (par exemple `petitvaisseau.com`) : nouvelle ligne DNS, nouveau
+contenu du fichier `CNAME`, et mettre à jour les adresses absolues — balises `canonical`,
+`og:url` et `og:image` des deux pages, `robots.txt`, `sitemap.xml`, le pied de page des deux
+pages, et la ligne « Site » des fiches presse (puis regénérer le `.zip`, voir §5).
 
 ---
 
 ## 5. Points encore ouverts
 
-- **Le site du studio n'est pas encore dans les fiches presse.** Une fois le domaine branché,
-  ajouter une ligne « Site » dans `presse/fact_sheet_FR.txt` et `fact_sheet_EN.txt` (et dans les
-  sources correspondantes de `Marketing/PressKit/`), puis regénérer le `.zip` :
+- **Regénérer l'archive presse** après toute modification des fiches ou des visuels, depuis
+  le dossier `Marketing/` du dépôt du jeu, puis la recopier ici dans `presse/` :
   ```bash
-  cd "…/Marketing" && rm -f Space_Defender_PressKit.zip \
-    && zip -r -q -X Space_Defender_PressKit.zip PressKit -x "*.DS_Store"
+  rm -f Space_Defender_PressKit.zip && zip -r -q -X Space_Defender_PressKit.zip PressKit -x "*.DS_Store"
   ```
 - **Le kit presse n'a pas la même identité visuelle** que le site : vert-turquoise `#2FD6B5`
   et rouge, hérités d'avant le nom du studio. Ça se voit au passage d'une page à l'autre.
