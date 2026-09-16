@@ -27,7 +27,7 @@ En ligne : **https://petitvaisseau.com**
     ├── index.html          Page du kit presse, en anglais
     ├── key_art/ logos/ fonts/
     ├── fact_sheet_FR.txt   fact_sheet_EN.txt
-    └── space-defender-presskit.zip   Archive complète (28 Mo)
+    └── space-defender-presskit.zip   Archive complète (23 Mo)
 ```
 
 Environ 39 Mo, dont 31 pour le dossier de presse. Les pages elles-mêmes font moins de 2 Mo,
