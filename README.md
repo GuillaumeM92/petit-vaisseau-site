@@ -12,9 +12,10 @@ En ligne : **https://petitvaisseau.com**
 ```
 ├── index.html              Accueil du studio (logo animé, 3 lignes, carte du jeu, liens, contact presse)
 ├── space-defender.html     Page du jeu (trailer, description, 5 captures, fiche presse, FAQ)
+├── confidentialite.html    Politique de confidentialité FR/EN (liée depuis Steam et Google Play)
 ├── 404.html                Page d'erreur, volontairement autonome (son style est dedans)
 ├── robots.txt              Autorise l'indexation, pointe le sitemap
-├── sitemap.xml             Liste des 3 pages, pour Google
+├── sitemap.xml             Liste des 4 pages, pour Google
 ├── .nojekyll               Dit à GitHub Pages de servir les fichiers tels quels
 ├── CNAME                   Le domaine du site, lu par GitHub Pages (voir §4)
 ├── assets/
