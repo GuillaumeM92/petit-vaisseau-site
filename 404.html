@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page introuvable — Petit Vaisseau</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#38D6E0">
+<!-- Page volontairement autonome : GitHub Pages sert le 404 à n'importe quelle
+     profondeur d'URL, où un chemin relatif vers assets/ ne résoudrait pas. -->
+<style>
+  :root{
+    --bg:#EBF1F5; --ink:#08151F; --muted:#4D6675;
+    --accent:#38D6E0; --accent-ink:#0A6A76; --on-accent:#04222A; --line:#C9D8E1; --panel:#FFF;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#050C15; --ink:#DCE9F0; --muted:#88A2B3;
+      --accent:#38D6E0; --accent-ink:#5FE3EB; --on-accent:#04222A; --line:#1C3145; --panel:#0B1725;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;
+    display:flex;align-items:center;min-height:100vh;
+  }
+  main{max-width:640px;margin:0 auto;padding:40px 20px;display:grid;gap:18px;justify-items:start}
+  .eyebrow{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);margin:0;
+  }
+  h1{margin:0;font-size:clamp(30px,6vw,48px);line-height:1.05;font-weight:800;letter-spacing:-.01em}
+  p.lede{margin:0;color:var(--muted);font-size:18px}
+  .row{display:flex;flex-wrap:wrap;gap:10px}
+  a.btn{
+    display:inline-block;padding:12px 20px;border-radius:3px;text-decoration:none;
+    font-weight:700;font-size:15px;border:1px solid transparent;
+  }
+  a.primary{background:var(--accent);color:var(--on-accent)}
+  a.ghost{border-color:var(--line);color:var(--ink);background:var(--panel)}
+  a:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Erreur 404</p>
+  <h1>Ce relais ne répond plus.</h1>
+  <p class="lede">La page que vous cherchez n'existe pas, ou a changé d'adresse.<br>
+    <span lang="en">The page you are looking for does not exist, or has moved.</span></p>
+  <div class="row">
+    <a class="btn primary" href="/petit-vaisseau-site/">Retour au studio</a>
+    <a class="btn ghost" href="/petit-vaisseau-site/space-defender.html">Space Defender</a>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://guillaumem92.github.io/petit-vaisseau-site/sitemap.xml

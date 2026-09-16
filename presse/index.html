@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Space Defender: Frontier Squadron — Press Kit</title>
+<meta name="description" content="Press kit for Space Defender: Frontier Squadron, a top-down space shooter with RPG progression. 1.0 on September 29, 2026.">
+<style>
+  @font-face{font-family:"Exo 2";font-style:italic;font-weight:800;src:url(fonts/exo2-800.woff2) format("woff2")}
+  @font-face{font-family:"Exo 2";font-style:italic;font-weight:900;src:url(fonts/exo2-900.woff2) format("woff2")}
+  :root{--void:#05070e;--panel:#0c1220;--line:#1c2537;--hull:#e6eaf1;--muted:#8d97ab;--teal:#2FD6B5;--threat:#FF5A3C;
+    --display:"Exo 2","Segoe UI",system-ui,sans-serif;--body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--void);color:var(--hull);font:16px/1.6 var(--body)}
+  a{color:var(--teal)} a:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .wrap{max-width:1100px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+  .hero{position:relative;background:#04060c url(key_art/key_art_no_logo_3840x1240.png) 62% 50%/cover no-repeat;border-bottom:1px solid var(--line)}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,6,12,.95) 0%,rgba(4,6,12,.7) 38%,rgba(4,6,12,0) 70%)}
+  .hero .wrap{position:relative;padding-block:clamp(40px,8vw,96px);display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+  .hero img.logo{width:min(520px,90%);height:auto}
+  .pill{display:inline-flex;align-items:center;gap:12px;font:italic 900 clamp(22px,3vw,30px)/1 var(--display);text-transform:uppercase}
+  .pill b{background:var(--teal);color:#04110e;padding:4px 12px;border-radius:5px;font-weight:900}
+  .tag{font:italic 800 13px/1 var(--display);letter-spacing:.24em;text-transform:uppercase;color:var(--threat)}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-block;padding:10px 16px;border:1px solid var(--teal);border-radius:4px;text-decoration:none;font-weight:600}
+  .btn.primary{background:var(--teal);color:#04110e}
+  main .wrap{display:grid;grid-template-columns:320px minmax(0,1fr);gap:48px;padding-block:48px 80px}
+  h2{font:italic 900 26px/1.1 var(--display);text-transform:uppercase;letter-spacing:.01em;margin:0 0 14px}
+  h2::after{content:"";display:block;width:64px;height:3px;margin-top:10px;background:linear-gradient(90deg,var(--teal),transparent)}
+  section{margin-bottom:48px} section:last-child{margin-bottom:0}
+  p{margin:0 0 12px;max-width:68ch}
+  .facts{position:sticky;top:20px;align-self:start;background:var(--panel);border:1px solid var(--line);padding:20px}
+  .facts dl{margin:0;display:grid;grid-template-columns:1fr;gap:12px}
+  .facts dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .facts dd{margin:2px 0 0}
+  ul.feat{margin:0;padding-left:20px;display:grid;gap:8px;max-width:68ch}
+  ul.feat li::marker{color:var(--teal)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .grid a{display:block;border:1px solid var(--line);background:var(--panel)}
+  .grid img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+  .grid span{display:block;padding:8px 10px;font-size:13px;color:var(--muted)}
+  .note{color:var(--muted);font-size:14px}
+  .credits{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:15px}
+  .credits dt{color:var(--muted)} .credits dd{margin:0}
+  footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:13px}
+  @media (max-width:820px){main .wrap{grid-template-columns:1fr}.facts{position:static}.grid{grid-template-columns:1fr}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="logos/logo_transparent_trimmed.png" alt="Space Defender: Frontier Squadron">
+    <div class="pill"><b>1.0</b> September 29, 2026</div>
+    <span class="tag">Leaving Early Access</span>
+    <div class="cta">
+      <a class="btn primary" href="https://store.steampowered.com/app/1731170/?utm_source=presskit&amp;utm_medium=web&amp;utm_campaign=1_0">Steam page</a>
+      <a class="btn" href="space-defender-presskit.zip" download>Download all assets (.zip, 28 MB)</a>
+      <a class="btn" href="../index.html">Petit Vaisseau &mdash; studio</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <aside class="facts" aria-label="Fact sheet">
+      <dl>
+        <div><dt>Developer / Publisher</dt><dd>Guillaume M92, solo developer, France</dd></div>
+        <div><dt>Genre</dt><dd>Top-down space shooter with RPG progression</dd></div>
+        <div><dt>Platform</dt><dd>PC (Windows) on Steam</dd></div>
+        <div><dt>Release</dt><dd>Early Access: May 2025<br>1.0: September 29, 2026, 10am PT</dd></div>
+        <div><dt>Price</dt><dd>$9.99 / €9.99</dd></div>
+        <div><dt>Languages</dt><dd>English, French</dd></div>
+        <div><dt>Controls</dt><dd>Mouse &amp; keyboard, full controller support</dd></div>
+        <div><dt>Links</dt><dd><a href="https://store.steampowered.com/app/1731170/">Steam</a> · <a href="https://discord.com/invite/AUMtECDCx8">Discord</a></dd></div>
+        <div><dt>Press contact</dt><dd><a href="mailto:spacedefender.game@gmail.com">spacedefender.game@gmail.com</a></dd></div>
+      </dl>
+    </aside>
+
+    <div>
+      <section>
+        <h2>The game</h2>
+        <p>The Drones have swept through three galaxies, relay by relay. Station after station goes dark. Command has one answer left: you, a ship, and whoever you can convince to fly with you.</p>
+        <p>Space Defender: Frontier Squadron blends twin-stick space combat with RPG progression. Between fights, players dock at stations to trade, buy ships, research upgrades and recruit pilots. In the field, they take on 13 kinds of contracts, from convoy escorts and holdouts to hunts, rescues and fleet battles, against Drones that each fight in their own way.</p>
+      </section>
+
+      <section>
+        <h2>Key features</h2>
+        <ul class="feat">
+          <li><strong>Wingmen.</strong> Recruit pilots at stations, give them ships from your hangar and fly with up to three of them. Downed wingmen eject in rescue pods.</li>
+          <li><strong>13 contract types</strong> with modifiers: asteroid fields, elite leaders, reinforcements, time limits.</li>
+          <li><strong>Enemies with distinct behaviours:</strong> snipers, minelayers, carriers, missile jammers, shield-support hulls, elites and packs.</li>
+          <li><strong>8 ships and over 60 pieces of equipment,</strong> from lasers and railguns to flak cannons, guided missiles, turrets and shields, with energy management.</li>
+          <li><strong>A three-act campaign</strong> of 13 story missions with Admiral Voss, Ilse Marin and ARIA, ending against the Nexus.</li>
+          <li>Ranks from Recruit to Admiral, a research tree, a mission journal and three difficulty modes.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>History</h2>
+        <p>Space Defender is Guillaume's first game, developed alone alongside a full-time job. It entered Steam Early Access in May 2025, and player feedback shaped the 1.0: the wingmen system started as a player suggestion.</p>
+        <p>The 1.0 update adds the story campaign, nine new contract types, enemy behaviours, new weapon families, a redesigned interface and a full balancing pass, and renames the game <em>Space Defender: Frontier Squadron</em>.</p>
+      </section>
+
+      <section id="assets">
+        <h2>Assets</h2>
+        <p class="note">Click to open full size. Everything here may be used freely in coverage of the game.</p>
+        <div class="grid">
+          <a href="key_art/key_art_1232x706.png"><img src="key_art/key_art_1232x706.png" alt="Key art with logo" loading="lazy"><span>Key art with logo · 1232×706</span></a>
+          <a href="key_art/key_art_no_logo_3840x1240.png"><img src="key_art/key_art_no_logo_3840x1240.png" alt="Key art without logo" loading="lazy"><span>Key art without logo · 3840×1240</span></a>
+          <a href="logos/logo_on_dark.png"><img src="logos/logo_on_dark.png" alt="Logo on dark background" loading="lazy" style="object-fit:contain;background:#04060c"><span>Logo · PNG, transparent version in logos/</span></a>
+          <a href="logos/icon_1024.png"><img src="logos/icon_1024.png" alt="Game icon" loading="lazy" style="object-fit:contain;background:#04060c"><span>Icon · 1024×1024</span></a>
+        </div>
+        <p class="note">Screenshots (10 &times; 1920&times;1080 PNG), GIFs and every logo are in the zip above. Fact sheet as plain text: <a href="fact_sheet_EN.txt">English</a> &middot; <a href="fact_sheet_FR.txt">French</a>.</p>
+      </section>
+
+      <section>
+        <h2>Credits</h2>
+        <dl class="credits">
+          <dt>Design, code, writing</dt><dd>Guillaume M92</dd>
+          <dt>Music</dt><dd>Alkakrab (alkakrab.itch.io)</dd>
+          <dt>Sound effects</dt><dd>ZapSplat</dd>
+          <dt>Font</dt><dd>Exo 2 by Natanael Gama (SIL OFL)</dd>
+          <dt>Engine</dt><dd>Unity</dd>
+        </dl>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">Space Defender: Frontier Squadron © Guillaume M92. Press kit, September 2026.</div></footer>
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Petit Vaisseau">
+  <defs>
+    <linearGradient id="pvt-hull" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAFEFF"/>
+      <stop offset="0.55" stop-color="#8FE8EF"/>
+      <stop offset="1" stop-color="#38D6E0"/>
+    </linearGradient>
+    <linearGradient id="pvt-flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38D6E0" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#38D6E0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- poussee -->
+  <path d="M114 168 C 117 196 128 224 128 224 C 128 224 139 196 142 168 Z" fill="url(#pvt-flame)"/>
+
+  <!-- ailes -->
+  <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+  <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+
+  <!-- coque -->
+  <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#pvt-hull)"/>
+
+  <!-- hublot -->
+  <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+  <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+  <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+
+  <!-- tuyeres -->
+  <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+  <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+</svg>

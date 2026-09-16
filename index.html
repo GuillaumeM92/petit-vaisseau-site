@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Petit Vaisseau — studio de jeu vidéo</title>
+<meta name="description" content="Petit Vaisseau est le studio de Guillaume Merle, développeur français. Son premier jeu, Space Defender: Frontier Squadron, sort en 1.0 sur Steam le 29 septembre 2026.">
+<meta name="theme-color" content="#38D6E0">
+
+<!-- Adresse de référence : à changer le jour du domaine personnalisé (voir README.md §4) -->
+<link rel="canonical" href="https://guillaumem92.github.io/petit-vaisseau-site/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Petit Vaisseau">
+<meta property="og:title" content="Petit Vaisseau — studio de jeu vidéo">
+<meta property="og:description" content="Le studio de Guillaume Merle, développeur français. Premier jeu : Space Defender: Frontier Squadron, 1.0 sur Steam le 29 septembre 2026.">
+<meta property="og:image" content="https://guillaumem92.github.io/petit-vaisseau-site/assets/img/og-cover.jpg">
+<meta property="og:url" content="https://guillaumem92.github.io/petit-vaisseau-site/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/petit-vaisseau-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<header class="console">
+  <div class="wrap">
+    <a href="index.html" aria-label="Petit Vaisseau — accueil" style="display:flex">
+      <svg class="lockup" viewBox="0 0 700 200" role="img" aria-label="Petit Vaisseau">
+        <defs>
+          <linearGradient id="lk-hull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(24,-4) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#lk-hull)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+          <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+          <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Exo 2','Avenir Next',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="var(--accent-ink)" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="var(--ink)" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="index.html" aria-current="page">Studio</a>
+      <a href="space-defender.html">Space Defender</a>
+      <a href="#presse"><span class="fr">Presse</span><span class="en">Press</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button id="lang-fr" type="button" aria-pressed="true">FR</button>
+      <button id="lang-en" type="button" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap hero">
+    <div class="splash">
+      <!-- Logo animé du studio : Marketing/Logos/petit-vaisseau-splash.svg, repris tel quel. -->
+      <svg viewBox="0 0 960 400" role="img" aria-label="Petit Vaisseau">
+        <defs>
+          <linearGradient id="sp-bg" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#132C47"/><stop offset="1" stop-color="#050C15"/></linearGradient>
+          <linearGradient id="sp-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/></linearGradient>
+          <linearGradient id="sp-flame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAFEFF" stop-opacity="0.95"/><stop offset="0.35" stop-color="#38D6E0" stop-opacity="0.85"/><stop offset="1" stop-color="#38D6E0" stop-opacity="0"/></linearGradient>
+          <radialGradient id="sp-halo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#38D6E0" stop-opacity="0.28"/><stop offset="1" stop-color="#38D6E0" stop-opacity="0"/></radialGradient>
+          <radialGradient id="sp-dust" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#9FE9F0" stop-opacity="0.5"/><stop offset="1" stop-color="#9FE9F0" stop-opacity="0"/></radialGradient>
+          <linearGradient id="sp-trail" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38D6E0" stop-opacity="0"/><stop offset="1" stop-color="#38D6E0" stop-opacity="0.55"/></linearGradient>
+          <g id="sp-ship">
+            <g transform="translate(-128,-110)">
+              <g class="sp-flame-g"><path d="M114 168 C 117 200 128 236 128 236 C 128 236 139 200 142 168 Z" fill="url(#sp-flame)"/></g>
+              <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+              <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+              <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#sp-hull)"/>
+              <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+              <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+              <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+              <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+              <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+            </g>
+          </g>
+        </defs>
+        <style>
+          .sp-fly{transform-box:view-box;animation:sp-fly 2.15s cubic-bezier(.16,.72,.25,1) forwards}
+          @keyframes sp-fly{0%{transform:translate(-180px,120px) scale(.42)}30%{transform:translate(180px,148px) scale(.5)}55%{transform:translate(300px,176px) scale(.62)}72%{transform:translate(300px,232px) scale(.62)}84%{transform:translate(300px,252px) scale(.62)}92%{transform:translate(300px,240px) scale(.62)}100%{transform:translate(300px,247px) scale(.62)}}
+          .sp-tilt{animation:sp-tilt 2.15s cubic-bezier(.2,.7,.3,1) forwards}
+          @keyframes sp-tilt{0%{transform:rotate(76deg)}35%{transform:rotate(52deg)}60%{transform:rotate(10deg)}78%{transform:rotate(-5deg)}90%{transform:rotate(2deg)}100%{transform:rotate(0)}}
+          .sp-idle{animation:sp-idle 3.4s 2.3s ease-in-out infinite}
+          @keyframes sp-idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+          .sp-flame-g{transform-box:view-box;transform-origin:128px 168px;animation:sp-flame 2.6s ease-out forwards}
+          @keyframes sp-flame{0%,45%{transform:scaleY(1.15);opacity:.95}62%{transform:scaleY(.8);opacity:.85}78%{transform:scaleY(.3);opacity:.5}100%{transform:scaleY(.1);opacity:0}}
+          .sp-trail{animation:sp-trail 1.5s ease-out forwards;opacity:0}
+          @keyframes sp-trail{0%{opacity:0}20%{opacity:.9}70%{opacity:.35}100%{opacity:0}}
+          .sp-dust{transform-box:view-box;transform-origin:300px 290px;opacity:0;animation:sp-dust .9s 1.72s ease-out forwards}
+          @keyframes sp-dust{0%{opacity:.65;transform:scale(.25)}100%{opacity:0;transform:scale(1.7)}}
+          .sp-w1,.sp-w2{opacity:0;transform-box:view-box}
+          .sp-w1{animation:sp-rise .55s 1.95s cubic-bezier(.2,.7,.3,1) forwards}
+          .sp-w2{animation:sp-rise .55s 2.1s cubic-bezier(.2,.7,.3,1) forwards}
+          @keyframes sp-rise{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+          .sp-rule{transform-box:view-box;transform-origin:430px 200px;transform:scaleX(0);animation:sp-grow .6s 2.35s cubic-bezier(.2,.7,.3,1) forwards}
+          @keyframes sp-grow{to{transform:scaleX(1)}}
+          .sp-halo{opacity:0;animation:sp-halo 1.2s 1.8s ease-out forwards}
+          @keyframes sp-halo{to{opacity:1}}
+          .sp-tw{animation:sp-tw 4s ease-in-out infinite}
+          .sp-tw:nth-of-type(2){animation-delay:.8s}
+          .sp-tw:nth-of-type(3){animation-delay:1.6s}
+          .sp-tw:nth-of-type(4){animation-delay:2.4s}
+          @keyframes sp-tw{0%,100%{opacity:.25}50%{opacity:.85}}
+          @media (prefers-reduced-motion: reduce){
+            .sp-fly,.sp-tilt,.sp-idle,.sp-flame-g,.sp-trail,.sp-dust,.sp-w1,.sp-w2,.sp-rule,.sp-halo,.sp-tw{animation:none !important}
+            .sp-fly{transform:translate(300px,247px) scale(.62)}
+            .sp-tilt{transform:none}
+            .sp-flame-g,.sp-trail,.sp-dust{opacity:0}
+            .sp-w1,.sp-w2,.sp-halo{opacity:1}
+            .sp-rule{transform:scaleX(1)}
+          }
+        </style>
+        <rect width="960" height="400" fill="url(#sp-bg)"/>
+        <g fill="#CFEFF4">
+          <circle class="sp-tw" cx="92" cy="72" r="2.4"/><circle class="sp-tw" cx="812" cy="58" r="2"/>
+          <circle class="sp-tw" cx="880" cy="300" r="2.2"/><circle class="sp-tw" cx="140" cy="330" r="1.8"/>
+          <circle cx="640" cy="44" r="1.5" opacity=".4"/><circle cx="60" cy="210" r="1.5" opacity=".35"/><circle cx="742" cy="352" r="1.6" opacity=".3"/>
+        </g>
+        <g class="sp-halo">
+          <ellipse cx="300" cy="290" rx="150" ry="52" fill="url(#sp-halo)"/>
+          <ellipse cx="300" cy="292" rx="66" ry="9" fill="#050C15" opacity=".45"/>
+        </g>
+        <g class="sp-trail">
+          <rect x="-40" y="164" width="330" height="5" rx="2.5" fill="url(#sp-trail)"/>
+          <rect x="30" y="182" width="230" height="3" rx="1.5" fill="url(#sp-trail)" opacity=".6"/>
+        </g>
+        <g class="sp-dust">
+          <ellipse cx="300" cy="290" rx="86" ry="22" fill="url(#sp-dust)"/>
+          <ellipse cx="300" cy="288" rx="46" ry="13" fill="#DFFAFD" opacity=".35"/>
+        </g>
+        <g class="sp-fly"><g class="sp-idle"><g class="sp-tilt"><use href="#sp-ship"/></g></g></g>
+        <g font-family="'Exo 2','Avenir Next',Helvetica,Arial,sans-serif">
+          <text class="sp-w1" x="428" y="178" fill="#7FCEDA" font-size="46" font-weight="500" letter-spacing="17">PETIT</text>
+          <text class="sp-w2" x="428" y="264" fill="#EAFEFF" font-size="72" font-weight="800" letter-spacing="4">VAISSEAU</text>
+        </g>
+        <rect class="sp-rule" x="430" y="198" width="82" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </div>
+
+    <div class="stack">
+      <p class="eyebrow"><span class="fr">Studio de jeu vidéo · France</span><span class="en">Game studio · France</span></p>
+      <h1>
+        <span class="fr">Un studio d'une seule personne, et <em>un vaisseau à la fois</em>.</span>
+        <span class="en">A studio of one, and <em>one ship at a time</em>.</span>
+      </h1>
+      <p class="lede muted">
+        <span class="fr">Petit Vaisseau est le studio de Guillaume Merle. Son premier jeu, Space Defender: Frontier Squadron, sort en 1.0 sur Steam le 29 septembre 2026.</span>
+        <span class="en">Petit Vaisseau is Guillaume Merle's studio. Its first game, Space Defender: Frontier Squadron, hits 1.0 on Steam on September 29, 2026.</span>
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="space-defender.html"><span class="fr">Voir le jeu</span><span class="en">See the game</span></a>
+        <a class="btn btn-ghost" href="#presse"><span class="fr">Contact presse</span><span class="en">Press contact</span></a>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">Le studio en trois lignes</span><span class="en">The studio in three lines</span></p>
+      <div class="manifest">
+        <div class="line">
+          <h3><span class="fr">Une personne</span><span class="en">One person</span></h3>
+          <p>
+            <span class="fr">Guillaume Merle, développeur français, écrit le code, le design et les textes, le soir et le week-end, à côté d'un travail à plein temps.</span>
+            <span class="en">Guillaume Merle, a French developer, writes the code, the design and the text in the evenings and at weekends, alongside a full-time job.</span>
+          </p>
+        </div>
+        <div class="line">
+          <h3><span class="fr">Un premier jeu</span><span class="en">A first game</span></h3>
+          <p>
+            <span class="fr">Space Defender est sorti en accès anticipé en mai 2025. Seize mois de retours joueurs plus tard, il passe en 1.0 avec sa campagne et ses ailiers.</span>
+            <span class="en">Space Defender launched in Early Access in May 2025. Sixteen months of player feedback later, it reaches 1.0 with its campaign and its wingmen.</span>
+          </p>
+        </div>
+        <div class="line">
+          <h3><span class="fr">Une façon de faire</span><span class="en">A way of working</span></h3>
+          <p>
+            <span class="fr">Sortir petit, écouter, corriger. Le système d'ailiers, aujourd'hui au cœur du jeu, est né de la suggestion d'un joueur sur Discord.</span>
+            <span class="en">Ship small, listen, fix. The wingmen system, now at the heart of the game, started as a player's suggestion on Discord.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">Le jeu</span><span class="en">The game</span></p>
+      <div class="gamecard">
+        <img src="assets/img/capsule.jpg" alt="Space Defender: Frontier Squadron" width="920" height="430" loading="lazy">
+        <div class="body">
+          <span class="pill"><span class="dot"></span><span class="fr">1.0 le 29 septembre 2026</span><span class="en">1.0 on September 29, 2026</span></span>
+          <h3>Space Defender:<br>Frontier Squadron</h3>
+          <p class="muted">
+            <span class="fr">Menez une escadrille contre l'invasion des Drones dans un shooter spatial vu de dessus aux mécaniques RPG.</span>
+            <span class="en">Lead a squadron against the Drone invasion in a top-down space shooter with RPG depth.</span>
+          </p>
+          <p class="meta">
+            <span><b>PC / Steam</b></span>
+            <span><b>9,99 €</b></span>
+            <span class="fr">Shooter spatial · RPG</span><span class="en">Space shooter · RPG</span>
+            <span class="fr">FR / EN</span><span class="en">EN / FR</span>
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="space-defender.html"><span class="fr">Page du jeu</span><span class="en">Game page</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">Où nous trouver</span><span class="en">Where to find us</span></p>
+      <div class="links">
+        <a class="link" href="https://store.steampowered.com/app/1731170/" target="_blank" rel="noopener">
+          <span class="name">Steam</span>
+          <span class="sub">store.steampowered.com/app/1731170</span>
+        </a>
+        <a class="link" href="https://discord.com/invite/AUMtECDCx8" target="_blank" rel="noopener">
+          <span class="name">Discord</span>
+          <span class="sub">discord.gg · <span class="fr">retours et bêtas</span><span class="en">feedback and betas</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="presse">
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">Presse et créateurs</span><span class="en">Press and creators</span></p>
+      <div class="press">
+        <div class="stack-tight">
+          <h3>
+            <span class="fr">Une clé Steam, sur simple demande</span>
+            <span class="en">A Steam key, just ask</span>
+          </h3>
+          <p class="small muted">
+            <span class="fr">Écrivez-moi : je réponds moi-même, en français ou en anglais. Les captures, logos et GIF du dossier de presse peuvent être utilisés librement pour parler du jeu.</span>
+            <span class="en">Write to me: I answer myself, in English or French. The screenshots, logos and GIFs in the press kit may be used freely in coverage of the game.</span>
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-ghost" href="mailto:spacedefender.game@gmail.com">spacedefender.game@gmail.com</a>
+          </div>
+        </div>
+        <dl>
+          <div>
+            <dt><span class="fr">Dossier de presse</span><span class="en">Press kit</span></dt>
+            <dd><a href="presse/"><span class="fr">Captures, logos, GIF, fiche presse</span><span class="en">Screenshots, logos, GIFs, fact sheet</span></a></dd>
+          </div>
+          <div>
+            <dt><span class="fr">Curateurs Steam</span><span class="en">Steam curators</span></dt>
+            <dd class="small"><span class="fr">Via Curator Connect, pas besoin de me contacter.</span><span class="en">Through Curator Connect, no need to write first.</span></dd>
+          </div>
+          <div>
+            <dt><span class="fr">Studio</span><span class="en">Studio</span></dt>
+            <dd class="small">Petit Vaisseau — Guillaume Merle, France</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footrow">
+      <p class="colophon">Petit Vaisseau — Guillaume Merle, France<br>spacedefender.game@gmail.com</p>
+      <div class="footlinks">
+        <a href="index.html">Studio</a>
+        <a href="space-defender.html">Space Defender</a>
+        <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+        <a href="https://store.steampowered.com/app/1731170/" target="_blank" rel="noopener">Steam</a>
+        <a href="https://discord.com/invite/AUMtECDCx8" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </div>
+    <p class="colophon">
+      <span class="fr">Musique : Alkakrab (Sci-Fi Music Packs, sous licence) · Effets sonores : ZapSplat · Police : Exo 2 de Natanael Gama (SIL OFL) · Moteur : Unity</span>
+      <span class="en">Music: Alkakrab (Sci-Fi Music Packs, licensed) · Sound effects: ZapSplat · Font: Exo 2 by Natanael Gama (SIL OFL) · Engine: Unity</span>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

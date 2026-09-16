@@ -1,0 +1,297 @@
+/* =====================================================================
+   Petit Vaisseau — feuille de style du site
+   Aucune dépendance : un seul fichier CSS, partagé par les deux pages.
+   Couleur de marque : cyan #38D6E0 sur bleu nuit #050C15 (accent du jeu).
+   ===================================================================== */
+
+/* ---------- jetons de couleur : thème clair par défaut ---------- */
+:root{
+  color-scheme:light dark;
+  --bg:#EBF1F5;
+  --panel:#FFFFFF;
+  --sunk:#E1EAF0;
+  --line:#C9D8E1;
+  --line-soft:#DCE6EC;
+  --ink:#08151F;
+  --muted:#4D6675;
+  --accent:#38D6E0;          /* cyan de marque, identique dans les deux thèmes */
+  --accent-ink:#0A6A76;      /* déclinaison lisible en texte sur fond clair */
+  --accent-wash:rgba(56,214,224,.12);
+  --ember:#BE3A1D;           /* unique couleur chaude : date de sortie */
+  --on-accent:#04222A;
+  --shadow:0 1px 0 rgba(8,21,31,.04), 0 12px 32px -20px rgba(8,21,31,.4);
+}
+
+/* ---------- thème sombre : réglage système ---------- */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#050C15;
+    --panel:#0B1725;
+    --sunk:#081220;
+    --line:#1C3145;
+    --line-soft:#142433;
+    --ink:#DCE9F0;
+    --muted:#88A2B3;
+    --accent:#38D6E0;
+    --accent-ink:#5FE3EB;
+    --accent-wash:rgba(56,214,224,.10);
+    --ember:#F2734A;
+    --on-accent:#04222A;
+    --shadow:0 1px 0 rgba(255,255,255,.03), 0 16px 40px -24px #000;
+  }
+}
+/* ---------- thème sombre : choix explicite (si un jour on ajoute un bouton) ---------- */
+:root[data-theme="dark"]{
+  --bg:#050C15;
+  --panel:#0B1725;
+  --sunk:#081220;
+  --line:#1C3145;
+  --line-soft:#142433;
+  --ink:#DCE9F0;
+  --muted:#88A2B3;
+  --accent:#38D6E0;
+  --accent-ink:#5FE3EB;
+  --accent-wash:rgba(56,214,224,.10);
+  --ember:#F2734A;
+  --on-accent:#04222A;
+  --shadow:0 1px 0 rgba(255,255,255,.03), 0 16px 40px -24px #000;
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Exo 2","Avenir Next",Helvetica,Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+a{color:var(--accent-ink)}
+img,video{max-width:100%;display:block}
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px;border-radius:2px}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+}
+
+/* ---------- bascule de langue ----------
+   Les deux langues sont dans le HTML ; le CSS n'en montre qu'une.
+   site.js pose data-lang="fr" ou "en" sur <html>.                      */
+.fr,.en{display:none}
+:root[data-lang="fr"] .fr{display:revert}
+:root[data-lang="en"] .en{display:revert}
+
+/* ---------- gabarit ---------- */
+.wrap{max-width:1000px;margin:0 auto;padding-inline:20px}
+section{padding-block:clamp(40px,7vw,68px)}
+section + section{border-top:1px solid var(--line-soft)}
+.stack{display:flex;flex-direction:column;gap:20px}
+.stack-tight{display:flex;flex-direction:column;gap:12px}
+
+/* ---------- barre de navigation ---------- */
+.console{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.console .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-block:12px}
+.lockup{height:34px;width:auto;flex:0 0 auto}
+nav{display:flex;gap:4px;margin-inline-start:auto;flex-wrap:wrap}
+nav a{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  padding:7px 11px;border-radius:3px;border:1px solid transparent;
+}
+nav a:hover{color:var(--ink);background:var(--accent-wash)}
+nav a[aria-current="page"]{color:var(--ink);border-color:var(--line);background:var(--panel)}
+.lang{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--panel)}
+.lang button{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;
+  padding:6px 10px;border:0;background:transparent;color:var(--muted);cursor:pointer;
+}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+@media (max-width:560px){
+  .console .wrap{gap:8px 10px}
+  .lockup{height:28px}
+  nav{order:3;width:100%;margin-inline-start:0;justify-content:space-between;gap:2px}
+  nav a{padding:6px 7px;font-size:11px;letter-spacing:.05em}
+  .lang{margin-inline-start:auto}
+}
+
+/* ---------- typographie utilitaire ---------- */
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--line);min-width:20px}
+.lede{font-size:clamp(17px,2.4vw,19px);color:var(--ink);max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* ---------- boutons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:"Exo 2",Helvetica,Arial,sans-serif;font-weight:800;font-size:15px;letter-spacing:.02em;
+  padding:12px 20px;border-radius:3px;text-decoration:none;border:1px solid transparent;
+  transition:transform .12s ease, background .12s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:#5FE3EB}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:var(--panel)}
+.btn-ghost:hover{border-color:var(--accent-ink)}
+.btn .price{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;opacity:.75}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px}
+
+/* ---------- accueil : bloc splash ---------- */
+.splash{
+  border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  background:#050C15;box-shadow:var(--shadow);
+}
+.splash svg{display:block;width:100%;height:auto}
+.hero{display:grid;gap:clamp(22px,4vw,34px);padding-top:clamp(28px,5vw,46px)}
+@media (min-width:900px){.hero{grid-template-columns:1.15fr .85fr;align-items:center}}
+.hero h1{font-size:clamp(28px,4.4vw,42px);font-weight:900;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--accent-ink)}
+
+/* ---------- le studio en trois lignes ---------- */
+.manifest{display:grid;gap:18px}
+@media (min-width:760px){.manifest{grid-template-columns:repeat(3,1fr);gap:26px}}
+.manifest .line{display:flex;flex-direction:column;gap:8px;padding-top:14px;border-top:2px solid var(--accent)}
+.manifest .line:nth-child(2),
+.manifest .line:nth-child(3){border-top-color:var(--line)}
+.manifest h3{font-size:16px;font-weight:800;letter-spacing:.01em}
+.manifest p{font-size:15px;color:var(--muted)}
+
+/* ---------- carte du jeu ---------- */
+.gamecard{
+  display:grid;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  background:var(--panel);box-shadow:var(--shadow);
+}
+.gamecard img{width:100%;aspect-ratio:920/430;object-fit:cover;border-bottom:1px solid var(--line)}
+.gamecard .body{padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:14px;justify-content:center}
+.gamecard h3{font-size:clamp(21px,3vw,26px);font-weight:900}
+.meta{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;color:var(--muted);
+  display:flex;flex-wrap:wrap;gap:6px 14px;font-variant-numeric:tabular-nums;
+}
+.meta b{color:var(--ink);font-weight:500}
+
+.pill{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ember);border:1px solid currentColor;border-radius:99px;padding:4px 12px;font-weight:500;
+}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* ---------- liens externes ---------- */
+.links{display:grid;gap:10px}
+@media (min-width:640px){.links{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}}
+.link{
+  display:flex;flex-direction:column;gap:3px;
+  border:1px solid var(--line);border-radius:4px;background:var(--panel);
+  padding:14px 16px;text-decoration:none;color:var(--ink);
+  transition:border-color .12s ease,background .12s ease;
+}
+.link:hover{border-color:var(--accent-ink);background:var(--accent-wash)}
+.link .name{font-family:"Exo 2",Helvetica,Arial,sans-serif;font-weight:800;font-size:15px}
+.link .sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em;word-break:break-all}
+.link[aria-disabled="true"]{opacity:.62;cursor:default}
+.link[aria-disabled="true"]:hover{border-color:var(--line);background:var(--panel)}
+
+/* ---------- contact presse ---------- */
+.press{
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:4px;
+  background:var(--sunk);padding:clamp(18px,3vw,26px);display:grid;gap:16px;
+}
+@media (min-width:760px){.press{grid-template-columns:1fr 1fr;gap:26px}}
+.press h3{font-size:20px;font-weight:900}
+.press dl{margin:0;display:grid;gap:10px}
+.press dt{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.press dd{margin:0;font-size:15px}
+
+/* ---------- page du jeu ---------- */
+.gamehead{display:grid;gap:22px;padding-top:clamp(26px,4vw,40px)}
+.gamehead .logo{max-width:min(460px,100%);height:auto}
+.gamehead h1{font-size:clamp(26px,4vw,38px);font-weight:900}
+.buyrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+.player{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#050C15;box-shadow:var(--shadow)}
+.player video,
+.player iframe{width:100%;aspect-ratio:16/9;background:#050C15;border:0;display:block}
+.player .cap{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);
+  padding:9px 14px;border-top:1px solid var(--line);background:var(--panel);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+
+.pitch{display:grid;gap:clamp(22px,4vw,40px)}
+@media (min-width:860px){.pitch{grid-template-columns:1.1fr .9fr;align-items:start}}
+.pitch h2{font-size:clamp(23px,3.4vw,30px);font-weight:900;margin-bottom:14px}
+.pitch p + p{margin-top:14px}
+.feats{display:grid;gap:0;border-top:1px solid var(--line)}
+.feat{display:grid;gap:4px;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.feat .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.feat .v{font-size:15px}
+
+/* ---------- captures ---------- */
+.shots{display:grid;gap:14px}
+@media (min-width:720px){
+  .shots{grid-template-columns:1fr 1fr}
+  .shots figure:first-child{grid-column:1/-1}
+}
+.shots figure{margin:0;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--panel)}
+.shots img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.shots figcaption{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.5;color:var(--muted);
+  padding:10px 13px;border-top:1px solid var(--line-soft);
+}
+.shots figcaption b{color:var(--ink);font-weight:500}
+
+/* ---------- fiche presse ---------- */
+.factsheet{border:1px solid var(--line);border-radius:5px;background:var(--panel);overflow:hidden}
+.factsheet .row{
+  display:grid;grid-template-columns:150px 1fr;gap:4px 18px;
+  padding:9px 16px;border-bottom:1px solid var(--line-soft);
+  font-family:"IBM Plex Mono",monospace;font-size:13px;font-variant-numeric:tabular-nums;
+}
+.factsheet .row:last-child{border-bottom:0}
+.factsheet .row:nth-child(odd){background:var(--sunk)}
+.factsheet .k{color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+.factsheet .v{color:var(--ink);word-break:break-word}
+@media (max-width:520px){.factsheet .row{grid-template-columns:1fr}}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:0;max-width:74ch}
+.faq .qa{padding:20px 0;border-bottom:1px solid var(--line-soft)}
+.faq .qa:first-child{border-top:1px solid var(--line)}
+.faq h3{font-size:17px;font-weight:800;margin-bottom:8px}
+.faq p{color:var(--muted);font-size:15px}
+.faq p + p{margin-top:10px}
+
+/* ---------- pied de page ---------- */
+footer{border-top:1px solid var(--line);background:var(--sunk)}
+footer .wrap{padding-block:30px;display:grid;gap:18px}
+.footrow{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between}
+.footlinks{display:flex;flex-wrap:wrap;gap:6px 18px}
+.footlinks a{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);text-decoration:none}
+.footlinks a:hover{color:var(--accent-ink)}
+.colophon{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);line-height:1.7}
+
+/* ---------- page 404 ---------- */
+.lost{display:grid;gap:18px;justify-items:start;padding-block:clamp(60px,12vw,120px)}
+.lost h1{font-size:clamp(30px,6vw,52px);font-weight:900}
+
+/* ---------- accessibilité : moins d'animations ---------- */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  .btn:hover{transform:none}
+}

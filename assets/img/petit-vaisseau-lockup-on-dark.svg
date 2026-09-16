@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 200" width="700" height="200" role="img" aria-label="Petit Vaisseau">
+  <defs>
+    <linearGradient id="pvd-hull" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAFEFF"/>
+      <stop offset="0.55" stop-color="#8FE8EF"/>
+      <stop offset="1" stop-color="#38D6E0"/>
+    </linearGradient>
+    <linearGradient id="pvd-flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38D6E0" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#38D6E0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(24,-4) scale(0.62)">
+    <path d="M114 168 C 117 196 128 224 128 224 C 128 224 139 196 142 168 Z" fill="url(#pvd-flame)"/>
+    <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+    <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+    <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#pvd-hull)"/>
+    <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+    <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+    <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+    <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+    <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+  </g>
+
+  <g font-family="'Avenir Next', 'Futura', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="202" y="82" fill="#7FCEDA" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+    <text x="202" y="156" fill="#EAFEFF" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+  </g>
+  <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+</svg>
