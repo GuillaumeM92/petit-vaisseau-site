@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Icône d'onglet : le vaisseau de petit-vaisseau-icon.svg, sans la poussée, agrandi sur fond nuit. -->
+  <defs>
+    <linearGradient id="h" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAFEFF"/>
+      <stop offset="0.55" stop-color="#8FE8EF"/>
+      <stop offset="1" stop-color="#38D6E0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#050C15"/>
+  <g transform="translate(32 33) scale(0.38) translate(-128 -112)">
+    <path d="M100 126 L 62 176 C 59 181 63 186 68 183 L 102 164 Z" fill="#2BB3C2"/>
+    <path d="M156 126 L 194 176 C 197 181 193 186 188 183 L 154 164 Z" fill="#2BB3C2"/>
+    <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#h)"/>
+    <circle cx="128" cy="106" r="19" fill="#0B1B2C" stroke="#38D6E0" stroke-width="6"/>
+  </g>
+</svg>
