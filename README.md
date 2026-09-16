@@ -93,9 +93,9 @@ pages, et la ligne « Site » des fiches presse (puis regénérer le `.zip`, voi
   ```bash
   rm -f Space_Defender_PressKit.zip && zip -r -q -X Space_Defender_PressKit.zip PressKit -x "*.DS_Store"
   ```
-- **Le kit presse n'a pas la même identité visuelle** que le site : vert-turquoise `#2FD6B5`
-  et rouge, hérités d'avant le nom du studio. Ça se voit au passage d'une page à l'autre.
-  Une demi-heure de travail si tu veux l'aligner sur le cyan `#38D6E0`.
+- **Les couleurs du kit presse** : turquoise `#2FD6B5` et rouge, volontairement différentes du
+  cyan du site — ce sont celles du logo du jeu (« FRONTIER SQUADRON » est en #28D0B0). Le kit
+  est signé du studio par la barre du haut et le pied de page (décidé le 16/09/2026).
 - **La phrase « je réponds moi-même »** du bloc contact presse : si tu veux annoncer un délai
   (« sous 48 heures »), c'est dans `index.html`, section `#presse`.
 - **La mention Android** dans la FAQ, à ajuster selon ce que tu veux promettre.
@@ -125,6 +125,7 @@ pages, et la ligne « Site » des fiches presse (puis regénérer le `.zip`, voi
   ```
 - **Le logo animé du studio** dans `index.html` est une copie de
   `Marketing/Logos/petit-vaisseau-splash.svg`. Si tu retouches le SVG d'origine, recopie-le.
-- **Le dossier de presse** est une copie de `Marketing/PressKit/`, avec deux changements : le
-  bouton « Download assets » pointe vers le `.zip`, et un lien ramène au site du studio.
-  Si tu modifies le kit dans `Marketing/`, pense à recopier ici.
+- **Le dossier de presse** : `presse/index.html` est une copie **à l'identique** de
+  `Marketing/PressKit/index.html` (les liens vers le site et l'archive sont en adresses absolues,
+  donc le même fichier marche dans le zip et en ligne). Après une modification dans `Marketing/`,
+  regénérer le zip (§5) puis recopier `index.html`, les deux fiches et le zip ici.

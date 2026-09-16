@@ -41,9 +41,42 @@
   .note{color:var(--muted);font-size:14px}
   .credits{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:15px}
   .credits dt{color:var(--muted)} .credits dd{margin:0}
+  .studio{background:#050C15;border-bottom:1px solid var(--line)}
+  .studio .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:10px}
+  .studio a.mark{display:flex;align-items:center}
+  .studio svg{height:28px;width:auto;display:block}
+  .studio .by{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .studio .by a{color:var(--hull);text-decoration:none;border-bottom:1px solid var(--line)}
+  .studio .by a:hover{border-bottom-color:var(--teal)}
   footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:13px}
+  footer .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  footer svg{height:22px;width:auto;flex:none}
   @media (max-width:820px){main .wrap{grid-template-columns:1fr}.facts{position:static}.grid{grid-template-columns:1fr}}
 </style>
+
+<div class="studio">
+  <div class="wrap">
+    <a class="mark" href="https://petitvaisseau.guillaume-merle.fr/" aria-label="Petit Vaisseau — studio website">
+      <svg viewBox="0 0 700 200" role="img" aria-label="Petit Vaisseau">
+        <defs><linearGradient id="pv-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/></linearGradient></defs>
+        <g transform="translate(24,-4) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#pv-hull)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/><circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/><rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Avenir Next','Futura','Helvetica Neue',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="#7FCEDA" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="#EAFEFF" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </a>
+    <span class="by">Press kit · <a href="https://petitvaisseau.guillaume-merle.fr/">petitvaisseau.guillaume-merle.fr</a></span>
+  </div>
+</div>
 
 <header class="hero">
   <div class="wrap">
@@ -52,8 +85,8 @@
     <span class="tag">Leaving Early Access</span>
     <div class="cta">
       <a class="btn primary" href="https://store.steampowered.com/app/1731170/?utm_source=presskit&amp;utm_medium=web&amp;utm_campaign=1_0">Steam page</a>
-      <a class="btn" href="space-defender-presskit.zip" download>Download all assets (.zip, 28 MB)</a>
-      <a class="btn" href="../index.html">Petit Vaisseau &mdash; studio</a>
+      <a class="btn" href="https://www.youtube.com/watch?v=vVd2VChcjos">Watch the trailer</a>
+      <a class="btn" href="https://petitvaisseau.guillaume-merle.fr/presse/space-defender-presskit.zip">Download all assets (.zip, 28 MB)</a>
     </div>
   </div>
 </header>
@@ -69,7 +102,7 @@
         <div><dt>Price</dt><dd>$9.99 / €9.99</dd></div>
         <div><dt>Languages</dt><dd>English, French</dd></div>
         <div><dt>Controls</dt><dd>Mouse &amp; keyboard, full controller support</dd></div>
-        <div><dt>Links</dt><dd><a href="https://petitvaisseau.guillaume-merle.fr/">Website</a> · <a href="https://store.steampowered.com/app/1731170/">Steam</a> · <a href="https://discord.com/invite/AUMtECDCx8">Discord</a></dd></div>
+        <div><dt>Links</dt><dd><a href="https://petitvaisseau.guillaume-merle.fr/">Website</a> · <a href="https://store.steampowered.com/app/1731170/">Steam</a> · <a href="https://discord.com/invite/AUMtECDCx8">Discord</a> · <a href="https://www.youtube.com/watch?v=vVd2VChcjos">Trailer</a></dd></div>
         <div><dt>Press contact</dt><dd><a href="mailto:spacedefender.game@gmail.com">spacedefender.game@gmail.com</a></dd></div>
       </dl>
     </aside>
@@ -101,14 +134,13 @@
 
       <section id="assets">
         <h2>Assets</h2>
-        <p class="note">Click to open full size. Everything here may be used freely in coverage of the game.</p>
+        <p class="note">Click to open full size. Everything here may be used freely in coverage of the game. Screenshots (10 &times; 1920&times;1080 PNG), GIFs and every logo are in the <a href="https://petitvaisseau.guillaume-merle.fr/presse/space-defender-presskit.zip">asset archive</a>. Fact sheet as plain text: <a href="fact_sheet_EN.txt">English</a> &middot; <a href="fact_sheet_FR.txt">French</a>.</p>
         <div class="grid">
           <a href="key_art/key_art_1232x706.png"><img src="key_art/key_art_1232x706.png" alt="Key art with logo" loading="lazy"><span>Key art with logo · 1232×706</span></a>
           <a href="key_art/key_art_no_logo_3840x1240.png"><img src="key_art/key_art_no_logo_3840x1240.png" alt="Key art without logo" loading="lazy"><span>Key art without logo · 3840×1240</span></a>
           <a href="logos/logo_on_dark.png"><img src="logos/logo_on_dark.png" alt="Logo on dark background" loading="lazy" style="object-fit:contain;background:#04060c"><span>Logo · PNG, transparent version in logos/</span></a>
           <a href="logos/icon_1024.png"><img src="logos/icon_1024.png" alt="Game icon" loading="lazy" style="object-fit:contain;background:#04060c"><span>Icon · 1024×1024</span></a>
         </div>
-        <p class="note">Screenshots (10 &times; 1920&times;1080 PNG), GIFs and every logo are in the zip above. Fact sheet as plain text: <a href="fact_sheet_EN.txt">English</a> &middot; <a href="fact_sheet_FR.txt">French</a>.</p>
       </section>
 
       <section>
@@ -125,5 +157,20 @@
   </div>
 </main>
 
-<footer><div class="wrap">Space Defender: Frontier Squadron © Petit Vaisseau (Guillaume Merle). Press kit, September 2026.</div></footer>
+<footer><div class="wrap"><svg viewBox="0 0 700 200" role="img" aria-label="Petit Vaisseau">
+        <defs><linearGradient id="pv-hull-f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/></linearGradient></defs>
+        <g transform="translate(24,-4) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#pv-hull-f)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/><circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/><rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Avenir Next','Futura','Helvetica Neue',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="#7FCEDA" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="#EAFEFF" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg><span>Space Defender: Frontier Squadron © Petit Vaisseau (Guillaume Merle). Press kit, September 2026. <a href="https://petitvaisseau.guillaume-merle.fr/">petitvaisseau.guillaume-merle.fr</a></span></div></footer>
 </html>
