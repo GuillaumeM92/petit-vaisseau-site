@@ -12,6 +12,8 @@ En ligne : **https://petitvaisseau.com**
 ```
 ├── index.html              Accueil du studio (logo animé, 3 lignes, carte du jeu, liens, contact presse)
 ├── space-defender.html     Page du jeu (trailer, description, 5 captures, fiche presse, FAQ)
+├── le-tapis-vert.html      Page du Tapis Vert (bandeau, 24 jeux, 6 captures FR/EN, FAQ) ; bouton Google Play à activer le jour de la sortie
+├── le-tapis-vert-confidentialite.html  Confidentialité du Tapis Vert (liée depuis le jeu et Google Play)
 ├── confidentialite.html    Politique de confidentialité FR/EN (liée depuis Steam et Google Play)
 ├── 404.html                Page d'erreur, volontairement autonome (son style est dedans)
 ├── robots.txt              Autorise l'indexation, pointe le sitemap
@@ -22,6 +24,8 @@ En ligne : **https://petitvaisseau.com**
 │   ├── css/site.css        TOUT le style, un seul fichier
 │   ├── js/site.js          Le seul JavaScript : bascule FR/EN + trailer YouTube
 │   ├── img/                Capsule, key art, logo du jeu, 5 captures, favicons
+│   │   └── le-tapis-vert/  Capsules FR/EN, image de partage, captures NN-fr/NN-en (générées depuis
+│   │                       StoreAssets/steam du dépôt Le Tapis Vert, avec « 24 jeux »)
 │   └── video/              Bande-annonce 720p, servant de secours si le JS ne charge pas
 └── presse/                 Dossier de presse en ligne (copie de Marketing/PressKit)
     ├── index.html          Page du kit presse, en anglais

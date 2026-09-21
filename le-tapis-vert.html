@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le Tapis Vert — Petit Vaisseau</title>
+<meta name="description" content="24 jeux de cartes et de société sur Android : Belote, Solitaire, Yams, Dames, Sudoku… Seul contre l'ordinateur, à plusieurs ou en ligne. Gratuit, sans publicité.">
+<meta name="theme-color" content="#0E4A30">
+
+<!-- Adresse de référence du site (voir README.md §4) -->
+<link rel="canonical" href="https://petitvaisseau.com/le-tapis-vert.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Petit Vaisseau">
+<meta property="og:title" content="Le Tapis Vert">
+<meta property="og:description" content="24 jeux de cartes et de société : seul contre l'ordinateur, à plusieurs sur le même écran ou en ligne. Gratuit, sans publicité.">
+<meta property="og:image" content="https://petitvaisseau.com/assets/img/le-tapis-vert/og-cover.jpg">
+<meta property="og:url" content="https://petitvaisseau.com/le-tapis-vert.html">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@700&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body class="theme-tapis">
+
+<header class="console">
+  <div class="wrap">
+    <a href="index.html" aria-label="Petit Vaisseau — accueil" style="display:flex">
+      <svg class="lockup" viewBox="58 46 470 118" role="img" aria-label="Petit Vaisseau">
+        <defs>
+          <linearGradient id="lk-hull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(24,35) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#lk-hull)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+          <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+          <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Exo 2','Avenir Next',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="var(--accent-ink)" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="var(--ink)" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="index.html">Studio</a>
+      <a href="space-defender.html">Space Defender</a>
+      <a href="le-tapis-vert.html" aria-current="page">Le Tapis Vert</a>
+      <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button id="lang-fr" type="button" aria-pressed="true">FR</button>
+      <button id="lang-en" type="button" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap gamehead">
+    <img class="banner fr" src="assets/img/le-tapis-vert/capsule-fr.jpg" alt="Le Tapis Vert — 24 jeux de cartes et de société" width="920" height="430">
+    <img class="banner en" src="assets/img/le-tapis-vert/capsule-en.jpg" alt="Le Tapis Vert — 24 card and board games" width="920" height="430">
+    <h1 class="visually-hidden">Le Tapis Vert</h1>
+    <div class="stack-tight">
+      <span class="pill"><span class="dot"></span><span class="fr">Bientôt sur Google Play</span><span class="en">Coming soon to Google Play</span></span>
+      <p class="lede">
+        <span class="fr">Les jeux de cartes et de société qu'on sort le dimanche, réunis sur un seul tapis : 24 classiques, à jouer seul contre l'ordinateur, à plusieurs sur le même écran, ou en ligne avec un ami. Sans publicité et sans compte à créer.</span>
+        <span class="en">The card and board games you bring out on a Sunday, gathered on one green table: 24 classics to play solo against the computer, with friends on the same screen, or online with a friend. No ads, no account to create.</span>
+      </p>
+    </div>
+    <div class="buyrow">
+      <!-- Le jour de la sortie : remplacer ce bouton par un lien vers
+           https://play.google.com/store/apps/details?id=com.petitvaisseau.letapisvert
+           (avant, la fiche est en test fermé et affiche « introuvable » à tout le monde). -->
+      <span class="btn btn-ghost" aria-disabled="true"><span class="fr">Google Play — bientôt</span><span class="en">Google Play — soon</span></span>
+      <a class="btn btn-ghost" href="#faq">FAQ</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap pitch">
+      <div>
+        <h2><span class="fr">Vingt-quatre jeux classiques, un seul tapis.</span><span class="en">Twenty-four classic games, one green table.</span></h2>
+        <p>
+          <span class="fr">Une partie de Belote avec la famille, un Solitaire au calme, un Quatre en ligne entre deux cafés. Le Tapis Vert rassemble les grands classiques des cartes, du plateau et de la réflexion, avec leurs vraies règles et des adversaires qui jouent vraiment.</span>
+          <span class="en">A game of Belote with the family, a quiet Solitaire, Four in a Row between two coffees. Le Tapis Vert gathers the great classics of cards, boards and puzzles, with their real rules and opponents that really play.</span>
+        </p>
+        <p>
+          <span class="fr">Chaque partie terminée rapporte des jetons, même perdue, et les jetons débloquent de nouveaux jeux. Ceux qui préfèrent peuvent tout ouvrir d'un coup avec un achat unique, entièrement facultatif.</span>
+          <span class="en">Every finished game earns chips, even a lost one, and chips unlock new games. Those who prefer can open everything at once with a single, entirely optional purchase.</span>
+        </p>
+      </div>
+      <div class="feats">
+        <div class="feat">
+          <span class="k"><span class="fr">Cartes · 10 jeux</span><span class="en">Cards · 10 games</span></span>
+          <span class="v"><span class="fr">Belote, Solitaire, FreeCell, Huit Américain, Ascenseur, Whist, Dame de Pique, Rami, Président et Golf.</span><span class="en">Belote, Solitaire, FreeCell, Crazy Eights, Up &amp; Down the River, Whist, Hearts, Rummy, President and Golf.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Plateau et stratégie · 7 jeux</span><span class="en">Board &amp; strategy · 7 games</span></span>
+          <span class="v"><span class="fr">Quatre en ligne, Dames, Reversi, Backgammon, Petits chevaux, Bataille navale et Radar.</span><span class="en">Four in a Row, Checkers, Reversi, Backgammon, Horse Race, Sea Battle and Radar.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Dés et réflexion · 7 jeux</span><span class="en">Dice &amp; puzzles · 7 games</span></span>
+          <span class="v"><span class="fr">Yams, Sudoku, Mot mystère, Quiz, Énigmes, Mémoire et 2048.</span><span class="en">Yatzy, Sudoku, Word Guess, Quiz, Riddles, Pairs and 2048.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">À votre façon</span><span class="en">Your way</span></span>
+          <span class="v"><span class="fr">Seul contre l'ordinateur, en trois niveaux. À plusieurs sur le même écran, les cartes de chacun restant cachées entre deux tours. En ligne avec un ami grâce à un code de partie (Ascenseur et Huit Américain).</span><span class="en">Solo against the computer, at three levels. Several players on the same screen, everyone's cards staying hidden between turns. Online with a friend using a game code (Up &amp; Down the River and Crazy Eights).</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Sans prise de tête</span><span class="en">No hassle</span></span>
+          <span class="v"><span class="fr">Les règles de chaque jeu à portée de main, les longues parties qui se reprennent là où on les a laissées, le français ou l'anglais au choix.</span><span class="en">The rules of every game always at hand, long games that pick up right where you left off, English or French as you like.</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">Captures</span><span class="en">Screenshots</span></p>
+      <div class="shots">
+        <figure>
+          <img class="fr" src="assets/img/le-tapis-vert/shots/01-fr.jpg" alt="Une donne de Belote à quatre" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/le-tapis-vert/shots/01-en.jpg" alt="A four-player Belote deal" width="1600" height="900" loading="lazy">
+          <figcaption><b>01</b> — <span class="fr">La Belote, à quatre, atout carreau.</span><span class="en">Belote for four, diamonds are trumps.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/le-tapis-vert/shots/02-fr.jpg" alt="Une partie de Solitaire" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/le-tapis-vert/shots/02-en.jpg" alt="A game of Solitaire" width="1600" height="900" loading="lazy">
+          <figcaption><b>02</b> — <span class="fr">Le Solitaire, avec annulation du coup.</span><span class="en">Solitaire, with undo.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/le-tapis-vert/shots/03-fr.jpg" alt="La feuille de score du Yams" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/le-tapis-vert/shots/03-en.jpg" alt="The Yatzy score sheet" width="1600" height="900" loading="lazy">
+          <figcaption><b>03</b> — <span class="fr">Le Yams et sa feuille de score.</span><span class="en">Yatzy and its score sheet.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/le-tapis-vert/shots/04-fr.jpg" alt="Une Bataille navale contre l'ordinateur" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/le-tapis-vert/shots/04-en.jpg" alt="Sea Battle against the computer" width="1600" height="900" loading="lazy">
+          <figcaption><b>04</b> — <span class="fr">La Bataille navale.</span><span class="en">Sea Battle.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/le-tapis-vert/shots/05-fr.jpg" alt="Une partie de Golf à trois" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/le-tapis-vert/shots/05-en.jpg" alt="A three-player game of Golf" width="1600" height="900" loading="lazy">
+          <figcaption><b>05</b> — <span class="fr">Le Golf, le jeu de cartes où l'on vise le moins de points.</span><span class="en">Golf, the card game where you aim for the fewest points.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/le-tapis-vert/shots/06-fr.jpg" alt="Une manche de Mot mystère" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/le-tapis-vert/shots/06-en.jpg" alt="A round of Word Guess" width="1600" height="900" loading="lazy">
+          <figcaption><b>06</b> — <span class="fr">Le Mot mystère, en français ou en anglais.</span><span class="en">Word Guess, in English or French.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">En bref</span><span class="en">At a glance</span></p>
+      <div class="factsheet">
+        <div class="row"><span class="k">Studio</span><span class="v">Petit Vaisseau — Guillaume Merle, <span class="fr">développeur solo, France</span><span class="en">solo developer, France</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Genre</span><span class="en">Genre</span></span><span class="v"><span class="fr">Jeux de cartes et de société</span><span class="en">Card and board games</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Plateforme</span><span class="en">Platform</span></span><span class="v"><span class="fr">Android (Google Play), bientôt</span><span class="en">Android (Google Play), coming soon</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Prix</span><span class="en">Price</span></span><span class="v"><span class="fr">Gratuit, sans publicité ; achat unique facultatif pour tout débloquer</span><span class="en">Free, no ads; optional one-time purchase to unlock everything</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Joueurs</span><span class="en">Players</span></span><span class="v"><span class="fr">1 à 4 selon le jeu, sur le même écran ou en ligne</span><span class="en">1 to 4 depending on the game, on one screen or online</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Langues</span><span class="en">Languages</span></span><span class="v"><span class="fr">français, anglais</span><span class="en">English, French</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Moteur</span><span class="en">Engine</span></span><span class="v">Unity</span></div>
+        <div class="row"><span class="k">Contact</span><span class="v"><a href="mailto:petitvaisseau.studio@gmail.com">petitvaisseau.studio@gmail.com</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap stack">
+      <p class="eyebrow">FAQ</p>
+      <div class="faq">
+        <div class="qa">
+          <h3><span class="fr">Le jeu est-il vraiment gratuit ?</span><span class="en">Is the game really free?</span></h3>
+          <p><span class="fr">Oui. Plusieurs jeux sont ouverts dès le départ, les autres se débloquent avec les jetons gagnés en jouant. L'achat « Tout débloquer » fait gagner du temps, rien de plus. Il n'y a ni publicité, ni abonnement, ni pack de jetons à acheter.</span><span class="en">Yes. Several games are open from the start, the others unlock with the chips you win by playing. The "Unlock everything" purchase saves time, nothing more. There are no ads, no subscription and no chip packs for sale.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Faut-il créer un compte ?</span><span class="en">Do I need an account?</span></h3>
+          <p><span class="fr">Non. Votre progression reste sur votre téléphone. Le détail est dans la <a href="le-tapis-vert-confidentialite.html">politique de confidentialité</a>.</span><span class="en">No. Your progress stays on your phone. The details are in the <a href="le-tapis-vert-confidentialite.html?lang=en">privacy policy</a>.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Peut-on jouer à plusieurs ?</span><span class="en">Can several people play?</span></h3>
+          <p><span class="fr">Oui : jusqu'à quatre sur le même écran, en se passant le téléphone, ou en ligne avec un ami pour l'Ascenseur et le Huit Américain. Les places libres sont tenues par l'ordinateur.</span><span class="en">Yes: up to four on the same screen, passing the phone around, or online with a friend for Up &amp; Down the River and Crazy Eights. Empty seats are taken by the computer.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Une version iPhone ou PC ?</span><span class="en">An iPhone or PC version?</span></h3>
+          <p><span class="fr">Le jeu sort d'abord sur Android. Une version PC est en préparation ; rien n'est promis pour iPhone aujourd'hui.</span><span class="en">The game comes to Android first. A PC version is in the works; nothing is promised for iPhone today.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Une idée, un bug, une règle qui diffère de chez vous ?</span><span class="en">An idea, a bug, a house rule that differs?</span></h3>
+          <p><span class="fr">Écrivez-moi à <a href="mailto:petitvaisseau.studio@gmail.com">petitvaisseau.studio@gmail.com</a> : je lis tout et je réponds moi-même.</span><span class="en">Write to me at <a href="mailto:petitvaisseau.studio@gmail.com">petitvaisseau.studio@gmail.com</a>: I read everything and answer myself.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footrow">
+      <p class="colophon">Petit Vaisseau — <a href="https://guillaume-merle.fr" target="_blank" rel="noopener">Guillaume Merle</a>, France<br>petitvaisseau.com · petitvaisseau.studio@gmail.com</p>
+      <div class="footlinks">
+        <a href="index.html">Studio</a>
+        <a href="space-defender.html">Space Defender</a>
+        <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+        <a href="https://store.steampowered.com/app/1731170/" target="_blank" rel="noopener">Steam</a>
+        <a href="https://discord.com/invite/AUMtECDCx8" target="_blank" rel="noopener">Discord</a>
+        <a href="le-tapis-vert-confidentialite.html"><span class="fr">Confidentialité</span><span class="en">Privacy</span></a>
+        <a href="https://guillaume-merle.fr" target="_blank" rel="noopener">guillaume-merle.fr</a>
+      </div>
+    </div>
+    <p class="colophon">
+      <span class="fr">Musique : Alkakrab (sous licence) · Effets sonores : ZapSplat · Cartes : « 2D Cards Game Art Pack » de natomarcacini · Police : Nunito (SIL OFL) · Moteur : Unity</span>
+      <span class="en">Music: Alkakrab (licensed) · Sound effects: ZapSplat · Cards: "2D Cards Game Art Pack" by natomarcacini · Font: Nunito (SIL OFL) · Engine: Unity</span>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
