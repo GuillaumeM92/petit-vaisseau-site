@@ -117,7 +117,7 @@ Avant, il était sur `petitvaisseau.guillaume-merle.fr` : cette ancienne adresse
   marque, elle ne bouge pas ; `--accent-ink` est sa déclinaison foncée, pour le texte sur fond
   clair. Le thème sombre reprend les mêmes noms de variables juste en dessous.
 - **La bande-annonce** : `space-defender.html`, attribut `data-youtube` du bloc `.player`.
-  Aujourd'hui `vVd2VChcjos`. Si tu le vides, la page repasse sur le mp4 du dossier `assets/video/`.
+  Aujourd'hui `QNWvMmnWqU4`. Si tu le vides, la page repasse sur le mp4 du dossier `assets/video/`.
 - **Les captures** : `assets/img/shots/01.jpg` à `05.jpg`, 1600 px de large. Les originaux
   1920×1080 sont dans `Marketing/PressKit/screenshots/` du dépôt du jeu :
   ```bash

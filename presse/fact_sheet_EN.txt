@@ -2,16 +2,16 @@ SPACE DEFENDER: FRONTIER SQUADRON — PRESS FACT SHEET
 
 Studio                  Petit Vaisseau — Guillaume Merle (solo developer, France)
 Genre                   Top-down space shooter with RPG progression
-Platform                PC (Windows), Steam
+Platforms               Windows and macOS (Steam)
 Early Access            May 2025
 Full release (1.0)      September 24, 2026, 10am PT / 7pm CEST
 Price                   $9.99 / €9.99
-Languages               English, French
+Languages               English, French, Spanish
 Controls                Mouse and keyboard, full controller support
 Website                 https://petitvaisseau.com
 Steam                   https://store.steampowered.com/app/1731170/
 Discord                 https://discord.com/invite/AUMtECDCx8
-Trailer                 https://www.youtube.com/watch?v=vVd2VChcjos
+Trailer                 https://youtu.be/QNWvMmnWqU4
 Contact                 petitvaisseau.studio@gmail.com
 
 
@@ -30,7 +30,7 @@ KEY FEATURES
 - Wingmen: recruit pilots at stations, give them ships from your hangar, fly with up to three of them; downed wingmen eject in rescue pods
 - 13 contract types with modifiers (asteroid fields, elite leaders, reinforcements, time limits)
 - Enemies with distinct behaviours: snipers, minelayers, carriers, missile jammers, shield-support hulls, elites and packs
-- 8 ships and over 60 pieces of equipment: lasers, pulse cannons, railguns, flak cannons, guided missiles, turrets, shields, generators, batteries
+- 12 ships and over 60 pieces of equipment: lasers, pulse cannons, railguns, flak cannons, guided missiles, turrets, shields, generators, batteries
 - Energy management: every fitted item changes how the ship flies and fights
 - A three-act story campaign (13 story missions) with Admiral Voss, Ilse Marin and ARIA, ending with the battle against the Nexus
 - Ranks from Recruit to Admiral, a research tree, a mission journal, three difficulty modes
@@ -41,6 +41,8 @@ Space Defender is Guillaume's first game, developed alone alongside a full-time 
 CREDITS
 Design, programming, writing: Guillaume Merle
 Music: Alkakrab (Sci-Fi Music Packs, alkakrab.itch.io)
+Ship, station, item and portrait art: generated with AI image tools from the developer's own references, then selected and edited by the developer
+Planets: 2D Space Kit by Brett Gregory
 Sound effects: ZapSplat
 Font: Exo 2 by Natanael Gama (SIL Open Font License)
 Engine: Unity

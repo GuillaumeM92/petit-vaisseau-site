@@ -2,16 +2,16 @@ SPACE DEFENDER: FRONTIER SQUADRON — FICHE PRESSE
 
 Studio                  Petit Vaisseau — Guillaume Merle (développeur solo, France)
 Genre                   Shooter spatial vu de dessus avec progression RPG
-Plateforme              PC (Windows), Steam
+Plateformes             Windows et macOS (Steam)
 Accès anticipé          mai 2025
 Sortie 1.0              24 septembre 2026, 19 h (heure de Paris)
 Prix                    9,99 €
-Langues                 français, anglais
+Langues                 français, anglais, espagnol
 Contrôles               clavier et souris, compatibilité manette complète
 Site                    https://petitvaisseau.com
 Steam                   https://store.steampowered.com/app/1731170/
 Discord                 https://discord.com/invite/AUMtECDCx8
-Bande-annonce           https://www.youtube.com/watch?v=vVd2VChcjos
+Bande-annonce           https://youtu.be/QNWvMmnWqU4
 Contact                 petitvaisseau.studio@gmail.com
 
 
@@ -30,7 +30,7 @@ POINTS FORTS
 - Des ailiers : recrutez des pilotes en station, confiez-leur des vaisseaux de votre hangar, volez avec jusqu'à trois d'entre eux ; un ailier abattu s'éjecte dans une capsule de sauvetage
 - 13 types de contrats avec modificateurs (champs d'astéroïdes, chefs d'élite, renforts, temps limité)
 - Des ennemis aux comportements distincts : tireurs d'élite, poseurs de mines, porte-chasseurs, brouilleurs de missiles, vaisseaux de soutien, élites et meutes
-- 8 vaisseaux et plus de 60 équipements : lasers, canons à impulsion, railguns, canons flak, missiles guidés, tourelles, boucliers, générateurs, batteries
+- 12 vaisseaux et plus de 60 équipements : lasers, canons à impulsion, railguns, canons flak, missiles guidés, tourelles, boucliers, générateurs, batteries
 - Gestion de l'énergie : chaque équipement change la façon dont le vaisseau vole et combat
 - Une campagne en trois actes (13 missions d'histoire) avec l'amiral Voss, Ilse Marin et ARIA, jusqu'à la bataille contre le Nexus
 - Des grades de Recrue à Amiral, un arbre de recherche, un journal de mission, trois modes de difficulté
@@ -41,6 +41,8 @@ Space Defender est le premier jeu de Guillaume, développé seul à côté d'un 
 CRÉDITS
 Conception, programmation, écriture : Guillaume Merle
 Musique : Alkakrab (Sci-Fi Music Packs, alkakrab.itch.io)
+Visuels des vaisseaux, stations, objets et portraits : générés avec des outils d'IA à partir des références du développeur, puis sélectionnés et retouchés par lui
+Planètes : 2D Space Kit de Brett Gregory
 Effets sonores : ZapSplat
 Police : Exo 2 de Natanael Gama (SIL Open Font License)
 Moteur : Unity
