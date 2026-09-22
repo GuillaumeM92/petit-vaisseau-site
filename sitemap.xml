@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://petitvaisseau.com/</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-22</lastmod>
   </url>
   <url>
     <loc>https://petitvaisseau.com/space-defender.html</loc>
@@ -11,6 +11,10 @@
   <url>
     <loc>https://petitvaisseau.com/le-tapis-vert.html</loc>
     <lastmod>2026-09-21</lastmod>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/sourcebound.html</loc>
+    <lastmod>2026-09-22</lastmod>
   </url>
   <url>
     <loc>https://petitvaisseau.com/presse/</loc>
@@ -23,5 +27,9 @@
   <url>
     <loc>https://petitvaisseau.com/le-tapis-vert-confidentialite.html</loc>
     <lastmod>2026-09-17</lastmod>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/sourcebound-confidentialite.html</loc>
+    <lastmod>2026-09-22</lastmod>
   </url>
 </urlset>

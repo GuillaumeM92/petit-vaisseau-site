@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sourcebound — Petit Vaisseau</title>
+<meta name="description" content="Jeu d'infiltration dans le noir sur Android : l'écran est noir, le son est ta seule lumière. Chaque pas et chaque pulsation sonar dessinent les murs en néon — et te trahissent. Gratuit jusqu'au huitième niveau.">
+<meta name="theme-color" content="#04070A">
+
+<!-- Adresse de référence du site (voir README.md §4) -->
+<link rel="canonical" href="https://petitvaisseau.com/sourcebound.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Petit Vaisseau">
+<meta property="og:title" content="Sourcebound">
+<meta property="og:description" content="Infiltration dans le noir. Tu ne vois que ce que tu entends : chaque bruit dessine les murs en néon, et prévient ce qui te traque.">
+<meta property="og:image" content="https://petitvaisseau.com/assets/img/sourcebound/og-cover.jpg">
+<meta property="og:url" content="https://petitvaisseau.com/sourcebound.html">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<!-- Les deux polices du jeu : Jura pour les titres, Play pour les textes. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&family=Play:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body class="theme-source">
+
+<header class="console">
+  <div class="wrap">
+    <a href="index.html" aria-label="Petit Vaisseau — accueil" style="display:flex">
+      <svg class="lockup" viewBox="58 46 470 118" role="img" aria-label="Petit Vaisseau">
+        <defs>
+          <linearGradient id="lk-hull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(24,35) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#lk-hull)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+          <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+          <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Exo 2','Avenir Next',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="var(--accent-ink)" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="var(--ink)" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="index.html">Studio</a>
+      <a href="space-defender.html">Space Defender</a>
+      <a href="le-tapis-vert.html">Le Tapis Vert</a>
+      <a href="sourcebound.html" aria-current="page">Sourcebound</a>
+      <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button id="lang-fr" type="button" aria-pressed="true">FR</button>
+      <button id="lang-en" type="button" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap gamehead">
+    <img class="banner fr" src="assets/img/sourcebound/capsule-fr.jpg" alt="Sourcebound — tu ne vois que ce que tu entends" width="920" height="430">
+    <img class="banner en" src="assets/img/sourcebound/capsule-en.jpg" alt="Sourcebound — you only see what you hear" width="920" height="430">
+    <h1 class="visually-hidden">Sourcebound</h1>
+    <div class="stack-tight">
+      <span class="pill"><span class="dot"></span><span class="fr">Bientôt sur Google Play</span><span class="en">Coming soon to Google Play</span></span>
+      <p class="lede">
+        <span class="fr">L'écran est noir. Le son est ta seule lumière. Chaque pas, chaque pulsation sonar, chaque cliquetis de chasseur lance une onde qui dessine les murs en néon — puis l'obscurité les reprend. Avance en silence et tu n'y vois presque rien. Fais du bruit et tout le niveau sait où tu es.</span>
+        <span class="en">The screen is black. Sound is your only light. Every footstep, every sonar pulse, every click of a hunter sends out a wave that paints the walls in neon — and then the dark takes them back. Move quietly and you see almost nothing. Make noise and the whole level knows where you are.</span>
+      </p>
+    </div>
+    <div class="buyrow">
+      <!-- Le jour de la sortie : remplacer ce bouton par un lien vers
+           https://play.google.com/store/apps/details?id=com.petitvaisseau.sourcebound
+           (avant, la fiche est en test fermé et affiche « introuvable » à tout le monde). -->
+      <span class="btn btn-ghost" aria-disabled="true"><span class="fr">Google Play — bientôt</span><span class="en">Google Play — soon</span></span>
+      <a class="btn btn-ghost" href="#faq">FAQ</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap pitch">
+      <div>
+        <h2><span class="fr">Tu ne vois que ce que tu entends.</span><span class="en">You only see what you hear.</span></h2>
+        <p>
+          <span class="fr">Sourcebound est un jeu d'infiltration vu de dessus où rien n'est éclairé. Le monde n'existe que le temps d'une onde : un pas, une pulsation de sonar, un caillou qui roule, et les murs s'allument en contours néon avant de s'effacer. Le même bruit qui te montre le chemin dit aux chasseurs où tu te trouves.</span>
+          <span class="en">Sourcebound is a top-down stealth game where nothing is lit. The world exists only for as long as a wave lasts: a step, a sonar pulse, a rolling pebble, and the walls light up in neon outlines before fading out. The same noise that shows you the way tells the hunters where you are.</span>
+        </p>
+        <p>
+          <span class="fr">Ramasse les éclats dorés pour desceller la sortie, puis enfonce-toi d'un niveau. Les niveaux sont générés à chaque partie, et aucune descente ne se ressemble. Vingt niveaux plus bas repose la Source du silence : atteins-la, ou continue dans le noir sans fin.</span>
+          <span class="en">Collect the golden shards to unseal the exit, then go one level deeper. The levels are generated fresh every run, and the descent never ends the same way twice. Twenty levels down lies the Source of silence: reach it, or keep going into the endless dark.</span>
+        </p>
+        <p>
+          <span class="fr">Chaque texture, chaque son et chaque niveau de ce jeu est généré par code : rien n'a été téléchargé.</span>
+          <span class="en">Every texture, every sound and every level in this game is generated by code: nothing was downloaded.</span>
+        </p>
+      </div>
+      <div class="feats">
+        <div class="feat">
+          <span class="k"><span class="fr">Écouter</span><span class="en">Listen</span></span>
+          <span class="v"><span class="fr">Ton sonar révèle tout autour de toi — et tous les chasseurs l'entendent. Cours pour prendre de l'avance, mais courir est bruyant. Faufile-toi pour devenir silencieux, au prix d'être presque aveugle. Lance un caillou pour les envoyer chercher ailleurs.</span><span class="en">Your sonar reveals everything around you — and every hunter hears it. Sprint to break away, but sprinting is loud. Sneak to go silent, at the price of being nearly blind. Throw a pebble to send them looking somewhere else.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Ce qui te traque</span><span class="en">What hunts you</span></span>
+          <span class="v"><span class="fr">Des choses aveugles qui cliquettent en rouge. Elles errent, enquêtent sur les bruits, et traquent quand elles sont près. Plus bas t'attendent la sentinelle qui hurle pour appeler les autres, le traqueur qui suit tes empreintes, le rôdeur qui ne fait jamais un bruit, un gardien posté devant la sortie, et un colosse dont l'onde balaie le niveau entier.</span><span class="en">Blind things that click in red. They wander, they investigate noises, they chase when they get close. Deeper down you meet the sentinel that howls for the others, the tracker that follows your footprints, the prowler that never makes a sound, a guardian posted at the exit, and a colossus whose wave sweeps the whole level.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Devenir plus fort</span><span class="en">Grow stronger</span></span>
+          <span class="v"><span class="fr">Chaque éclat ramassé est mis en réserve pour toujours. Dépense-le en Résonances — des améliorations définitives de ton souffle, de ta portée, de ta mémoire des murs, de tes pas feutrés. Chaque descente offre aussi une Relique : un seul don, qui dure jusqu'à ta mort.</span><span class="en">Every shard you collect is banked forever. Spend it on Resonances — permanent upgrades to your breath, your reach, your memory of the walls, your quiet steps. Each descent also offers a Relic: a single gift that lasts until you die.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Le défi du jour</span><span class="en">The daily challenge</span></span>
+          <span class="v"><span class="fr">La même descente pour tout le monde, un seul essai par jour. Les mêmes couloirs, les mêmes chasseurs, la même chance : il ne reste que la façon d'écouter.</span><span class="en">The same descent for everyone, one attempt a day. The same corridors, the same hunters, the same luck: all that is left is how you listen.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Sur le téléphone</span><span class="en">On the phone</span></span>
+          <span class="v"><span class="fr">Commandes tactiles complètes, pensées pour le pouce. Une musique procédurale qui se resserre quand ils te trouvent. Français et anglais. Au casque, c'est un autre jeu.</span><span class="en">Full touch controls, designed for the thumb. Adaptive procedural music that tightens when they find you. English and French. On headphones, it is another game.</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">Captures</span><span class="en">Screenshots</span></p>
+      <div class="shots">
+        <figure>
+          <img class="fr" src="assets/img/sourcebound/shots/01-fr.jpg" alt="Une pulsation sonar révèle les murs en néon" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/sourcebound/shots/01-en.jpg" alt="A sonar pulse paints the walls in neon" width="1600" height="900" loading="lazy">
+          <figcaption><b>01</b> — <span class="fr">Une pulsation, et les murs apparaissent le temps de les lire.</span><span class="en">One pulse, and the walls appear just long enough to read.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/sourcebound/shots/02-fr.jpg" alt="Un éclat doré, plus bas dans le niveau" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/sourcebound/shots/02-en.jpg" alt="A golden shard, further down the level" width="1600" height="900" loading="lazy">
+          <figcaption><b>02</b> — <span class="fr">Un éclat doré, en bas ; le reste du niveau est à deviner.</span><span class="en">A golden shard below; the rest of the level is guesswork.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/sourcebound/shots/03-fr.jpg" alt="Le gardien posté près de la sortie" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/sourcebound/shots/03-en.jpg" alt="The guardian posted near the exit" width="1600" height="900" loading="lazy">
+          <figcaption><b>03</b> — <span class="fr">Un gardien veille près de la sortie ; il faudra passer devant.</span><span class="en">A guardian watches the exit; you will have to walk past it.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/sourcebound/shots/04-fr.jpg" alt="Le choix d'une relique entre deux niveaux" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/sourcebound/shots/04-en.jpg" alt="Choosing a relic between two levels" width="1600" height="900" loading="lazy">
+          <figcaption><b>04</b> — <span class="fr">Une relique par descente, à choisir entre deux niveaux.</span><span class="en">One relic per descent, chosen between two levels.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/sourcebound/shots/05-fr.jpg" alt="L'écran des Résonances" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/sourcebound/shots/05-en.jpg" alt="The Resonances screen" width="1600" height="900" loading="lazy">
+          <figcaption><b>05</b> — <span class="fr">Les Résonances : des améliorations définitives, payées en éclats.</span><span class="en">Resonances: permanent upgrades, paid for in shards.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="fr" src="assets/img/sourcebound/shots/06-fr.jpg" alt="L'écran-titre de Sourcebound" width="1600" height="900" loading="lazy">
+          <img class="en" src="assets/img/sourcebound/shots/06-en.jpg" alt="The Sourcebound title screen" width="1600" height="900" loading="lazy">
+          <figcaption><b>06</b> — <span class="fr">Une seule promesse : tu ne vois que ce que tu entends.</span><span class="en">One promise only: you see what you hear.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">En bref</span><span class="en">At a glance</span></p>
+      <div class="factsheet">
+        <div class="row"><span class="k">Studio</span><span class="v">Petit Vaisseau — Guillaume Merle, <span class="fr">développeur solo, France</span><span class="en">solo developer, France</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Genre</span><span class="en">Genre</span></span><span class="v"><span class="fr">Infiltration · roguelite</span><span class="en">Stealth · roguelite</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Plateforme</span><span class="en">Platform</span></span><span class="v"><span class="fr">Android (Google Play), bientôt</span><span class="en">Android (Google Play), coming soon</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Prix</span><span class="en">Price</span></span><span class="v"><span class="fr">Gratuit jusqu'au huitième niveau ; un seul achat pour la version complète, pas d'abonnement, pas de publicité</span><span class="en">Free through the eighth level; one purchase for the full version, no subscription, no ads</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Joueurs</span><span class="en">Players</span></span><span class="v"><span class="fr">1, au casque de préférence</span><span class="en">1, headphones recommended</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Langues</span><span class="en">Languages</span></span><span class="v"><span class="fr">français, anglais</span><span class="en">English, French</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Moteur</span><span class="en">Engine</span></span><span class="v">Unity</span></div>
+        <div class="row"><span class="k">Contact</span><span class="v"><a href="mailto:petitvaisseau.studio@gmail.com">petitvaisseau.studio@gmail.com</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap stack">
+      <p class="eyebrow">FAQ</p>
+      <div class="faq">
+        <div class="qa">
+          <h3><span class="fr">L'écran est vraiment noir ?</span><span class="en">Is the screen really black?</span></h3>
+          <p><span class="fr">Oui. Rien n'est éclairé en permanence : on ne voit que les contours révélés par les sons, et ils s'effacent. C'est le jeu, pas un réglage à corriger.</span><span class="en">Yes. Nothing is permanently lit: you only see the outlines revealed by sound, and they fade. That is the game, not a setting to fix.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Faut-il un casque ?</span><span class="en">Do I need headphones?</span></h3>
+          <p><span class="fr">Ce n'est pas obligatoire, mais c'est très conseillé : les éclats bourdonnent, la sortie ping, les chasseurs cliquettent, et tout cela se localise à l'oreille. Le jeu est jouable au haut-parleur, plus difficile sans le son.</span><span class="en">It is not required, but strongly recommended: shards hum, the exit pings, the hunters click, and all of it is placed in space by ear. The game works on a speaker, and gets much harder with the sound off.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Jusqu'où va la version gratuite ?</span><span class="en">How far does the free version go?</span></h3>
+          <p><span class="fr">Les huit premiers niveaux sont gratuits, avec le premier niveau de chaque Résonance. La version complète ouvre la descente jusqu'à la Source, le mode sans fin, le défi du jour et tous les niveaux de Résonances. Un seul achat, pas d'abonnement, jamais de publicité.</span><span class="en">The first eight levels are free, along with the first level of every Resonance. The full version opens the descent all the way to the Source, the endless mode, the daily challenge and every level of Resonances. One purchase, no subscription, and never any ads.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Qu'y a-t-il au bout de la descente ?</span><span class="en">What is at the bottom of the descent?</span></h3>
+          <p><span class="fr">La Source du silence, vingt niveaux plus bas. On peut s'arrêter là, ou continuer : au-delà, la descente n'a plus de fin.</span><span class="en">The Source of silence, twenty levels down. You can stop there, or keep going: past it, the descent has no end.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Une version iPhone ou PC ?</span><span class="en">An iPhone or PC version?</span></h3>
+          <p><span class="fr">Le jeu sort d'abord sur Android. Il se joue aussi très bien au clavier, donc une version PC est possible ; rien n'est promis pour iPhone aujourd'hui.</span><span class="en">The game comes to Android first. It plays well on a keyboard too, so a PC version is possible; nothing is promised for iPhone today.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Une idée, un bug, une descente mémorable ?</span><span class="en">An idea, a bug, a memorable run?</span></h3>
+          <p><span class="fr">Écrivez-moi à <a href="mailto:petitvaisseau.studio@gmail.com">petitvaisseau.studio@gmail.com</a> : je lis tout et je réponds moi-même.</span><span class="en">Write to me at <a href="mailto:petitvaisseau.studio@gmail.com">petitvaisseau.studio@gmail.com</a>: I read everything and answer myself.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footrow">
+      <p class="colophon">Petit Vaisseau — <a href="https://guillaume-merle.fr" target="_blank" rel="noopener">Guillaume Merle</a>, France<br>petitvaisseau.com · petitvaisseau.studio@gmail.com</p>
+      <div class="footlinks">
+        <a href="index.html">Studio</a>
+        <a href="space-defender.html">Space Defender</a>
+        <a href="le-tapis-vert.html">Le Tapis Vert</a>
+        <a href="sourcebound.html">Sourcebound</a>
+        <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+        <a href="https://store.steampowered.com/app/1731170/" target="_blank" rel="noopener">Steam</a>
+        <a href="https://discord.com/invite/AUMtECDCx8" target="_blank" rel="noopener">Discord</a>
+        <a href="sourcebound-confidentialite.html"><span class="fr">Confidentialité</span><span class="en">Privacy</span></a>
+        <a href="https://guillaume-merle.fr" target="_blank" rel="noopener">guillaume-merle.fr</a>
+      </div>
+    </div>
+    <p class="colophon">
+      <span class="fr">Textures, sons, musique et niveaux : entièrement générés par code · Polices : Jura et Play (SIL OFL) · Moteur : Unity</span>
+      <span class="en">Textures, sounds, music and levels: entirely generated by code · Fonts: Jura and Play (SIL OFL) · Engine: Unity</span>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

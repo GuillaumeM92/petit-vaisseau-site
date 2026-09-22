@@ -120,9 +120,10 @@ nav a[aria-current="page"]{color:var(--ink);border-color:var(--line);background:
 @media (max-width:560px){
   .console .wrap{gap:8px 10px}
   .lockup{height:34px}
-  nav{order:3;width:100%;margin-inline-start:0;justify-content:space-between;gap:2px}
-  nav a{padding:6px 7px;font-size:11px;letter-spacing:.05em}
-  /* « Presse » reste dans le pied de page : le menu tient ainsi sur une ligne. */
+  /* Quatre entrées ne tiennent plus sur une ligne : deux colonnes propres
+     plutôt qu'un retour à la ligne bancal. « Presse » reste dans le pied de page. */
+  nav{order:3;width:100%;margin-inline-start:0;display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  nav a{padding:6px 7px;font-size:11px;letter-spacing:.05em;text-align:center}
   nav a[href="#presse"],nav a[href="presse/"],nav a[href="../presse/"]{display:none}
   .lang{margin-inline-start:auto}
 }
@@ -357,3 +358,66 @@ footer .wrap{padding-block:30px;display:grid;gap:18px}
 .theme-tapis main .btn-ghost[aria-disabled="true"]:hover{transform:none}
 .theme-tapis main .gamehead .banner{border-color:rgba(217,173,64,.4)}
 .theme-tapis main .shots figure{border-color:rgba(217,173,64,.25)}
+
+/* ---------- habillage « contours néon » (sourcebound.html) ----------
+   Même principe que le tapis vert : l'en-tête et le pied de page restent
+   ceux du studio, seul <main> prend l'allure du jeu. Le style de Sourcebound
+   est figé en contours néon sur fond noir : des traits fins qui s'allument,
+   rien de plein. D'où les panneaux presque noirs cernés d'un filet cyan,
+   les titres en Jura espacé (la police des écrans du jeu) et les textes en
+   Play. Une seule version, sans thème clair/sombre. */
+.theme-source main{
+  --bg:#03060A;
+  --panel:#070C12;
+  --sunk:#05090D;
+  --line:rgba(115,242,255,.24);
+  --line-soft:rgba(115,242,255,.11);
+  --ink:#E2F7FC;
+  --muted:#8FA9B6;
+  --accent:#73F2FF;          /* le cyan de l'onde, joueur et murs révélés */
+  --accent-ink:#99F2FF;
+  --accent-wash:rgba(115,242,255,.09);
+  --ember:#FFD966;           /* l'or des éclats */
+  --on-accent:#021014;
+  --shadow:0 0 0 1px rgba(115,242,255,.05), 0 24px 60px -30px rgba(0,0,0,.95);
+  color-scheme:dark;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse 85% 55% at 50% -8%, rgba(115,242,255,.10), transparent 68%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(115,242,255,.05), transparent 70%),
+    #03060A;
+  font-family:"Play","Helvetica Neue",Arial,sans-serif;
+}
+.theme-source main h1,
+.theme-source main h2,
+.theme-source main h3{
+  font-family:"Jura","Avenir Next",Helvetica,Arial,sans-serif;
+  font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+}
+.theme-source .pitch h2{font-size:clamp(21px,3.2vw,27px);line-height:1.25}
+.theme-source .faq h3{font-size:16px;letter-spacing:.05em}
+.theme-source main section + section{border-top-color:var(--line-soft)}
+.theme-source main .eyebrow,
+.theme-source main .pill,
+.theme-source main .feat .k,
+.theme-source main .factsheet .row,
+.theme-source main .shots figcaption,
+.theme-source main .btn{font-family:"Jura","Avenir Next",Helvetica,Arial,sans-serif}
+.theme-source main .eyebrow{font-weight:600;font-size:12px;letter-spacing:.24em}
+.theme-source main .feat .k{font-weight:600;font-size:12px;letter-spacing:.2em}
+.theme-source main .pill{font-weight:600;letter-spacing:.16em;background:rgba(255,217,102,.07)}
+.theme-source main .factsheet .row{font-size:14px;letter-spacing:.01em}
+.theme-source main .factsheet .k{font-weight:600;font-size:11.5px;letter-spacing:.16em}
+.theme-source main .shots figcaption{font-size:13px;letter-spacing:.02em}
+.theme-source main .shots figcaption b{font-weight:600;color:var(--accent-ink)}
+/* Les boutons reprennent les cadres néon du jeu : un filet, pas d'aplat. */
+.theme-source main .btn{
+  font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;border-radius:2px;
+}
+.theme-source main .btn-ghost{background:rgba(115,242,255,.04);border-color:var(--accent);color:var(--ink)}
+.theme-source main .btn-ghost:hover{background:rgba(115,242,255,.10);box-shadow:0 0 18px -6px var(--accent)}
+.theme-source main .btn-ghost[aria-disabled="true"]{opacity:.55;cursor:default;border-color:var(--line)}
+.theme-source main .btn-ghost[aria-disabled="true"]:hover{transform:none;background:rgba(115,242,255,.04);box-shadow:none}
+.theme-source main .gamehead .banner{border-color:rgba(115,242,255,.3);box-shadow:0 0 60px -30px var(--accent)}
+.theme-source main .shots figure{border-color:rgba(115,242,255,.18);background:#05090D}
+.theme-source main .factsheet{background:#05090D}
