@@ -1,8 +1,8 @@
 // The six styles and five rooms, converted from the game's MusicStyles.cs (keep in sync). Styles from
-// 6 on exist only on the site and have their own composer (engine/cinematic.js, chiptune.js, ambient.js); a seed alone still
+// 6 on exist only on the site and have their own composer (engine/cinematic.js, chiptune.js, ambient.js, fantasy.js); a seed alone still
 // picks among the first six (parity with the game), the new ones are asked for by the piece's id.
-export const MusicStyle = { Ballad: 0, Waltz: 1, Classical: 2, Relaxing: 3, Cozy: 4, Contemplative: 5, Cinematic: 6, Chiptune: 7, Ambient: 8 };
-export const StyleNames = ['Ballad', 'Waltz', 'Classical', 'Relaxing', 'Cozy', 'Contemplative', 'Cinematic', 'Chiptune', 'Ambient'];
+export const MusicStyle = { Ballad: 0, Waltz: 1, Classical: 2, Relaxing: 3, Cozy: 4, Contemplative: 5, Cinematic: 6, Chiptune: 7, Ambient: 8, Fantasy: 9 };
+export const StyleNames = ['Ballad', 'Waltz', 'Classical', 'Relaxing', 'Cozy', 'Contemplative', 'Cinematic', 'Chiptune', 'Ambient', 'Fantasy'];
 export const MusicMode = { Major: 0, Minor: 1, Dorian: 2, Mixolydian: 3, Lydian: 4 };
 export const ModeNames = ['Major', 'Minor', 'Dorian', 'Mixolydian', 'Lydian'];
 export const MusicRoom = { Studio: 0, Salon: 1, Hall: 2, Warm: 3, Open: 4, Dry: 5, Space: 6 };
@@ -182,6 +182,8 @@ const Defs = [
     { TempoMin: 116, TempoMax: 156 },
     // Ambient: composed by engine/ambient.js; only its tempo range is read from here.
     { TempoMin: 56, TempoMax: 72 },
+    // Fantasy: composed by engine/fantasy.js (its tempo depends on the dance).
+    { TempoMin: 100, TempoMax: 150 },
 ].map(d => ({ ...Defaults, ...d }));
 
 export const getStyle = (style) => Defs[style];

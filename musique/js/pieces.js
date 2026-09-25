@@ -7,9 +7,9 @@ import { titleOf } from '../engine/titles.js';
 
 export const MaxSeed = 1000000;
 
-// Choice keys, as written in ids: s style, m mode, l lead, a accompaniment, t tempo (s/f),
-// d drums (y/n), r room.
-const Keys = { style: 's', mode: 'm', lead: 'l', accomp: 'a', tempo: 't', drums: 'd', room: 'r' };
+// Choice keys, as written in ids: s style, v variant (a style's own kinds, e.g. Fantaisie's dances),
+// m mode, l lead, a accompaniment, t tempo (s/f), d drums (y/n), r room.
+const Keys = { style: 's', variant: 'v', mode: 'm', lead: 'l', accomp: 'a', tempo: 't', drums: 'd', room: 'r' };
 
 export function pieceId(seed, choices = {}) {
   const parts = [];
@@ -40,6 +40,7 @@ export function parsePieceId(id) {
 export function overridesFor(seed, choices) {
   const o = defaultOverrides();
   if (choices.style !== undefined) o.Style = choices.style;
+  if (choices.variant !== undefined) o.Variant = choices.variant;
   if (choices.mode !== undefined) o.Mode = choices.mode;
   if (choices.lead !== undefined) { o.LeadA = choices.lead; o.LeadB = choices.lead; }
   if (choices.accomp !== undefined) o.Accomp = choices.accomp;

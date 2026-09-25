@@ -8,6 +8,7 @@ export const titleOf = (song, language) => title(song.seed, song.style, language
 export const title = (seed, style, language) => style === MusicStyle.Cinematic ? cinematic(seed, language)
   : style === MusicStyle.Chiptune ? chiptune(seed, language)
   : style === MusicStyle.Ambient ? ambient(seed, language)
+  : style === MusicStyle.Fantasy ? fantasy(seed, language)
   : language === 'en' ? english(seed, style) : french(seed, style);
 
 // Templates 1-3 use the style word; the styles with a strong name use them half the time.
@@ -307,4 +308,42 @@ function ambient(seed, language) {
     default: s = noun.word;
   }
   return s[0].toUpperCase() + s.substring(1);
+}
+
+// ---------------- Fantasy (site only): taverns, dances and little folk ----------------
+
+const FrTaverns = [
+  M('Dragon vert'), M('Poney fringant'), F('Chope d’or'), M('Gobelin ivre'), F('Licorne rousse'), M('Chaudron'),
+  M('Troll qui danse'), F('Lanterne bleue'), M('Sanglier d’argent'), F('Harpe fêlée'), M('Barde borgne'), F('Chouette'),
+];
+const FrDances = ['Gigue', 'Ronde', 'Branle', 'Farandole', 'Bourrée', 'Danse', 'Complainte', 'Air'];
+const FrFolk = ['des lutins', 'du ménestrel', 'des elfes', 'du forgeron', 'des meuniers', 'de la sorcière', 'des nains',
+  'du voyageur', 'des fées', 'du roi fou', 'des marins', 'de la moisson'];
+const FrFantasyAlone = ['Au coin du feu', 'Une chope de plus', 'La route du nord', 'Le bal des lutins', 'Retour au village',
+  'La fête des moissons', 'Sous la lune rousse', 'Le pont des trolls'];
+const EnTaverns = ['Green Dragon', 'Prancing Pony', 'Golden Tankard', 'Drunken Goblin', 'Red Unicorn', 'Cauldron',
+  'Dancing Troll', 'Blue Lantern', 'Silver Boar', 'Cracked Harp', 'One-Eyed Bard', 'Owl'];
+const EnDances = ['Jig', 'Reel', 'Round', 'Farandole', 'Bourrée', 'Dance', 'Lament', 'Air'];
+const EnFolk = ['the Sprites', 'the Minstrel', 'the Elves', 'the Blacksmith', 'the Millers', 'the Witch', 'the Dwarves',
+  'the Wanderer', 'the Fairies', 'the Mad King', 'the Sailors', 'the Harvest'];
+const EnFantasyAlone = ['By the Fireside', 'One More Pint', 'The Northern Road', 'The Sprites’ Ball', 'Back to the Village',
+  'Harvest Feast', 'Under the Red Moon', 'The Trolls’ Bridge'];
+
+function fantasy(seed, language) {
+  const rng = new MusicRng(seed * 31 + 14);
+  const t = rng.range(0, 4);
+  if (language === 'en') {
+    switch (t) {
+      case 0: return rng.pick(EnDances) + ' of ' + rng.pick(EnFolk);
+      case 1: return 'At the ' + rng.pick(EnTaverns);
+      case 2: return rng.pick(EnDances) + ' of the ' + rng.pick(EnTaverns);
+      default: return rng.pick(EnFantasyAlone);
+    }
+  }
+  switch (t) {
+    case 0: return rng.pick(FrDances) + ' ' + rng.pick(FrFolk);
+    case 1: { const n = rng.pick(FrTaverns); return (n.feminine ? 'À la ' : 'Au ') + n.word; }
+    case 2: return rng.pick(FrDances) + ' ' + of(rng.pick(FrTaverns));
+    default: return rng.pick(FrFantasyAlone);
+  }
 }

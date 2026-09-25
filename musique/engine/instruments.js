@@ -10,9 +10,11 @@ export const InstrumentId = {
   Pulse12: 26, Pulse25: 27, Square: 28, Triangle: 29, Noise: 30,
   // Synthesized too: the ambient universe.
   Pad: 31, Glass: 32, SoftVoice: 33, Drone: 34,
+  // The fantasy (tavern) universe, from VSCO 2 CE (tools/bake-notes.py).
+  Fiddle: 35, FluteStac: 36, Piccolo: 37, Bassoon: 38, BassoonStac: 39, Folk: 40,
 };
 
-export const InstrumentCount = 35;
+export const InstrumentCount = 41;
 
 // Gain: level matching (includes the files' headroom); Attack/Release in seconds (Attack 0 keeps
 // the recording's own); MelodyShift: semitones added to the melody when it leads; Pan, Send: default
@@ -59,4 +61,12 @@ export const Instruments = [
   { Name: 'Glass', Synth: 'glass', Gain: 1, Attack: 0, Release: 2, Pan: 0.2, Send: 0.5, MelodyShift: 0 },
   { Name: 'SoftVoice', Synth: 'soft', Gain: 1, Attack: 0.35, Release: 1.5, Pan: -0.15, Send: 0.5, MelodyShift: 0 },
   { Name: 'Drone', Synth: 'sub', Gain: 1, Attack: 1.5, Release: 3, Pan: 0, Send: 0.15, MelodyShift: 0 },
+  // The tavern band: a fiddle (solo violin, spiccato), flutes and piccolo, the bassoon, a frame drum and
+  // a tambourine (Folk kit: 36–39 drum, 42–45 tambourine hits, 46–47 shakes). Gains measured as above.
+  { Name: 'Fiddle', Gain: 1.35, Attack: 0, Release: 0, Pan: -0.2, Send: 0.35, MelodyShift: 0 },
+  { Name: 'FluteStac', Gain: 1.322, Attack: 0, Release: 0, Pan: 0.2, Send: 0.35, MelodyShift: 0 },
+  { Name: 'Piccolo', Gain: 0.441, Attack: 0.02, Release: 0.12, Pan: 0.25, Send: 0.35, MelodyShift: 0 },
+  { Name: 'Bassoon', Gain: 0.476, Attack: 0.05, Release: 0.2, Pan: 0.1, Send: 0.3, MelodyShift: 0 },
+  { Name: 'BassoonStac', Gain: 1.075, Attack: 0, Release: 0, Pan: 0.1, Send: 0.25, MelodyShift: 0 },
+  { Name: 'Folk', Gain: 2.165, Attack: 0, Release: 0, Pan: 0.05, Send: 0.3, MelodyShift: 0 },
 ];

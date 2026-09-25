@@ -37,6 +37,20 @@
   transition: --bg 1.6s, --glow-1 1.6s, --glow-2 1.6s, --stage-top 1.6s, --stage-bottom 1.6s, --shade 1.6s,
     --gold 1.6s, --gold-light 1.6s, --gold-deep 1.6s, --raised 1.6s;
 }
+:root[data-theme="lanterns"] {
+  --bg: #0b110c;
+  --glow-1: #2c3a1c;
+  --glow-2: #3a2412;
+  --stage-top: #111a12;
+  --stage-bottom: #070b07;
+  --shade: rgb(8, 12, 8);
+  --gold: #f2c46b;
+  --gold-light: #ffe2a0;
+  --gold-deep: #c98b2e;
+  --raised: #1d2618;
+  --ink: #1c1204;
+  --border: rgba(255, 230, 180, 0.1);
+}
 :root[data-theme="aurora"] {
   --bg: #06121a;
   --glow-1: #0e3d4a;
@@ -196,7 +210,11 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
   --art: repeating-linear-gradient(90deg, #0000 0 11px, #0006 11px 12px), repeating-linear-gradient(0deg, #0000 0 11px, #0006 11px 12px),
     linear-gradient(135deg, #3b2a8c, #1f7a5c); }
 .u-ambiance { --accent: #7fd6e8; --art: radial-gradient(80% 60% at 30% 70%, #3fb5a5aa, transparent 70%), radial-gradient(70% 60% at 75% 30%, #7a5cd6aa, transparent 70%), #0c1f2c; }
-.u-fantaisie { --accent: #c9e08a; --art: radial-gradient(40% 50% at 70% 60%, #ffcf7a99, transparent 70%), linear-gradient(180deg, #1f3a26, #0f1f14); }
+.u-fantaisie { --accent: #f2c46b;
+  --art: radial-gradient(circle at 24% 42%, #ffe2a0 0 4px, #f2c46b88 6px, transparent 16px), radial-gradient(circle at 52% 30%, #ffd27a 0 3px, #f2a64a88 5px, transparent 14px),
+    radial-gradient(circle at 78% 46%, #ffe2a0 0 4px, #f2c46b88 6px, transparent 16px), radial-gradient(circle at 38% 70%, #d8f08a 0 1.5px, transparent 3px),
+    radial-gradient(circle at 66% 64%, #d8f08a 0 1.5px, transparent 3px), radial-gradient(90% 60% at 50% 120%, #6a3a14aa, transparent 70%),
+    linear-gradient(180deg, #16241a, #0a110b); }
 .u-lofi { --accent: #f2a7c3; --art: radial-gradient(60% 70% at 30% 40%, #f2a7c366, transparent 70%), linear-gradient(135deg, #3a2a45, #22303f); }
 .u-synthwave { --accent: #ff5fd2; --art: repeating-linear-gradient(0deg, #0000 0 9px, #ff5fd255 9px 10px), linear-gradient(180deg, #2a0f4a 0%, #7a1f6b 60%, #ff8a4c 100%); }
 .tagline { font-family: var(--serif); font-size: clamp(26px, 4vw, 44px); line-height: 1.15; max-width: 720px; margin: 0; }

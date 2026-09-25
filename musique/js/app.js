@@ -172,17 +172,17 @@ function describe(song) {
 }
 
 // Instruments shown as one chip: the snare taps with the bass drum, the timpani rolls with the hits,
-// the cellos' spiccato with their held notes.
+// the cellos' spiccato and the bassoon's staccato with their held notes.
 const ChipOf = { [InstrumentId.Tap]: InstrumentId.Kick, [InstrumentId.TimpaniRoll]: InstrumentId.Timpani,
-  [InstrumentId.CellosSpic]: InstrumentId.Cello };
+  [InstrumentId.CellosSpic]: InstrumentId.Cello, [InstrumentId.BassoonStac]: InstrumentId.Bassoon };
 const chipOf = (i) => ChipOf[i] ?? i;
 
 // Each universe has its theme (colours and visualizer): Classique the lights, Cinématique the embers,
-// 8-bit the pixels, Ambiance the aurora.
+// 8-bit the pixels, Ambiance the aurora, Fantaisie the lanterns.
 function setTheme(theme) {
   if (document.documentElement.dataset.theme === theme) return;
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]').content = { embers: '#140b09', pixels: '#0b0a1a', aurora: '#06121a' }[theme] || '#0d1024';
+  document.querySelector('meta[name="theme-color"]').content = { embers: '#140b09', pixels: '#0b0a1a', aurora: '#06121a', lanterns: '#0c120d' }[theme] || '#0d1024';
 }
 
 function renderNow(id) {
@@ -350,11 +350,13 @@ function buildForm() {
   if (!u.room) delete choices.room;
   if (u.drums === false) delete choices.drums;
   if (u.styles.length === 1) delete choices.style;
+  if (!u.variants) delete choices.variant;
   if (choices.mode >= u.moods) delete choices.mode;
   store.set('choices', state.choices);
   const leadName = (id) => u.id === 'cinematique' && id === InstrumentId.Strings ? S.instruments[InstrumentId.ViolinsSpic] : S.instruments[id];
   const fields = [
     ...(u.styles.length > 1 ? [['style', L('style'), u.styles.map((i) => [i, S.styles[i]])]] : []),
+    ...(u.variants ? [['variant', L('style'), S.variants[u.id].map((v, i) => [i, v])]] : []),
     ['mode', L('mood'), S.moods.slice(0, u.moods).map((s, i) => [i, s])],
     ['lead', L('lead'), u.leads.map((id) => [id, leadName(id)])],
     ...(u.accomps ? [['accomp', L('accomp'), u.accomps.map((id) => [id, S.instruments[id]])]] : []),

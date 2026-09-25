@@ -43,15 +43,24 @@ export const InstrumentColors = [
   '#c9b6ff', // glass
   '#8fd3ff', // soft voice
   '#3f7fbf', // drone
+  '#f2a65a', // fiddle (lantern light)
+  '#ffd27a', // flute (staccato)
+  '#fff0b0', // piccolo
+  '#c98b4a', // bassoon
+  '#c98b4a', // bassoon (staccato)
+  '#f4dcb0', // frame drum and tambourine
 ];
 
 // In the embers, the instruments the cinematic style shares with the others take warm colours too.
 const EmberColors = { [I.Strings]: '#ff7a6b', [I.Cello]: '#e8603f', [I.Horn]: '#ffc46b', [I.Violin]: '#ff9a6b' };
 
 export const themeOf = (song) => !song ? 'lights' : song.style === MusicStyle.Cinematic ? 'embers'
-  : song.style === MusicStyle.Chiptune ? 'pixels' : song.style === MusicStyle.Ambient ? 'aurora' : 'lights';
+  : song.style === MusicStyle.Chiptune ? 'pixels' : song.style === MusicStyle.Ambient ? 'aurora'
+  : song.style === MusicStyle.Fantasy ? 'lanterns' : 'lights';
+// In the lanterns, those it shares with the others take lantern colours.
+const LanternColors = { [I.Harp]: '#e6c98a', [I.Bass]: '#b98552', [I.Flute]: '#d8f08a', [I.Oboe]: '#ffc27a' };
 export const colorOf = (instrument, theme) =>
-  (theme === 'embers' && EmberColors[instrument]) || InstrumentColors[instrument];
+  (theme === 'embers' && EmberColors[instrument]) || (theme === 'lanterns' && LanternColors[instrument]) || InstrumentColors[instrument];
 
 // A fixed pseudo-random number in [0, 1) for a note and a purpose, so the embers move the same way
 // on every frame without keeping any state.
@@ -126,6 +135,7 @@ export class Visualizer {
     if (theme === 'embers') return this.drawEmbers();
     if (theme === 'pixels') return this.drawPixels();
     if (theme === 'aurora') return this.drawAurora();
+    if (theme === 'lanterns') return this.drawLanterns();
 
     // Breathing glow from the low end of the spectrum.
     const energy = this.energy();
@@ -188,6 +198,75 @@ export class Visualizer {
       ctx.arc(x, y, radius * 3, 0, Math.PI * 2);
       ctx.fill();
     }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  // Lanterns: a tavern's garden at night. The tune's notes are paper lanterns hanging on a string,
+  // swaying as they drift away; the quick notes around them are fireflies, blinking and wandering;
+  // the bass warms the hearth's glow at the bottom and the drum makes it pulse.
+  drawLanterns() {
+    const { ctx, canvas } = this;
+    const W = canvas.width, H = canvas.height, dpr = this.dpr;
+    const t = this.player.currentTime, clock = performance.now() / 1000;
+    const energy = this.energy();
+    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const song = this.song;
+
+    // the hearth: its glow follows the bass and jumps with the drum
+    let beat = 0;
+    if (song) for (const n of song.notes) {
+      if (n.time > t) break;
+      if (n.instrument === I.Folk && n.midi <= 37 && t - n.time < 0.4) beat = Math.max(beat, 1 - (t - n.time) / 0.4);
+    }
+    const hearth = ctx.createRadialGradient(W * 0.5, free * 1.15, 0, W * 0.5, free * 1.15, Math.max(W * 0.5, free));
+    hearth.addColorStop(0, `rgba(255, 170, 70, ${0.08 + energy * 0.2 + beat * 0.08})`);
+    hearth.addColorStop(1, 'rgba(120, 60, 20, 0)');
+    ctx.fillStyle = hearth;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.globalCompositeOperation = 'lighter';
+    if (!song) { ctx.globalCompositeOperation = 'source-over'; return; }
+    const speed = (W * NowX) / PastSeconds;
+    const notes = song.notes;
+    let lo = 0, hi = notes.length;
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (notes[mid].time < t - PastSeconds) lo = mid + 1; else hi = mid; }
+    const fly = this.sprite('#d8f08a');
+    for (let i = lo; i < notes.length; i++) {
+      const n = notes[i];
+      if (n.time > t) break;
+      if (n.role === NoteRole.Drums || n.role === NoteRole.Pad) continue;
+      const age = t - n.time;
+      const fade = Math.max(0, 1 - age / PastSeconds);
+      const x0 = W * NowX - age * speed;
+      const y0 = free * (0.86 - (Math.min(Math.max(n.midi, 36), 100) - 36) / 64 * 0.78);
+      const color = colorOf(n.instrument, 'lanterns');
+      const lit = age < n.duration + 0.2;
+      if (n.role === NoteRole.Melody && (n.instrument !== I.Piccolo)) {
+        // a lantern: it swings on its string, glows while its note sounds, then keeps a soft light
+        const swing = Math.sin(clock * 1.6 + i) * 0.08 * Math.exp(-age * 0.3);
+        const len = free * 0.12;
+        const x = x0 + Math.sin(swing) * len, y = y0;
+        ctx.globalAlpha = 0.18 * fade;
+        ctx.strokeStyle = '#f4dcb0';
+        ctx.lineWidth = dpr;
+        ctx.beginPath(); ctx.moveTo(x0, y0 - len); ctx.lineTo(x, y - 5 * dpr); ctx.stroke();
+        const r = (lit ? 11 : 8) * dpr * (age < 0.1 ? 1.25 : 1);
+        ctx.globalAlpha = (lit ? 0.95 : 0.45) * fade;
+        ctx.drawImage(this.sprite(color), x - r * 3, y - r * 3, r * 6, r * 6);
+        ctx.globalAlpha = (lit ? 0.9 : 0.35) * fade;
+        ctx.fillStyle = color;
+        ctx.beginPath(); ctx.ellipse(x, y, r * 0.45, r * 0.6, swing, 0, Math.PI * 2); ctx.fill();
+        continue;
+      }
+      // a firefly: it wanders, blinks and fades out
+      const x = x0 + Math.sin(clock * 0.9 + i * 1.7) * 10 * dpr;
+      const y = y0 - age * 6 * dpr + Math.cos(clock * 1.1 + i) * 6 * dpr;
+      const blink = 0.5 + 0.5 * Math.sin(clock * 5 + i * 2.3);
+      const r = (n.instrument === I.Harp ? 2.5 : 3.5) * dpr;
+      ctx.globalAlpha = Math.min(1, (age < 0.15 ? 1 : 0.35 + 0.5 * blink) * fade * (n.role === NoteRole.Melody ? 1 : 0.7));
+      ctx.drawImage(n.role === NoteRole.Melody ? this.sprite(color) : fly, x - r * 3, y - r * 3, r * 6, r * 6);
+    }
+    ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
   }
 

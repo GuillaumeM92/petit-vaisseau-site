@@ -13,6 +13,7 @@ import { AllStyles, StyleWeights, getStyle, AccompPattern, ColorLayer, DrumsMode
 import { composeCinematic } from './cinematic.js';
 import { composeChiptune } from './chiptune.js';
 import { composeAmbient } from './ambient.js';
+import { composeFantasy } from './fantasy.js';
 
 export const NoteRole = { Accompaniment: 1, Bass: 2, Pad: 3, Melody: 4, Color: 5, Drums: 6 };
 
@@ -21,7 +22,8 @@ export const NoteRole = { Accompaniment: 1, Bass: 2, Pad: 3, Melody: 4, Color: 5
 export const Auto = -1, Off = -2;
 export function defaultOverrides() {
   return { Style: Auto, Form: Auto, Tempo: Auto, Key: Auto, Mode: Auto, ProgressionA: Auto, ProgressionB: Auto,
-    Accomp: Auto, Pattern: Auto, LeadA: Auto, LeadB: Auto, Bass: Auto, Pad: Auto, Color: Auto, Drums: Auto, Room: Auto };
+    Accomp: Auto, Pattern: Auto, LeadA: Auto, LeadB: Auto, Bass: Auto, Pad: Auto, Color: Auto, Drums: Auto, Room: Auto,
+    Variant: Auto };
 }
 
 const ArpGain = 0.099, MelodyGain = 0.105, BassGain = 0.093;
@@ -133,6 +135,7 @@ export function compose(seed, overrides) {
   if (o.Style === MusicStyle.Cinematic) return composeCinematic(seed, o);
   if (o.Style === MusicStyle.Chiptune) return composeChiptune(seed, o);
   if (o.Style === MusicStyle.Ambient) return composeAmbient(seed, o);
+  if (o.Style === MusicStyle.Fantasy) return composeFantasy(seed, o);
   const plan = new MusicRng(seed);
   const song = { seed, uses: new Array(InstrumentCount).fill(false) };
 
