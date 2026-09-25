@@ -3,12 +3,17 @@
 // still to come are shown greyed out ("coming soon"). A piece's universe follows from its style, so
 // every existing id and share link keeps working.
 import { MusicStyle } from '../engine/styles.js';
+import { Leads, Accomps } from '../engine/composer.js';
+import { CinematicLeads } from '../engine/cinematic.js';
+import { ChiptuneLeads } from '../engine/chiptune.js';
 
+// Settings shown for a universe: its soloists, how many moods (major, minor, dorian…), whether the
+// accompaniment and the room can be chosen.
 export const Universes = [
   // The game's six styles: a seed alone picks among them (same pieces as in Le Tapis Vert).
-  { id: 'classique', theme: 'lights', styles: [0, 1, 2, 3, 4, 5] },
-  { id: 'cinematique', theme: 'embers', styles: [MusicStyle.Cinematic] },
-  { id: 'chiptune', soon: true },
+  { id: 'classique', theme: 'lights', styles: [0, 1, 2, 3, 4, 5], leads: Leads, accomps: Accomps, moods: 5, room: true },
+  { id: 'cinematique', theme: 'embers', styles: [MusicStyle.Cinematic], leads: CinematicLeads, moods: 2, room: true },
+  { id: 'chiptune', theme: 'pixels', styles: [MusicStyle.Chiptune], leads: ChiptuneLeads, moods: 3, room: false },
   { id: 'ambiance', soon: true },
   { id: 'fantaisie', soon: true },
   { id: 'lofi', soon: true },

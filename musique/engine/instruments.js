@@ -6,9 +6,11 @@ export const InstrumentId = {
   // Only in the new styles (made by tools/bake-notes.py from VSCO 2 CE): the cinematic orchestra.
   Trumpet: 14, Trombone: 15, Tuba: 16, Horns: 17, ViolinsSpic: 18, ViolasSpic: 19, CellosSpic: 20, BassesSpic: 21,
   Timpani: 22, TimpaniRoll: 23, Cymbals: 24, Drums: 25,
+  // Synthesized (engine/synth.js, no file): the 8-bit console's voices.
+  Pulse12: 26, Pulse25: 27, Square: 28, Triangle: 29, Noise: 30,
 };
 
-export const InstrumentCount = 26;
+export const InstrumentCount = 31;
 
 // Gain: level matching (includes the files' headroom); Attack/Release in seconds (Attack 0 keeps
 // the recording's own); MelodyShift: semitones added to the melody when it leads; Pan, Send: default
@@ -44,4 +46,10 @@ export const Instruments = [
   { Name: 'TimpaniRoll', Gain: 0.65, Attack: 0, Release: 0.5, Pan: -0.05, Send: 0.45, MelodyShift: 0 },
   { Name: 'Cymbals', Gain: 0.97, Attack: 0, Release: 1.5, Pan: 0.1, Send: 0.5, MelodyShift: 0 },
   { Name: 'Drums', Gain: 2.95, Attack: 0, Release: 0.3, Pan: -0.1, Send: 0.4, MelodyShift: 0 },
+  // The console's voices (Synth: made by engine/synth.js): a quick release, as the console cuts its notes.
+  { Name: 'Pulse12', Synth: 'pulse12', Gain: 1, Attack: 0.002, Release: 0.012, Pan: 0.12, Send: 0.3, MelodyShift: 0 },
+  { Name: 'Pulse25', Synth: 'pulse25', Gain: 1, Attack: 0.002, Release: 0.012, Pan: -0.12, Send: 0.3, MelodyShift: 0 },
+  { Name: 'Square', Synth: 'pulse50', Gain: 1, Attack: 0.002, Release: 0.012, Pan: 0.05, Send: 0.3, MelodyShift: 0 },
+  { Name: 'Triangle', Synth: 'triangle', Gain: 1, Attack: 0.002, Release: 0.015, Pan: 0, Send: 0.1, MelodyShift: 0 },
+  { Name: 'Noise', Synth: 'noise', Gain: 1, Attack: 0, Release: 0.02, Pan: 0, Send: 0.15, MelodyShift: 0 },
 ];

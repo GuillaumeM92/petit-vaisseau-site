@@ -6,6 +6,7 @@ import { MusicStyle } from './styles.js';
 export const titleOf = (song, language) => title(song.seed, song.style, language);
 
 export const title = (seed, style, language) => style === MusicStyle.Cinematic ? cinematic(seed, language)
+  : style === MusicStyle.Chiptune ? chiptune(seed, language)
   : language === 'en' ? english(seed, style) : french(seed, style);
 
 // Templates 1-3 use the style word; the styles with a strong name use them half the time.
@@ -216,6 +217,49 @@ function cinematic(seed, language) {
     case 2: s = word + ' ' + of(noun) + ' ' + adjOf(noun, adj); break;
     case 3: s = the(noun) + ' et ' + the(other); break;
     default: s = rng.pick(FrEpicAlone);
+  }
+  return s[0].toUpperCase() + s.substring(1);
+}
+
+// ---------------- Chiptune (site only): the words of old video games ----------------
+
+const FrGamePlaces = [
+  F('forêt de cristal'), F('grotte glacée'), F('tour du sorcier'), F('cité flottante'), F('plage pixel'), F('mine abandonnée'),
+  F('station orbitale'), F('vallée des champignons'), F('forteresse volante'), F('île aux pièces'), F('route arc-en-ciel'),
+  M('château de nuages'), M('donjon perdu'), M('volcan grondant'), M('marais brumeux'), M('temple englouti'), M('désert de néon'),
+  M('village des slimes'), M('labyrinthe'), M('jardin suspendu'), M('train fantôme'), M('royaume des bonbons'),
+];
+const FrGameWords = ['Thème', 'Niveau', 'Aventure', 'Quête', 'Retour', 'Course', 'Exploration', 'Défi'];
+const FrGameAlone = ['Écran titre', 'Boss final', 'Partie sauvegardée', 'Continuer ?', 'Vie bonus', 'Niveau secret',
+  'Game over… ou pas', 'Insérer une pièce', 'Le dernier niveau', 'Crédits de fin', 'Joueur 2 prêt', 'Record battu'];
+const EnGamePlaces = ['Crystal Forest', 'Frozen Cave', "Wizard's Tower", 'Floating City', 'Pixel Beach', 'Abandoned Mine',
+  'Orbital Station', 'Mushroom Valley', 'Flying Fortress', 'Coin Island', 'Rainbow Road', 'Cloud Castle', 'Lost Dungeon',
+  'Rumbling Volcano', 'Misty Marsh', 'Sunken Temple', 'Neon Desert', 'Slime Village', 'Labyrinth', 'Hanging Garden',
+  'Ghost Train', 'Candy Kingdom'];
+const EnGameWords = ['Theme', 'Level', 'Adventure', 'Quest', 'Return', 'Race', 'Exploration', 'Challenge'];
+const EnGameAlone = ['Title Screen', 'Final Boss', 'Game Saved', 'Continue?', 'Extra Life', 'Secret Level',
+  'Game Over… or Not', 'Insert Coin', 'The Last Level', 'End Credits', 'Player 2 Ready', 'New High Score'];
+
+function chiptune(seed, language) {
+  const rng = new MusicRng(seed * 31 + 12);
+  const t = rng.range(0, 4);
+  const world = `${rng.range(1, 9)}-${rng.range(1, 5)}`;
+  if (language === 'en') {
+    const place = rng.pick(EnGamePlaces), word = rng.pick(EnGameWords);
+    switch (t) {
+      case 0: return 'World ' + world + ': ' + place;
+      case 1: return word + ' of the ' + place;
+      case 2: return 'The ' + place;
+      default: return rng.pick(EnGameAlone);
+    }
+  }
+  const place = rng.pick(FrGamePlaces), word = rng.pick(FrGameWords);
+  let s;
+  switch (t) {
+    case 0: s = 'Monde ' + world + ' : ' + the(place); break;
+    case 1: s = word + ' ' + of(place); break;
+    case 2: s = the(place); break;
+    default: s = rng.pick(FrGameAlone);
   }
   return s[0].toUpperCase() + s.substring(1);
 }

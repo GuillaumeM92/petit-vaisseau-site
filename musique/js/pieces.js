@@ -46,7 +46,8 @@ export function overridesFor(seed, choices) {
   if (choices.room !== undefined) o.Room = choices.room;
   if (choices.drums === 'y') o.Drums = DrumsMode.FromA;
   if (choices.drums === 'n') o.Drums = Off;
-  if (choices.tempo && choices.style === MusicStyle.Cinematic) o.TempoFeel = choices.tempo;
+  // the site's own styles take "slower" / "livelier" relative to their piece (see their composers)
+  if (choices.tempo && choices.style >= MusicStyle.Cinematic) o.TempoFeel = choices.tempo;
   else if (choices.tempo) {
     const style = getStyle(choices.style ?? styleOf(seed));
     o.Tempo = choices.tempo === 's' ? style.TempoMin : style.TempoMax;

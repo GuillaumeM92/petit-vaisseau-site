@@ -11,6 +11,7 @@ import { MusicRng } from './rng.js';
 import { InstrumentId, InstrumentCount, Instruments } from './instruments.js';
 import { AllStyles, StyleWeights, getStyle, AccompPattern, ColorLayer, DrumsMode, MusicMode, MusicStyle } from './styles.js';
 import { composeCinematic } from './cinematic.js';
+import { composeChiptune } from './chiptune.js';
 
 export const NoteRole = { Accompaniment: 1, Bass: 2, Pad: 3, Melody: 4, Color: 5, Drums: 6 };
 
@@ -129,6 +130,7 @@ export function compose(seed, overrides) {
   const o = { ...defaultOverrides(), ...(overrides || {}) };
   // The styles added on the site have their own composers (the six above stay as in the game).
   if (o.Style === MusicStyle.Cinematic) return composeCinematic(seed, o);
+  if (o.Style === MusicStyle.Chiptune) return composeChiptune(seed, o);
   const plan = new MusicRng(seed);
   const song = { seed, uses: new Array(InstrumentCount).fill(false) };
 

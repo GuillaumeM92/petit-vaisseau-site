@@ -37,6 +37,20 @@
   transition: --bg 1.6s, --glow-1 1.6s, --glow-2 1.6s, --stage-top 1.6s, --stage-bottom 1.6s, --shade 1.6s,
     --gold 1.6s, --gold-light 1.6s, --gold-deep 1.6s, --raised 1.6s;
 }
+:root[data-theme="pixels"] {
+  --bg: #0b0a1a;
+  --glow-1: #2a1c63;
+  --glow-2: #0f3a3f;
+  --stage-top: #121030;
+  --stage-bottom: #07060f;
+  --shade: rgb(8, 7, 20);
+  --gold: #5ef08a;
+  --gold-light: #a6ffbf;
+  --gold-deep: #25b857;
+  --raised: #1c1842;
+  --ink: #031409;
+  --border: rgba(190, 255, 210, 0.1);
+}
 :root[data-theme="embers"] {
   --bg: #120a08;
   --glow-1: #4a1d10;
@@ -117,7 +131,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 .stage:has(.start:not([hidden])) .now { display: none; }
 
 /* the universes: cards on the start screen, a switch above the player */
-.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 300px)); gap: 16px; justify-content: center; width: 100%; margin-top: 8px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 270px)); gap: 16px; justify-content: center; width: 100%; max-width: 900px; margin-top: 8px; }
 .universe-card {
   position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left;
   padding: 0 0 18px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); background: var(--surface);
@@ -132,7 +146,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
   font-size: 24px; color: #1b1004; background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 70%, white), var(--accent));
   box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 40%, transparent);
 }
-.soon-cards { grid-template-columns: repeat(5, minmax(0, 116px)); gap: 10px; margin-top: 4px; }
+.soon-cards { grid-template-columns: repeat(auto-fit, minmax(100px, 124px)); gap: 10px; margin-top: 4px; }
 .soon-cards .universe-card { padding-bottom: 10px; border-radius: 14px; cursor: default; filter: grayscale(0.75); opacity: 0.5; }
 .soon-cards .art { height: 44px; margin-bottom: 6px; }
 .soon-cards .card-name { font-size: 15px; padding: 0 10px; }

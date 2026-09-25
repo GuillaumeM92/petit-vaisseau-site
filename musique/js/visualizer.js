@@ -34,12 +34,18 @@ export const InstrumentColors = [
   '#fff1d6', // timpani rolls
   '#fff7e8', // cymbals
   '#ffe0c0', // drums
+  '#ff77a8', // thin pulse (an 8-bit console palette)
+  '#29adff', // pulse
+  '#ffec27', // square
+  '#00e436', // triangle
+  '#fff1e8', // noise
 ];
 
 // In the embers, the instruments the cinematic style shares with the others take warm colours too.
 const EmberColors = { [I.Strings]: '#ff7a6b', [I.Cello]: '#e8603f', [I.Horn]: '#ffc46b', [I.Violin]: '#ff9a6b' };
 
-export const themeOf = (song) => song && song.style === MusicStyle.Cinematic ? 'embers' : 'lights';
+export const themeOf = (song) => !song ? 'lights' : song.style === MusicStyle.Cinematic ? 'embers'
+  : song.style === MusicStyle.Chiptune ? 'pixels' : 'lights';
 export const colorOf = (instrument, theme) =>
   (theme === 'embers' && EmberColors[instrument]) || InstrumentColors[instrument];
 
@@ -112,7 +118,9 @@ export class Visualizer {
     const W = canvas.width, H = canvas.height, dpr = this.dpr;
     ctx.globalCompositeOperation = 'source-over';
     ctx.clearRect(0, 0, W, H);
-    if (themeOf(this.song) === 'embers') return this.drawEmbers();
+    const theme = themeOf(this.song);
+    if (theme === 'embers') return this.drawEmbers();
+    if (theme === 'pixels') return this.drawPixels();
 
     // Breathing glow from the low end of the spectrum.
     const energy = this.energy();
@@ -176,6 +184,67 @@ export class Visualizer {
       ctx.fill();
     }
     ctx.globalCompositeOperation = 'source-over';
+  }
+
+  // Pixels: the screen of an old console. Every note is a block on a grid (its height the pitch, the
+  // theme's notes two blocks tall), held notes a row of blocks; blocks flash when struck and fade in
+  // four steps; the drums light the bottom row; faint scanlines over it all.
+  drawPixels() {
+    const { ctx, canvas } = this;
+    const W = canvas.width, H = canvas.height, dpr = this.dpr;
+    const cell = Math.round(7 * dpr);
+    const t = this.player.currentTime;
+    const energy = this.energy();
+    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const rows = Math.floor(free / cell);
+    const now = Math.floor((W * NowX) / cell);
+
+    // the grid, breathing a little with the bass
+    ctx.fillStyle = `rgba(94, 240, 138, ${0.025 + energy * 0.05})`;
+    for (let x = 0; x < W; x += cell) ctx.fillRect(x, 0, Math.max(1, dpr * 0.5), free);
+    for (let y = 0; y < free; y += cell) ctx.fillRect(0, y, W, Math.max(1, dpr * 0.5));
+    ctx.fillStyle = 'rgba(94, 240, 138, 0.18)';
+    ctx.fillRect(now * cell, 0, Math.max(1, dpr), free);
+
+    const song = this.song;
+    if (song) {
+      const speed = (now * cell) / PastSeconds;
+      const notes = song.notes;
+      let lo = 0, hi = notes.length;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (notes[mid].time < t - PastSeconds) lo = mid + 1; else hi = mid; }
+      for (let i = lo; i < notes.length; i++) {
+        const n = notes[i];
+        if (n.time > t) break;
+        const age = t - n.time;
+        const x = Math.round((now * cell - age * speed) / cell) * cell;
+        const color = InstrumentColors[n.instrument];
+        const fade = Math.ceil(Math.max(0, 1 - age / PastSeconds) * 4) / 4; // four steps, like the console's palette
+        const drum = n.role === NoteRole.Drums;
+        const lead = n.role === NoteRole.Melody;
+        const flash = age < 0.08;
+        if (drum) {
+          const w = n.midi === 49 ? 6 : n.midi === 36 ? 3 : n.midi === 38 ? 2 : 1;
+          ctx.globalAlpha = fade * (flash ? 1 : 0.55);
+          ctx.fillStyle = flash ? '#ffffff' : color;
+          ctx.fillRect(x - Math.floor(w / 2) * cell, (rows - 1) * cell, w * cell - dpr, cell - dpr);
+          continue;
+        }
+        const row = Math.max(0, Math.min(rows - 3, Math.round((1 - (Math.min(Math.max(n.midi, 30), 96) - 30) / 66) * (rows - 4))));
+        const len = Math.max(1, Math.round(Math.min(n.duration, age) * speed / cell));
+        const size = lead ? 2 : 1;
+        ctx.globalAlpha = fade * (lead ? 1 : 0.6);
+        ctx.fillStyle = color;
+        ctx.fillRect(x, row * cell, len * cell - dpr, size * cell - dpr);
+        if (flash) {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(x, row * cell, cell - dpr, size * cell - dpr);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    // scanlines
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+    for (let y = 0; y < free; y += 3 * dpr) ctx.fillRect(0, y, W, dpr);
   }
 
   // Embers: each note is a spark that rises and cools (white-hot, then its colour, then out) while

@@ -6,9 +6,7 @@ import { songFor, pieceId, parsePieceId, randomSeed, pieceTitle } from './pieces
 import { Universes, universe, universeOfSong } from './universes.js';
 import { Strings, t } from './i18n.js';
 import { InstrumentId, InstrumentCount, Instruments } from '../engine/instruments.js';
-import { Leads, Accomps } from '../engine/composer.js';
 import { MusicStyle } from '../engine/styles.js';
-import { CinematicLeads } from '../engine/cinematic.js';
 
 const $ = (sel) => document.querySelector(sel);
 const store = {
@@ -179,11 +177,12 @@ const ChipOf = { [InstrumentId.Tap]: InstrumentId.Kick, [InstrumentId.TimpaniRol
   [InstrumentId.CellosSpic]: InstrumentId.Cello };
 const chipOf = (i) => ChipOf[i] ?? i;
 
-// Each universe has its theme (colours and visualizer): Classique the lights, Cinématique the embers.
+// Each universe has its theme (colours and visualizer): Classique the lights, Cinématique the embers,
+// 8-bit the pixels.
 function setTheme(theme) {
   if (document.documentElement.dataset.theme === theme) return;
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]').content = theme === 'embers' ? '#140b09' : '#0d1024';
+  document.querySelector('meta[name="theme-color"]').content = { embers: '#140b09', pixels: '#0b0a1a' }[theme] || '#0d1024';
 }
 
 function renderNow(id) {
@@ -339,26 +338,28 @@ function option(value, label) {
   return o;
 }
 
-// The settings of the current universe. Cinématique: its own soloists, no accompaniment to choose
-// (its strings' ostinato), only a bright (major) or melancholic (minor) mood.
+// The settings of the current universe (js/universes.js): its styles, soloists and moods, the
+// accompaniment and the room where they can be chosen (Cinématique: its strings' ostinato accompanies;
+// 8-bit: the console's dry sound).
 function buildForm() {
   const S = Strings[state.lang];
   const u = universe(state.universe);
   const choices = choicesOf(u.id);
-  const cinematic = u.id === 'cinematique';
-  const leads = cinematic ? CinematicLeads : Leads;
-  if (choices.lead !== undefined && !leads.includes(choices.lead)) delete choices.lead;
-  if (cinematic) { delete choices.accomp; delete choices.style; if (choices.mode > 1) delete choices.mode; }
+  if (choices.lead !== undefined && !u.leads.includes(choices.lead)) delete choices.lead;
+  if (!u.accomps) delete choices.accomp;
+  if (!u.room) delete choices.room;
+  if (u.styles.length === 1) delete choices.style;
+  if (choices.mode >= u.moods) delete choices.mode;
   store.set('choices', state.choices);
-  const leadName = (id) => cinematic && id === InstrumentId.Strings ? S.instruments[InstrumentId.ViolinsSpic] : S.instruments[id];
+  const leadName = (id) => u.id === 'cinematique' && id === InstrumentId.Strings ? S.instruments[InstrumentId.ViolinsSpic] : S.instruments[id];
   const fields = [
     ...(u.styles.length > 1 ? [['style', L('style'), u.styles.map((i) => [i, S.styles[i]])]] : []),
-    ['mode', L('mood'), (cinematic ? S.moods.slice(0, 2) : S.moods).map((s, i) => [i, s])],
-    ['lead', L('lead'), leads.map((id) => [id, leadName(id)])],
-    ...(cinematic ? [] : [['accomp', L('accomp'), Accomps.map((id) => [id, S.instruments[id]])]]),
+    ['mode', L('mood'), S.moods.slice(0, u.moods).map((s, i) => [i, s])],
+    ['lead', L('lead'), u.leads.map((id) => [id, leadName(id)])],
+    ...(u.accomps ? [['accomp', L('accomp'), u.accomps.map((id) => [id, S.instruments[id]])]] : []),
     ['tempo', L('tempo'), [['s', L('slower')], ['f', L('faster')]]],
     ['drums', L('drums'), [['y', L('with')], ['n', L('without')]]],
-    ['room', L('room'), S.rooms.map((s, i) => [i, s])],
+    ...(u.room ? [['room', L('room'), S.rooms.slice(0, 5).map((s, i) => [i, s])]] : []),
   ];
   const form = $('#fields');
   form.textContent = '';

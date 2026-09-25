@@ -3,6 +3,7 @@
 // rendered to an MP3 or WAV file, faster than real time and entirely on this device.
 import { Instruments, InstrumentCount } from '../engine/instruments.js';
 import { newBank, addNoteFile, finishBank, parseWav } from '../engine/notebank.js';
+import { synthBank } from '../engine/synth.js';
 import { songFor } from './pieces.js';
 
 const BaseVolume = 0.9; // the game plays at 0.17 under its sound effects; here the music is alone
@@ -76,6 +77,8 @@ export class Player {
   // The bank of one instrument, fetched and prepared once.
   loadBank(id) {
     this.bankLoads[id] ??= (async () => {
+      // a synthesized instrument is made here, nothing to fetch
+      if (Instruments[id].Synth) return (this.banks[id] = synthBank(Instruments[id].Synth));
       const manifest = await this.loadManifest();
       const name = Instruments[id].Name;
       const bank = newBank();
