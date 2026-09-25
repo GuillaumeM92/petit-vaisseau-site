@@ -14,9 +14,11 @@ export const InstrumentId = {
   Fiddle: 35, FluteStac: 36, Piccolo: 37, Bassoon: 38, BassoonStac: 39, Folk: 40,
   // Synthesized: the lo-fi universe.
   EPiano: 41, LofiKit: 42, Vinyl: 43,
+  // The upright piano's soft layer (VSCO dyn1: a darker tone), for the notes played softly in Classique.
+  PianoSoft: 44,
 };
 
-export const InstrumentCount = 44;
+export const InstrumentCount = 45;
 
 // Gain: level matching (includes the files' headroom); Attack/Release in seconds (Attack 0 keeps
 // the recording's own); MelodyShift: semitones added to the melody when it leads; Pan, Send: default
@@ -76,4 +78,6 @@ export const Instruments = [
   { Name: 'EPiano', Synth: 'epiano', Gain: 1, Attack: 0, Release: 0.35, Pan: -0.1, Send: 0.3, MelodyShift: 0 },
   { Name: 'LofiKit', Synth: 'lofikit', Gain: 1, Attack: 0, Release: 0.05, Pan: 0, Send: 0.1, MelodyShift: 0 },
   { Name: 'Vinyl', Synth: 'vinyl', Gain: 1, Attack: 1.5, Release: 2, Pan: 0, Send: 0, MelodyShift: 0 },
+  // as loud as the piano at the same note gain (measured on the attack): only its colour is softer
+  { Name: 'PianoSoft', Gain: 1.3, Attack: 0, Release: 0.3, Pan: 0, Send: 0.35, MelodyShift: 0 },
 ];

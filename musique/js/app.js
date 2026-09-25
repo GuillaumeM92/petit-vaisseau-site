@@ -174,7 +174,8 @@ function describe(song) {
 // Instruments shown as one chip: the snare taps with the bass drum, the timpani rolls with the hits,
 // the cellos' spiccato and the bassoon's staccato with their held notes.
 const ChipOf = { [InstrumentId.Tap]: InstrumentId.Kick, [InstrumentId.TimpaniRoll]: InstrumentId.Timpani,
-  [InstrumentId.CellosSpic]: InstrumentId.Cello, [InstrumentId.BassoonStac]: InstrumentId.Bassoon };
+  [InstrumentId.CellosSpic]: InstrumentId.Cello, [InstrumentId.BassoonStac]: InstrumentId.Bassoon,
+  [InstrumentId.PianoSoft]: InstrumentId.Piano };
 const chipOf = (i) => ChipOf[i] ?? i;
 
 // Each universe has its theme (colours and visualizer): Classique the lights, Cinématique the embers,
@@ -226,8 +227,19 @@ function renderNow(id) {
   }
 }
 
-// Progress and lit instruments, every frame.
-function tick() {
+// Progress and lit instruments, every frame (every other one on phones). Only the last seconds' notes
+// are looked at, and the very long ones (a drone, the record's crackle) kept aside once per piece.
+const lite = matchMedia('(pointer: coarse)').matches || innerWidth < 700;
+let lastTick = 0;
+function firstFrom(notes, time) {
+  let lo = 0, hi = notes.length;
+  while (lo < hi) { const mid = (lo + hi) >> 1; if (notes[mid].time < time) lo = mid + 1; else hi = mid; }
+  return lo;
+}
+function tick(now) {
+  requestAnimationFrame(tick);
+  if (document.hidden || (lite && now - lastTick < 30)) return;
+  lastTick = now;
   const id = player.current;
   if (id) {
     const song = songFor(id);
@@ -235,22 +247,31 @@ function tick() {
     $('#elapsed').textContent = clock(time);
     $('#fill').style.width = `${(time / song.length) * 100}%`;
     const lit = new Set();
-    for (const n of song.notes) {
+    song.longNotes ??= song.notes.filter((n) => n.duration > 12);
+    for (const n of song.longNotes) if (n.time <= time && time < n.time + n.duration) lit.add(chipOf(n.instrument));
+    for (let i = firstFrom(song.notes, time - 12.5); i < song.notes.length; i++) {
+      const n = song.notes[i];
       if (n.time > time) break;
       if (time < n.time + n.duration + 0.15) lit.add(chipOf(n.instrument));
     }
     for (const chip of $('#chips').children) chip.classList.toggle('lit', lit.has(Number(chip.dataset.instrument)));
   }
+}
+
+// The sleep timer: checked every second on its own (the frames above stop when the screen is off,
+// which is exactly when it is used).
+function checkTimer() {
   if (state.timerEnd) {
     const left = state.timerEnd - Date.now();
     if (left <= 0) {
       state.timerEnd = 0;
       $('#timer').value = '0';
+      $('#timerLeft').textContent = '';
       fadeOutAndPause();
     } else $('#timerLeft').textContent = L('timerLeft', Math.ceil(left / 60000));
   } else $('#timerLeft').textContent = '';
-  requestAnimationFrame(tick);
 }
+setInterval(checkTimer, 1000);
 
 async function fadeOutAndPause() {
   const volume = player.volume;
@@ -533,7 +554,7 @@ $('#generate').addEventListener('click', async () => {
 });
 $('#volume').value = String(player.volume);
 $('#volume').addEventListener('input', (e) => { player.setVolume(Number(e.target.value)); store.set('volume', player.volume); });
-$('#timer').addEventListener('change', (e) => { const m = Number(e.target.value); state.timerEnd = m ? Date.now() + m * 60000 : 0; });
+$('#timer').addEventListener('change', (e) => { const m = Number(e.target.value); state.timerEnd = m ? Date.now() + m * 60000 : 0; checkTimer(); });
 $('#bar').addEventListener('click', (e) => {
   const id = player.current;
   if (!id) return;

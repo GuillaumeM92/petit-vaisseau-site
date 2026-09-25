@@ -1,5 +1,8 @@
-// Writes a piece from a seed: a line-by-line port of the game's SongComposer.cs (keep in sync),
-// so a number plays the same piece here and in Le Tapis Vert.
+// Writes a piece from a seed: the Classique universe (and the dispatch to the other universes' composers).
+// Born as a port of the game's SongComposer.cs (Le Tapis Vert); since 2026-09-25 the site's goes further
+// (its pieces no longer match the game's): the sections have a dynamic arc and change texture, the
+// accompaniment varies and its bass walks, the melody is diatonic with questions and answers between
+// two instruments, the end slows down, the piano plays its soft layer when it accompanies.
 //
 // The seed first picks a style, then within what that style allows: form and length, tempo, key
 // and mode, chord progressions (plain triads), which instrument accompanies and how, which one leads
@@ -211,16 +214,30 @@ export function compose(seed, overrides) {
   const aStart = sections.find((s) => s.kind === 'A').bar;
   const bStart = sections.find((s) => s.kind === 'B').bar;
   const outroStart = [...sections].reverse().find((s) => s.kind === 'O').bar;
+  const sectionAt = (b) => [...sections].reverse().find((s) => s.bar <= b) || sections[0];
+  const lastA = [...sections].reverse().find((s) => s.kind === 'A');
+
+  // The arc: a soft intro, the B sections a little fuller, the theme's last return the fullest, a
+  // gentle end. Every layer follows it.
+  const intensity = (s) => s.kind === 'I' ? 0.8 : s.kind === 'O' ? 0.85 : s.kind === 'B' ? 1
+    : s === lastA && s.bar !== aStart ? 1.06 : s.bar === aStart ? 0.9 : 0.96;
+  // A breath before the theme's last return: the bar before it is lighter, without drums.
+  const breathBar = lastA.bar !== aStart && sectionAt(lastA.bar - 1).kind === 'B' ? lastA.bar - 1 : -1;
+  // The end slows down: over the last two bars the beat stretches up to half again as long.
+  const ritFrom = (bars - 2) * bpb, ritLength = 2 * bpb, ritAmount = 0.5;
+  const warp = (b) => b <= ritFrom ? b : b + ritAmount * (b - ritFrom) ** 2 / (2 * ritLength);
+  song.length = warp(bars * bpb) * beat;
 
   const notes = [];
   let role = 0;
 
   function add(human, beats, instrument, midi, durationBeats, gain, pan = null, send = null, slur = false) {
     const info = Instruments[instrument];
-    const time = beats * beat + (human ? human.normal() * 0.005 : 0);
+    const time = warp(beats) * beat + (human ? human.normal() * 0.005 : 0);
+    const k = intensity(sectionAt(Math.min(Math.trunc(beats / bpb), bars - 1)));
     notes.push({
-      time: Math.max(0, time), instrument, midi, duration: fround(durationBeats * beat),
-      gain: fround(gain), pan: pan ?? info.Pan, send: send ?? info.Send, role, slur,
+      time: Math.max(0, time), instrument, midi, duration: fround((warp(beats + durationBeats) - warp(beats)) * beat),
+      gain: fround(gain * k), pan: pan ?? info.Pan, send: send ?? info.Send, role, slur,
     });
     song.uses[instrument] = true;
   }
@@ -230,39 +247,60 @@ export function compose(seed, overrides) {
   // ---- accompaniment
   role = NoteRole.Accompaniment;
   const acc = new MusicRng(seed * 31 + 1);
+  const texture = new MusicRng(seed * 31 + 7); // the choices added on the site: their own stream
   const accGain = fround(ArpGain * (song.accomp === InstrumentId.Marimba ? 0.8 : 1));
+  // The B sections change the pattern (another of the style's), the theme's pattern coming back with A.
+  const others = style.Patterns.filter((p) => p !== song.pattern);
+  const patternB = song.pattern === AccompPattern.Held || !others.length ? song.pattern : texture.pick(others);
+  // The piano accompanies with its soft layer (a darker tone), its first note of the bar excepted.
+  const accompInst = (accent) => song.accomp === InstrumentId.Piano && !accent ? InstrumentId.PianoSoft : song.accomp;
   let prevVoicing = null, prevLow = null;
   for (let b = 0; b < bars; b++) {
     const ch = chords[b];
     const t0 = b * bpb;
     const last = b === bars - 1;
+    const s = sectionAt(b);
+    const phraseEnd = (b - s.bar) % 4 === 3 && s.kind !== 'I'; // a small variation closes each phrase
     const lo = 48 + mod(ch.root - 48, 12);
     const arp = [lo, lo + 7, lo + 12, lo + 12 + ch.thirdInterval, lo + 19];
     const voicing = voice(ch, prevVoicing);
     prevVoicing = voicing;
     if (song.pattern === AccompPattern.Held) {
       for (const m of voicing)
-        add(acc, t0, song.accomp, m, last ? bpb : bpb + 0.05, 0.0215 * velocity(0.6 + 0.1 * acc.nextDouble()), arpPan(m));
+        add(acc, t0, song.accomp, m, last ? bpb * 1.5 : bpb + 0.05, 0.0215 * velocity(0.6 + 0.1 * acc.nextDouble()), arpPan(m));
       continue;
     }
     if (last) {
-      for (let j = 0; j < 4; j++)
-        add(acc, t0 + j * 0.12, song.accomp, arp[j], bpb, accGain * velocity(0.5), arpPan(arp[j]));
+      // the last chord, rolled slowly from the bass up, and held
+      const roll = arp;
+      for (let j = 0; j < roll.length; j++)
+        add(acc, t0 + j * 0.22, accompInst(j === 0), roll[j], bpb * 1.5, accGain * velocity(0.5 - 0.02 * j), arpPan(roll[j]));
       continue;
     }
-    switch (song.pattern) {
+    if (b === breathBar) {
+      // the breath: the chord once, held
+      for (let j = 0; j < 4; j++)
+        add(acc, t0 + j * 0.1, accompInst(j === 0), arp[j], bpb, accGain * 0.85 * velocity(0.45), arpPan(arp[j]));
+      continue;
+    }
+    switch (s.kind === 'B' ? patternB : song.pattern) {
       case AccompPattern.Arpeggio: {
-        const order = bpb === 3 ? [0, 1, 2, 3, 2, 1] : [0, 1, 2, 3, 4, 3, 2, 1];
+        // at a phrase's end the arpeggio climbs on to the next octave's third instead of coming down
+        const order = bpb === 3 ? (phraseEnd ? [0, 1, 2, 3, 4, 3] : [0, 1, 2, 3, 2, 1])
+          : phraseEnd ? [0, 1, 2, 3, 4, 5, 4, 3] : [0, 1, 2, 3, 4, 3, 2, 1];
+        const ext = [...arp, lo + 24, lo + 24 + ch.thirdInterval];
         for (let k = 0; k < order.length; k++) {
           const v = (k === 0 ? 0.5 : 0.38) + 0.06 * acc.nextDouble();
-          add(acc, t0 + k / 2.0, song.accomp, arp[order[k]], 1.4, accGain * velocity(v), arpPan(arp[order[k]]));
+          const m = order[k] === 5 ? ext[6] : order[k] === 4 && phraseEnd && bpb === 3 ? ext[4] : ext[order[k]];
+          add(acc, t0 + k / 2.0, accompInst(k === 0), m, 1.4, accGain * velocity(v), arpPan(m));
         }
         break;
       }
       case AccompPattern.SlowArpeggio:
         for (let k = 0; k < bpb; k++) {
           const v = (k === 0 ? 0.5 : 0.42) + 0.06 * acc.nextDouble();
-          add(acc, t0 + k, song.accomp, arp[k], 2.2, accGain * velocity(v), arpPan(arp[k]));
+          const m = phraseEnd && k === bpb - 1 ? arp[4] : arp[k];
+          add(acc, t0 + k, accompInst(k === 0), m, 2.2, accGain * velocity(v), arpPan(m));
         }
         break;
       case AccompPattern.Rolled: {
@@ -270,24 +308,31 @@ export function compose(seed, overrides) {
         for (let half = 0; half < (bpb === 4 ? 2 : 1); half++)
           for (let j = 0; j < rolled.length; j++) {
             const v = (half === 0 ? 0.5 : 0.4) + 0.05 * acc.nextDouble();
-            add(acc, t0 + half * 2 + j * 0.08, song.accomp, rolled[j], bpb === 4 ? 1.9 : 2.9, accGain * 0.8 * velocity(v), arpPan(rolled[j]));
+            // at a phrase's end the second roll opens up to the octave above
+            const m = phraseEnd && half === 1 && j === 3 ? rolled[j] + 5 : rolled[j];
+            add(acc, t0 + half * 2 + j * 0.08, accompInst(half === 0 && j === 0), m, bpb === 4 ? 1.9 : 2.9, accGain * 0.8 * velocity(v), arpPan(m));
           }
         break;
       }
       case AccompPattern.Waltz:
-        // "Oom-pah-pah": the bass has the first beat, the chord answers on the others.
+        // "Oom-pah-pah": the bass has the first beat, the chord answers on the others (higher at a phrase's end).
         for (let k = 1; k < bpb; k++)
           for (const m of voicing)
-            add(acc, t0 + k, song.accomp, m, 0.8, accGain * 0.5 * velocity((k === 1 ? 0.48 : 0.42) + 0.05 * acc.nextDouble()), arpPan(m));
+            add(acc, t0 + k, accompInst(false), m + (phraseEnd && k === bpb - 1 ? 12 : 0), 0.8,
+              accGain * 0.5 * velocity((k === 1 ? 0.48 : 0.42) + 0.05 * acc.nextDouble()), arpPan(m));
         break;
       case AccompPattern.Alberti: {
-        // Classical broken chord: low, high, middle, high, in eighths.
+        // Classical broken chord: low, high, middle, high, in eighths (a rolled chord closes a phrase).
         const low = voice(ch, prevLow, 48, 55);
         prevLow = low;
         const alberti = [0, 2, 1, 2];
         for (let k = 0; k < bpb * 2; k++) {
           const v = (k === 0 ? 0.5 : 0.4) + 0.05 * acc.nextDouble();
-          add(acc, t0 + k / 2.0, song.accomp, low[alberti[k % 4]], 0.9, accGain * 0.85 * velocity(v), arpPan(low[alberti[k % 4]]));
+          if (phraseEnd && k >= bpb * 2 - 2) {
+            if (k === bpb * 2 - 2) for (let j = 0; j < 3; j++) add(acc, t0 + k / 2 + j * 0.08, accompInst(false), low[j], 1, accGain * 0.8 * velocity(0.45), arpPan(low[j]));
+            continue;
+          }
+          add(acc, t0 + k / 2.0, accompInst(k === 0), low[alberti[k % 4]], 0.9, accGain * 0.85 * velocity(v), arpPan(low[alberti[k % 4]]));
         }
         break;
       }
@@ -297,6 +342,10 @@ export function compose(seed, overrides) {
   // ---- bass
   role = NoteRole.Bass;
   const bassRng = new MusicRng(seed * 31 + 2);
+  const walk = new MusicRng(seed * 31 + 8);
+  const diatonic = [];
+  for (let m = 24; m < 60; m++) if (Scales[song.mode].includes(mod(m - song.key, 12))) diatonic.push(m);
+  const rubsBass = (ch, m) => !ch.has(m) && ch.tones.some((t) => mod(m - t, 12) === 1 || mod(t - m, 12) === 1);
   if (song.hasBass) {
     const slow = song.style === MusicStyle.Relaxing || song.style === MusicStyle.Contemplative;
     for (let b = bassInIntro ? 0 : aStart; b < bars; b++) {
@@ -310,24 +359,39 @@ export function compose(seed, overrides) {
       }
       if (root > 45) root -= 12;
       const fifth = root + 7;
+      const second = bassRng.nextDouble() < 0.5 ? root : fifth;
+      // When the next chord's root is not this one, the bass walks to it: the scale's note next to
+      // it, on the last beat (short, on a weak beat: a passing note).
+      const next = b + 1 < bars ? chords[b + 1] : null;
+      let approach = -1;
+      if (next && next.root !== ch.root && b !== breathBar && walk.nextDouble() < (bpb === 3 || slow ? 0.35 : 0.55)) {
+        const target = nearest(diatonic.filter((m) => mod(m, 12) === next.root), root);
+        // a step from the next root, which rubs against neither chord
+        const steps = diatonic.filter((m) => m !== target && Math.abs(m - target) <= 2 && !rubsBass(ch, m) && !rubsBass(next, m));
+        approach = steps.length ? nearest(steps, second) : -1;
+      }
       // Plucked: each note rings until the next one.
       if (bpb === 3 || slow || last) {
-        add(bassRng, t0, InstrumentId.Bass, root, last ? bpb : bpb + 0.02, BassGain * velocity(0.8));
+        const len = last ? bpb * 1.5 : approach >= 0 ? bpb - 1 : bpb + 0.02;
+        add(bassRng, t0, InstrumentId.Bass, root, len, BassGain * velocity(0.8));
+        if (!last && approach >= 0) add(walk, t0 + bpb - 1, InstrumentId.Bass, approach, 1.02, BassGain * velocity(0.6));
         continue;
       }
       add(bassRng, t0, InstrumentId.Bass, root, 2.02, BassGain * velocity(0.8));
-      add(bassRng, t0 + 2, InstrumentId.Bass, bassRng.nextDouble() < 0.5 ? root : fifth, 2.02, BassGain * velocity(0.68));
+      add(bassRng, t0 + 2, InstrumentId.Bass, second, approach >= 0 ? 1.02 : 2.02, BassGain * velocity(0.68));
+      if (approach >= 0) add(walk, t0 + 3, InstrumentId.Bass, approach, 1.02, BassGain * velocity(0.6));
     }
   }
 
   // ---- string pad
   role = NoteRole.Pad;
   if (song.pad >= 0) {
+    // the strings come in with the first B section (a texture that grows)
     let prev = null;
-    for (let b = 0; b < bars; b++) {
+    for (let b = bStart; b < bars; b++) {
       const v = voice(chords[b], prev, 52, 60);
       prev = v;
-      for (const m of v) add(null, b * bpb, song.pad, m, b === bars - 1 ? bpb : bpb + 0.05, 0.0085);
+      for (const m of v) add(null, b * bpb, song.pad, m, b === bars - 1 ? bpb * 1.5 : bpb + 0.05, 0.0085);
     }
   }
 
@@ -341,7 +405,10 @@ export function compose(seed, overrides) {
   const cellA = mel.pickWeighted(indices(style.RhythmCells.length), style.RhythmCellWeights);
   const cellB = mel.pickWeighted(indices(style.RhythmCells.length), style.RhythmCellWeights);
   const scale = [];
-  const scaleDegrees = style.Diatonic ? Scales[song.mode] : Pentatonics[song.mode];
+  // the whole scale (the calm styles keep the pentatonic's float); no long note rubs against the chord
+  const calm = song.style === MusicStyle.Relaxing || song.style === MusicStyle.Contemplative;
+  const scaleDegrees = style.Diatonic || !calm ? Scales[song.mode] : Pentatonics[song.mode];
+  const rubs = (ch, m) => !ch.has(m) && ch.tones.some((t) => mod(m - t, 12) === 1 || mod(t - m, 12) === 1);
   for (let m = 55; m < 95; m++) if (scaleDegrees.includes(mod(m - song.key, 12))) scale.push(m);
 
   function newMotif() {
@@ -378,7 +445,8 @@ export function compose(seed, overrides) {
   const answer = (motif) => ({ onsets: motif.onsets, durations: motif.durations, moves: motif.moves.map((m) => -m) });
 
   let previous = -1; // the last melody note, across motifs
-  function realize(motif, bar0, target, resolve, lead) {
+  // resolve: the phrase ends on the chord's root (an answer); open: on another of its notes (a question)
+  function realize(motif, bar0, target, resolve, lead, open = false) {
     const shift = Instruments[lead].MelodyShift;
     let p = -1, first = -1;
     const count = motif.onsets.length;
@@ -398,12 +466,16 @@ export function compose(seed, overrides) {
       const strong = e % (bpb * 2) === 0 || d >= 4 || i === count - 1;
       if (strong) {
         const toRoot = resolve && i === count - 1;
+        const away = open && i === count - 1;
         const pool = [];
         for (let m = lowest - 2; m < highest + 3; m++)
-          if (toRoot ? mod(m, 12) === ch.root : ch.has(m)) pool.push(m);
+          if (toRoot ? mod(m, 12) === ch.root : ch.has(m) && !(away && mod(m, 12) === ch.root)) pool.push(m);
         p = nearest(pool, p);
         if (previous >= 0 && Math.abs(p - previous) === 6 && !toRoot) p = avoidTritone(pool, p, previous);
-      } else if (previous >= 0 && Math.abs(p - previous) === 6) p = avoidTritone(scale, p, previous);
+      } else {
+        if (d >= 2 && rubs(ch, p)) p = nearest(scale.filter((m) => !rubs(ch, m) && m >= lowest && m <= highest), p);
+        if (previous >= 0 && Math.abs(p - previous) === 6) p = avoidTritone(scale, p, previous);
+      }
       previous = p;
       const v = 0.6 + (d >= 4 ? 0.1 : 0) + 0.1 * mel.nextDouble();
       // A wind (or a bowed string) plays a motif in one breath (bow): each note but the first is
@@ -424,6 +496,10 @@ export function compose(seed, overrides) {
   const planWeights = [0.35, 0.25, 0.2, 0.2];
   const planA = phrasePlans[mel.pickWeighted(indices(4), planWeights)];
   const planB = phrasePlans[mel.pickWeighted(indices(4), planWeights)];
+
+  // When the theme comes back, a second instrument answers its phrases (the style's other voices).
+  const responders = style.Leads.filter((l) => l !== song.accomp && l !== song.leadA && l !== song.leadA2);
+  const responder = responders.length ? texture.pick(responders) : -1;
 
   let melodyTarget = center;
   let motifsA = null, motifsB = null;
@@ -448,11 +524,20 @@ export function compose(seed, overrides) {
       [m1, m2] = motifsB;
     }
     const phrasePlan = kind === 'A' ? planA : planB;
+    const answered = kind === 'A' && bar0 !== aStart && responder >= 0;
     for (let k = 0; k < 4; k++) {
       const [which, climb] = phrasePlan[k];
-      const start = realize(which === 0 ? m1 : m2, bar0 + 2 * k, melodyTarget + climb, k === 3, lead);
+      const voiceK = answered && k % 2 === 1 ? responder : lead;
+      // phrases in pairs: the second (a question) stays open, the fourth (the answer) comes home
+      const start = realize(which === 0 ? m1 : m2, bar0 + 2 * k, melodyTarget + climb, k === 3, voiceK, k === 1);
       melodyTarget = Math.min(Math.max(start + mel.pick([-2, 0, 2]), center - 5), center + 7);
     }
+  }
+  // the end: the theme's instrument settles on the tonic over the last chord
+  {
+    const ch = chords[bars - 1];
+    const home = nearest(scale.filter((m) => mod(m, 12) === ch.root), previous >= 0 ? previous : center);
+    add(mel, (bars - 1) * bpb + 0.5, song.leadA, home + Instruments[song.leadA].MelodyShift, bpb * 1.3, MelodyGain * velocity(0.55));
   }
 
   // ---- color layer: in the B sections and when A comes back
@@ -501,6 +586,7 @@ export function compose(seed, overrides) {
   role = NoteRole.Drums;
   if (song.drums !== DrumsMode.None) {
     for (let b = song.drums === DrumsMode.FromA ? aStart : bStart; b <= outroStart && b < bars - 1; b++) {
+      if (b === breathBar) continue;
       const t0 = b * bpb;
       if (bpb === 3) {
         add(null, t0, InstrumentId.Kick, 36 + b % 2, 0, 0.15);

@@ -52,6 +52,7 @@ export const InstrumentColors = [
   '#eaa6cf', // electric piano (city lights through the rain)
   '#9fb4ff', // lo-fi drums
   '#6b5a7a', // vinyl
+  '#f3c969', // piano (soft layer)
 ];
 
 // In the embers, the instruments the cinematic style shares with the others take warm colours too.
@@ -75,8 +76,18 @@ const hash = (i, k) => { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.54
 const PastSeconds = 7;    // how long a note stays on screen after it starts
 const NowX = 0.78;        // where "now" is, as a fraction of the width
 
+// The first note starting at or after `time` (notes are sorted by time).
+const firstFrom = (notes, time) => {
+  let lo = 0, hi = notes.length;
+  while (lo < hi) { const mid = (lo + hi) >> 1; if (notes[mid].time < time) lo = mid + 1; else hi = mid; }
+  return lo;
+};
+
 export class Visualizer {
-  // cover: the element drawn over the lower part of the canvas (the notes stay above it).
+  // cover: the element drawn over the lower part of the stage; the canvas only covers the band left
+  // free above it (and a little of its faded top), so no pixel is drawn for nothing.
+  // On phones and tablets ("lite"): a lower resolution, 30 frames a second and fewer decorative
+  // particles; everywhere, nothing is drawn while the stage is off screen or the page hidden.
   constructor(canvas, player, cover) {
     this.canvas = canvas;
     this.cover = cover;
@@ -85,17 +96,31 @@ export class Visualizer {
     this.song = null;
     this.freq = null;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    new ResizeObserver(() => this.resize()).observe(canvas);
+    this.lite = matchMedia('(pointer: coarse)').matches || innerWidth < 700;
+    this.visible = true;
+    const resize = new ResizeObserver(() => this.resize());
+    resize.observe(canvas.parentElement);
+    if (cover) resize.observe(cover);
+    new IntersectionObserver(([e]) => { this.visible = e.isIntersecting; }).observe(canvas);
     this.resize();
-    const loop = () => { this.draw(); requestAnimationFrame(loop); };
+    let last = 0;
+    const loop = (now) => {
+      requestAnimationFrame(loop);
+      if (!this.visible || document.hidden) return;
+      if (this.lite && now - last < 30) return;
+      last = now;
+      this.draw();
+    };
     requestAnimationFrame(loop);
   }
 
   resize() {
-    const r = this.canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    this.canvas.width = Math.max(1, Math.round(r.width * dpr));
-    this.canvas.height = Math.max(1, Math.round(r.height * dpr));
+    const stage = this.canvas.parentElement.getBoundingClientRect();
+    const band = Math.max(stage.height * 0.3, stage.height - (this.cover ? this.cover.offsetHeight * 0.8 : 0));
+    this.canvas.style.height = `${Math.round(band)}px`;
+    const dpr = Math.min(window.devicePixelRatio || 1, this.lite ? 1.5 : 2);
+    const w = Math.max(1, Math.round(stage.width * dpr)), h = Math.max(1, Math.round(band * dpr));
+    if (this.canvas.width !== w || this.canvas.height !== h) { this.canvas.width = w; this.canvas.height = h; }
     this.dpr = dpr;
   }
 
@@ -158,8 +183,7 @@ export class Visualizer {
 
     const song = this.song;
     if (!song) return;
-    // The free band above the cover (with a little overlap into its faded top).
-    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const free = H; // the canvas is the band above the cover
     const t = this.player.currentTime;
     const speed = (W * NowX) / PastSeconds;
     const notes = song.notes;
@@ -196,14 +220,9 @@ export class Visualizer {
         ctx.lineTo(x + len, y);
         ctx.stroke();
       }
-      const g = ctx.createRadialGradient(x, y, 0, x, y, radius * 3);
-      g.addColorStop(0, hexA(color, alpha));
-      g.addColorStop(0.35, hexA(color, alpha * 0.45));
-      g.addColorStop(1, hexA(color, 0));
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(x, y, radius * 3, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.globalAlpha = Math.min(1, alpha);
+      ctx.drawImage(this.sprite(color), x - radius * 3, y - radius * 3, radius * 6, radius * 6);
+      ctx.globalAlpha = 1;
     }
     ctx.globalCompositeOperation = 'source-over';
   }
@@ -215,11 +234,12 @@ export class Visualizer {
     const W = canvas.width, H = canvas.height, dpr = this.dpr;
     const t = this.player.currentTime, clock = performance.now() / 1000;
     const energy = this.energy();
-    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const free = H;
     const song = this.song;
 
     let kick = 0;
-    if (song) for (const n of song.notes) {
+    if (song) for (let i = firstFrom(song.notes, t - 0.5); i < song.notes.length; i++) {
+      const n = song.notes[i];
       if (n.time > t) break;
       if (n.instrument === I.LofiKit && n.midi === 36 && t - n.time < 0.3) kick = Math.max(kick, 1 - (t - n.time) / 0.3);
     }
@@ -253,7 +273,7 @@ export class Visualizer {
     }
     ctx.globalCompositeOperation = 'source-over';
     // drops running down the glass: a head and a thin trail, each at its own pace
-    for (let k = 0; k < 45; k++) {
+    for (let k = 0, count = this.lite ? 28 : 45; k < count; k++) {
       const sp = 0.05 + 0.12 * hash(k, 41), life = (clock * sp + hash(k, 42)) % 1;
       const x = hash(k, 43) * W + Math.sin(life * 9 + k) * 2 * dpr;
       const y = life * (free * 1.1) - free * 0.05;
@@ -277,12 +297,13 @@ export class Visualizer {
     const W = canvas.width, H = canvas.height, dpr = this.dpr;
     const t = this.player.currentTime, clock = performance.now() / 1000;
     const energy = this.energy();
-    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const free = H;
     const song = this.song;
 
     // the hearth: its glow follows the bass and jumps with the drum
     let beat = 0;
-    if (song) for (const n of song.notes) {
+    if (song) for (let i = firstFrom(song.notes, t - 0.5); i < song.notes.length; i++) {
+      const n = song.notes[i];
       if (n.time > t) break;
       if (n.instrument === I.Folk && n.midi <= 37 && t - n.time < 0.4) beat = Math.max(beat, 1 - (t - n.time) / 0.4);
     }
@@ -346,12 +367,13 @@ export class Visualizer {
     const W = canvas.width, H = canvas.height, dpr = this.dpr;
     const t = this.player.currentTime, clock = performance.now() / 1000;
     const energy = this.energy();
-    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const free = H;
     const song = this.song;
 
     // how much the pad is sounding now (its notes overlap: attack, hold, release)
     let pad = 0;
-    if (song) for (const n of song.notes) {
+    if (song) for (let i = firstFrom(song.notes, t - 16); i < song.notes.length; i++) {
+      const n = song.notes[i];
       if (n.time > t) break;
       if (n.instrument !== I.Pad || t > n.time + n.duration + 4) continue;
       const age = t - n.time;
@@ -361,8 +383,8 @@ export class Visualizer {
 
     ctx.globalCompositeOperation = 'lighter';
     // curtains of light, bright along their waving lower edge and fading upwards, drawn small and
-    // enlarged smoothly (a soft blur for free)
-    const sw = Math.max(16, Math.round(W / 8)), sh = Math.max(8, Math.round(free / 8));
+    // enlarged smoothly (a soft blur for free: a quarter of the size keeps the streaks visible)
+    const sw = Math.max(16, Math.round(W / 4)), sh = Math.max(8, Math.round(free / 4));
     this.aurora ??= document.createElement('canvas');
     const off = this.aurora;
     if (off.width !== sw || off.height !== sh) { off.width = sw; off.height = sh; }
@@ -388,13 +410,23 @@ export class Visualizer {
         a.fillRect(x, edge - h, 1, h + sh * 0.08);
       }
     });
+    // faded out towards the bottom of the band (under the title), never cut
+    a.globalCompositeOperation = 'destination-in';
+    a.globalAlpha = 1;
+    const fadeOut = a.createLinearGradient(0, 0, 0, sh);
+    fadeOut.addColorStop(0, 'rgba(0, 0, 0, 1)');
+    fadeOut.addColorStop(0.7, 'rgba(0, 0, 0, 1)');
+    fadeOut.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    a.fillStyle = fadeOut;
+    a.fillRect(0, 0, sw, sh);
+    a.globalCompositeOperation = 'source-over';
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(off, 0, 0, W, free);
 
     // the fixed faint stars
     const star = this.sprite('#e8f4ff');
-    for (let k = 0; k < 40; k++) {
+    for (let k = 0, count = this.lite ? 20 : 40; k < count; k++) {
       const r = (0.8 + 1.2 * hash(k, 21)) * dpr;
       ctx.globalAlpha = 0.12 + 0.12 * Math.sin(clock * (0.5 + hash(k, 22)) + k);
       ctx.drawImage(star, hash(k, 23) * W - r * 3, hash(k, 24) * free * 0.9 - r * 3, r * 6, r * 6);
@@ -451,7 +483,7 @@ export class Visualizer {
     const cell = Math.round(7 * dpr);
     const t = this.player.currentTime;
     const energy = this.energy();
-    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const free = H;
     const rows = Math.floor(free / cell);
     const now = Math.floor((W * NowX) / cell);
 
@@ -513,7 +545,7 @@ export class Visualizer {
     const t = this.player.currentTime;
 
     // the fire glows at the bottom of the band left free above the cover
-    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const free = H;
     const fire = ctx.createRadialGradient(W * NowX, free * 1.1, 0, W * NowX, free * 1.1, Math.max(W * 0.45, free * 1.3));
     fire.addColorStop(0, `rgba(255, 112, 40, ${0.12 + energy * 0.3})`);
     fire.addColorStop(0.4, `rgba(200, 60, 20, ${0.05 + energy * 0.12})`);
@@ -524,7 +556,7 @@ export class Visualizer {
     ctx.globalCompositeOperation = 'lighter';
     // Drifting ash and faint embers, always there (the same ones every frame, moving with the time).
     const warm = this.sprite('#ff8c42');
-    for (let k = 0; k < 36; k++) {
+    for (let k = 0, count = this.lite ? 18 : 36; k < count; k++) {
       const speed = 0.012 + 0.02 * hash(k, 1);
       const life = (t * speed + hash(k, 2)) % 1;
       const x = (hash(k, 3) + 0.04 * Math.sin(t * 0.4 + k)) * W;
@@ -570,7 +602,7 @@ export class Visualizer {
         const fr = (cymbal ? 90 : 46) * dpr * (0.7 + 0.3 * strength);
         ctx.globalAlpha = Math.min(1, 0.55 * flash * strength);
         ctx.drawImage(glow, xNow - fr, y0 - fr, fr * 2, fr * 2);
-        const sparks = cymbal ? 14 : Math.round(5 + 5 * strength);
+        const sparks = Math.round((cymbal ? 14 : 5 + 5 * strength) * (this.lite ? 0.5 : 1));
         const life = cymbal ? 2.6 : 1.8;
         if (age > life) continue;
         for (let k = 0; k < sparks; k++) {

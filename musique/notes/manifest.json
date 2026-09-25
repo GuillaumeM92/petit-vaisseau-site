@@ -468,5 +468,30 @@
   "45.flac",
   "46.flac",
   "47.flac"
+ ],
+ "PianoSoft": [
+  "101.flac",
+  "105.flac",
+  "109.flac",
+  "21.flac",
+  "25.flac",
+  "29.flac",
+  "33.flac",
+  "37.flac",
+  "41.flac",
+  "45.flac",
+  "49.flac",
+  "53.flac",
+  "57.flac",
+  "61.flac",
+  "65.flac",
+  "69.flac",
+  "73.flac",
+  "77.flac",
+  "81.flac",
+  "85.flac",
+  "89.flac",
+  "93.flac",
+  "97.flac"
  ]
 }

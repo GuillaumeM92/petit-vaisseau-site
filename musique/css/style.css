@@ -162,7 +162,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   display: flex; flex-direction: column; justify-content: flex-end;
 }
-#viz { position: absolute; inset: 0; width: 100%; height: 100%; }
+#viz { position: absolute; left: 0; top: 0; width: 100%; height: 100%; } /* its height: the band above the title (visualizer.js) */
 
 .start {
   position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center;
