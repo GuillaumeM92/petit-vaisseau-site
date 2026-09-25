@@ -1,11 +1,13 @@
 // La Boîte à Musique: the page. Plays an endless stream of generated pieces, lets the listener
 // compose a playlist from a few quick choices, keep favourites, download and share pieces.
 import { Player } from './player.js';
-import { Visualizer, InstrumentColors } from './visualizer.js';
-import { songFor, pieceId, parsePieceId, randomSeed, pieceTitle } from './pieces.js';
+import { Visualizer, colorOf, universeOf } from './visualizer.js';
+import { songFor, pieceId, parsePieceId, randomSeed, pieceTitle, surpriseStyle } from './pieces.js';
 import { Strings, t } from './i18n.js';
 import { InstrumentId, InstrumentCount, Instruments } from '../engine/instruments.js';
 import { Leads, Accomps } from '../engine/composer.js';
+import { MusicStyle } from '../engine/styles.js';
+import { CinematicLeads } from '../engine/cinematic.js';
 
 const $ = (sel) => document.querySelector(sel);
 const store = {
@@ -36,7 +38,7 @@ const L = (key, ...args) => t(state.lang, key, ...args);
 function newPiece() {
   const choices = {};
   for (const [k, v] of Object.entries(state.choices)) if (v !== '' && v !== null && v !== undefined) choices[k] = v;
-  return pieceId(randomSeed(), choices);
+  return pieceId(randomSeed(), surpriseStyle(choices));
 }
 
 function generatePlaylist() {
@@ -155,11 +157,27 @@ function describe(song) {
   return `${S.styles[song.style]} · ${song.tempo} bpm · ${S.keys[song.key]} ${S.modeNames[song.mode]} · ${S.rooms[song.room]}`;
 }
 
+// Instruments shown as one chip: the snare taps with the bass drum, the timpani rolls with the hits,
+// the cellos' spiccato with their held notes.
+const ChipOf = { [InstrumentId.Tap]: InstrumentId.Kick, [InstrumentId.TimpaniRoll]: InstrumentId.Timpani,
+  [InstrumentId.CellosSpic]: InstrumentId.Cello };
+const chipOf = (i) => ChipOf[i] ?? i;
+
+// Each family of styles has its universe (colours and visualizer): the acoustic lights, the
+// cinematic embers.
+function setUniverse(universe) {
+  if (document.documentElement.dataset.universe === universe) return;
+  document.documentElement.dataset.universe = universe;
+  document.querySelector('meta[name="theme-color"]').content = universe === 'embers' ? '#140b09' : '#0d1024';
+}
+
 function renderNow(id) {
   if (!id) return;
   const song = songFor(id);
   const p = parsePieceId(id);
   viz.setSong(song);
+  const universe = universeOf(song);
+  setUniverse(universe);
   $('#kicker').textContent = `${L('nowPlaying')} · ${L('number', p.seed)}`;
   $('#title').textContent = pieceTitle(id, state.lang);
   $('#details').textContent = describe(song);
@@ -173,13 +191,16 @@ function renderNow(id) {
 
   const chips = $('#chips');
   chips.textContent = '';
+  const shown = new Set();
   for (let i = 0; i < InstrumentCount; i++) {
-    if (!song.uses[i] || (i === InstrumentId.Tap && song.uses[InstrumentId.Kick])) continue;
+    const c = chipOf(i);
+    if (!song.uses[i] || shown.has(c)) continue;
+    shown.add(c);
     const chip = document.createElement('span');
     chip.className = 'chip';
-    chip.dataset.instrument = i === InstrumentId.Tap ? InstrumentId.Kick : i;
-    chip.style.setProperty('--c', InstrumentColors[i]);
-    chip.textContent = Strings[state.lang].instruments[i];
+    chip.dataset.instrument = c;
+    chip.style.setProperty('--c', colorOf(c, universe));
+    chip.textContent = Strings[state.lang].instruments[c];
     chips.append(chip);
   }
   document.title = `♪ ${pieceTitle(id, state.lang)} · La Boîte à Musique`;
@@ -199,7 +220,7 @@ function tick() {
     const lit = new Set();
     for (const n of song.notes) {
       if (n.time > time) break;
-      if (time < n.time + n.duration + 0.15) lit.add(n.instrument === InstrumentId.Tap ? InstrumentId.Kick : n.instrument);
+      if (time < n.time + n.duration + 0.15) lit.add(chipOf(n.instrument));
     }
     for (const chip of $('#chips').children) chip.classList.toggle('lit', lit.has(Number(chip.dataset.instrument)));
   }
@@ -302,11 +323,21 @@ function option(value, label) {
 
 function buildForm() {
   const S = Strings[state.lang];
+  // The cinematic style has its own soloists and no accompaniment to choose (its strings' ostinato).
+  const cinematic = state.choices.style === MusicStyle.Cinematic;
+  const leads = cinematic ? CinematicLeads : Leads;
+  if (state.choices.lead !== undefined && !leads.includes(state.choices.lead)) delete state.choices.lead;
+  if (cinematic) {
+    delete state.choices.accomp;
+    if (state.choices.mode > 1) delete state.choices.mode; // only major (bright) or minor (melancholic)
+  }
+  store.set('choices', state.choices);
+  const leadName = (id) => cinematic && id === InstrumentId.Strings ? S.instruments[InstrumentId.ViolinsSpic] : S.instruments[id];
   const fields = [
     ['style', L('style'), S.styles.map((s, i) => [i, s])],
-    ['mode', L('mood'), S.moods.map((s, i) => [i, s])],
-    ['lead', L('lead'), Leads.map((id) => [id, S.instruments[id]])],
-    ['accomp', L('accomp'), Accomps.map((id) => [id, S.instruments[id]])],
+    ['mode', L('mood'), (cinematic ? S.moods.slice(0, 2) : S.moods).map((s, i) => [i, s])],
+    ['lead', L('lead'), leads.map((id) => [id, leadName(id)])],
+    ...(cinematic ? [] : [['accomp', L('accomp'), Accomps.map((id) => [id, S.instruments[id]])]]),
     ['tempo', L('tempo'), [['s', L('slower')], ['f', L('faster')]]],
     ['drums', L('drums'), [['y', L('with')], ['n', L('without')]]],
     ['room', L('room'), S.rooms.map((s, i) => [i, s])],
@@ -328,6 +359,7 @@ function buildForm() {
       if (v === '') delete state.choices[name];
       else state.choices[name] = name === 'tempo' || name === 'drums' ? v : Number(v);
       store.set('choices', state.choices);
+      if (name === 'style') buildForm();
     });
     wrap.append(select);
     form.append(wrap);

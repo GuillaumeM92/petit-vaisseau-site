@@ -1,6 +1,8 @@
-// The six styles and five rooms, converted from the game's MusicStyles.cs (keep in sync).
-export const MusicStyle = { Ballad: 0, Waltz: 1, Classical: 2, Relaxing: 3, Cozy: 4, Contemplative: 5 };
-export const StyleNames = ['Ballad', 'Waltz', 'Classical', 'Relaxing', 'Cozy', 'Contemplative'];
+// The six styles and five rooms, converted from the game's MusicStyles.cs (keep in sync). Styles from
+// 6 on exist only on the site and have their own composer (engine/cinematic.js); a seed alone still
+// picks among the first six (parity with the game), the new ones are asked for by the piece's id.
+export const MusicStyle = { Ballad: 0, Waltz: 1, Classical: 2, Relaxing: 3, Cozy: 4, Contemplative: 5, Cinematic: 6 };
+export const StyleNames = ['Ballad', 'Waltz', 'Classical', 'Relaxing', 'Cozy', 'Contemplative', 'Cinematic'];
 export const MusicMode = { Major: 0, Minor: 1, Dorian: 2, Mixolydian: 3, Lydian: 4 };
 export const ModeNames = ['Major', 'Minor', 'Dorian', 'Mixolydian', 'Lydian'];
 export const MusicRoom = { Studio: 0, Salon: 1, Hall: 2, Warm: 3, Open: 4 };
@@ -172,6 +174,8 @@ const Defs = [
         Rooms: [ Studio, Hall, Warm ], RoomWeights: [ .3, .45, .25 ],
         Forms: [ "IABAO", "IAABO" ], FormWeights: [ .6, .4 ],
     },
+    // Cinematic: composed by engine/cinematic.js; only its tempo range is read from here.
+    { TempoMin: 80, TempoMax: 124 },
 ].map(d => ({ ...Defaults, ...d }));
 
 export const getStyle = (style) => Defs[style];

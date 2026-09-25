@@ -10,7 +10,27 @@ export function newBank() {
   return {
     samples: new Array(128).fill(null), rates: new Int32Array(128), loopStart: new Int32Array(128),
     loopEnd: new Int32Array(128), nearest: new Int32Array(128).fill(-1), sustainStart: new Int32Array(128),
+    alt: new Array(128).fill(null), altRates: new Int32Array(128),
   };
+}
+
+// A note file's name: <midi>[_L<loopStart>_<loopEnd>][_R2].(flac|wav), _R2 being the second take.
+export function parseNoteFile(file) {
+  const parts = file.replace(/\.(flac|wav)$/, '').split('_');
+  const note = { midi: Number(parts[0]), loopStart: 0, loopEnd: 0, alt: false };
+  for (const p of parts.slice(1)) {
+    if (p[0] === 'L') note.loopStart = Number(p.substring(1));
+    else if (p === 'R2') note.alt = true;
+    else note.loopEnd = Number(p);
+  }
+  return note;
+}
+
+// Adds a decoded note file to the bank.
+export function addNoteFile(bank, file, data, rate) {
+  const n = parseNoteFile(file);
+  if (n.alt) { bank.alt[n.midi] = data; bank.altRates[n.midi] = rate; return; }
+  addNote(bank, n.midi, data, rate, n.loopStart, n.loopEnd ? Math.min(n.loopEnd, data.length - 1) : 0);
 }
 
 export function addNote(bank, midi, data, rate, loopStart = 0, loopEnd = 0) {

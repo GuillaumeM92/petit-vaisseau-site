@@ -99,7 +99,9 @@ export class MusicMixer {
     }
 
     let position = 0, attacking = 0, envelope = 1, attackStep = 0;
-    if (info.Attack > 0) { attacking = 1; envelope = 0; attackStep = 1 / (info.Attack * this.rate); }
+    // A note's own attack (a roll or a swell growing) replaces the instrument's.
+    const attack = note.attack > 0 ? note.attack : info.Attack;
+    if (attack > 0) { attacking = 1; envelope = 0; attackStep = 1 / (attack * this.rate); }
     if (note.slur) {
       // Tied note: from the full tone, faded in quickly, while the note it follows on the same
       // instrument (still held) fades out over the same few milliseconds.
@@ -113,13 +115,14 @@ export class MusicMixer {
       }
     }
     const gain = note.gain * info.Gain * NoteScale / 32768;
+    const alt = note.alt && bank.alt[k] !== null;
     V.active[slot] = 1;
     V.instrument[slot] = note.instrument;
-    V.data[slot] = bank.samples[k];
+    V.data[slot] = alt ? bank.alt[k] : bank.samples[k];
     V.position[slot] = position;
-    V.step[slot] = Math.pow(2, (note.midi - k) / 12) * bank.rates[k] / this.rate;
-    V.loopStart[slot] = bank.loopStart[k];
-    V.loopEnd[slot] = bank.loopEnd[k];
+    V.step[slot] = Math.pow(2, (note.midi - k) / 12) * (alt ? bank.altRates[k] : bank.rates[k]) / this.rate;
+    V.loopStart[slot] = alt ? 0 : bank.loopStart[k];
+    V.loopEnd[slot] = alt ? 0 : bank.loopEnd[k];
     V.held[slot] = Math.trunc(note.duration * this.rate);
     V.age[slot] = 0;
     V.releaseFactor[slot] = info.Release > 0 ? Math.exp(-1 / (info.Release * this.rate)) : 1;

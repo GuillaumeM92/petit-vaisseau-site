@@ -2,7 +2,7 @@
 // recorded notes are fetched the first time a piece needs an instrument, and a piece can be
 // rendered to an MP3 or WAV file, faster than real time and entirely on this device.
 import { Instruments, InstrumentCount } from '../engine/instruments.js';
-import { newBank, addNote, finishBank, parseWav } from '../engine/notebank.js';
+import { newBank, addNoteFile, finishBank, parseWav } from '../engine/notebank.js';
 import { songFor } from './pieces.js';
 
 const BaseVolume = 0.9; // the game plays at 0.17 under its sound effects; here the music is alone
@@ -81,11 +81,8 @@ export class Player {
       const bank = newBank();
       await Promise.all(manifest[name].map(async (file) => {
         const buffer = await (await fetch(new URL(`../notes/${name}/${file}`, import.meta.url))).arrayBuffer();
-        const parts = file.replace(/\.(flac|wav)$/, '').split('_');
         const { data, rate } = file.endsWith('.wav') ? parseWav(buffer) : await decodeFlac(buffer);
-        const ls = parts.length === 3 ? Number(parts[1].substring(1)) : 0;
-        const le = parts.length === 3 ? Math.min(Number(parts[2]), data.length - 1) : 0;
-        addNote(bank, Number(parts[0]), data, rate, ls, le);
+        addNoteFile(bank, file, data, rate);
       }));
       finishBank(bank);
       this.banks[id] = bank;

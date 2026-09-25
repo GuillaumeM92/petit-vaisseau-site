@@ -5,7 +5,8 @@ import { MusicStyle } from './styles.js';
 
 export const titleOf = (song, language) => title(song.seed, song.style, language);
 
-export const title = (seed, style, language) => language === 'en' ? english(seed, style) : french(seed, style);
+export const title = (seed, style, language) => style === MusicStyle.Cinematic ? cinematic(seed, language)
+  : language === 'en' ? english(seed, style) : french(seed, style);
 
 // Templates 1-3 use the style word; the styles with a strong name use them half the time.
 function template(rng, style) {
@@ -162,4 +163,59 @@ function english(seed, style) {
     case 5: return 'The ' + thing + ' and the ' + other;
     default: return adj + ' ' + thing + ' ' + w;
   }
+}
+
+// ---------------- Cinematic (site only): its own words, grander than the cosy ones above ----------------
+
+const FrEpicNouns = [
+  F('citadelle'), F('forteresse'), F('tempête'), F('légende'), F('couronne'), F('bataille'), F('frontière'),
+  F('montagne'), F('flotte'), F('aurore'), F('cité'), F('traversée'), F('épopée'), F('promesse'), F('odyssée'),
+  M('royaume'), M('serment'), M('horizon'), M('rempart'), M('sommet'), M('dernier voyage'), M('empire'),
+  M('dragon'), M('phare'), M('passage'), M('ciel'), M('volcan'), M('glacier'), M('océan'), M('exil'),
+];
+const FrEpicAdjectives = [
+  ['perdu', 'perdue'], ['ancien', 'ancienne'], ['éternel', 'éternelle'], ['oublié', 'oubliée'], ['lointain', 'lointaine'],
+  ['immense', 'immense'], ['sacré', 'sacrée'], ['dernier', 'dernière'], ['invincible', 'invincible'], ['noir', 'noire'],
+  ['d’argent', 'd’argent'], ['de feu', 'de feu'], ['de glace', 'de glace'], ['du nord', 'du nord'], ['brisé', 'brisée'],
+];
+const FrEpicWords = ['Chronique', 'Hymne', 'Prélude', 'Ouverture', 'Thème', 'Marche', 'Chant', 'Retour', 'Appel', 'Réveil'];
+const FrEpicAlone = ['Au-delà des mers', "L'heure du départ", 'Ceux qui restent', 'Vers le nord', 'Le premier jour',
+  'Après la tempête', 'Sous les étoiles', 'La dernière charge', 'Rien ne nous arrête', "Jusqu'au bout du monde"];
+
+const EnEpicNouns = ['Citadel', 'Fortress', 'Storm', 'Legend', 'Crown', 'Battle', 'Frontier', 'Mountain', 'Fleet', 'Dawn',
+  'City', 'Crossing', 'Kingdom', 'Oath', 'Horizon', 'Rampart', 'Summit', 'Empire', 'Dragon', 'Lighthouse', 'Passage',
+  'Sky', 'Volcano', 'Glacier', 'Ocean', 'Exile', 'Promise', 'Odyssey'];
+const EnEpicAdjectives = ['Lost', 'Ancient', 'Eternal', 'Forgotten', 'Distant', 'Endless', 'Sacred', 'Last', 'Silver',
+  'Burning', 'Frozen', 'Northern', 'Broken', 'Iron', 'Rising'];
+const EnEpicWords = ['Chronicle', 'Hymn', 'Prelude', 'Overture', 'Theme', 'March', 'Song', 'Return', 'Call', 'Awakening'];
+const EnEpicAlone = ['Beyond the Seas', 'Time to Leave', 'Those Who Remain', 'Northbound', 'The First Day',
+  'After the Storm', 'Under the Stars', 'The Last Charge', 'Nothing Stops Us', "To the World's End"];
+
+function cinematic(seed, language) {
+  const rng = new MusicRng(seed * 31 + 11);
+  const t = rng.range(0, 5);
+  if (language === 'en') {
+    const noun = rng.pick(EnEpicNouns), adj = rng.pick(EnEpicAdjectives), word = rng.pick(EnEpicWords);
+    let other = rng.pick(EnEpicNouns);
+    while (other === noun) other = rng.pick(EnEpicNouns);
+    switch (t) {
+      case 0: return 'The ' + adj + ' ' + noun;
+      case 1: return word + ' of the ' + noun;
+      case 2: return word + ' for the ' + adj + ' ' + noun;
+      case 3: return 'The ' + noun + ' and the ' + other;
+      default: return rng.pick(EnEpicAlone);
+    }
+  }
+  const noun = rng.pick(FrEpicNouns), adj = rng.pick(FrEpicAdjectives), word = rng.pick(FrEpicWords);
+  let other = rng.pick(FrEpicNouns);
+  while (other.word === noun.word) other = rng.pick(FrEpicNouns);
+  let s;
+  switch (t) {
+    case 0: s = the(noun) + ' ' + adjOf(noun, adj); break;
+    case 1: s = word + ' ' + of(noun); break;
+    case 2: s = word + ' ' + of(noun) + ' ' + adjOf(noun, adj); break;
+    case 3: s = the(noun) + ' et ' + the(other); break;
+    default: s = rng.pick(FrEpicAlone);
+  }
+  return s[0].toUpperCase() + s.substring(1);
 }

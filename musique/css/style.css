@@ -1,5 +1,25 @@
+/* Colours that change with the universe of the piece playing are registered, so they fade into each
+   other (lights: night blue and gold; embers: charcoal and glowing orange). */
+@property --bg { syntax: '<color>'; inherits: true; initial-value: #0d1024; }
+@property --glow-1 { syntax: '<color>'; inherits: true; initial-value: #262a5e; }
+@property --glow-2 { syntax: '<color>'; inherits: true; initial-value: #1d1a3f; }
+@property --stage-top { syntax: '<color>'; inherits: true; initial-value: #111536; }
+@property --stage-bottom { syntax: '<color>'; inherits: true; initial-value: #0b0e22; }
+@property --shade { syntax: '<color>'; inherits: true; initial-value: rgb(8, 10, 26); }
+@property --gold { syntax: '<color>'; inherits: true; initial-value: #f3c969; }
+@property --gold-light { syntax: '<color>'; inherits: true; initial-value: #f7d47f; }
+@property --gold-deep { syntax: '<color>'; inherits: true; initial-value: #d9a441; }
+@property --raised { syntax: '<color>'; inherits: true; initial-value: #1c2150; }
+
 :root {
   --bg: #0d1024;
+  --glow-1: #262a5e;
+  --glow-2: #1d1a3f;
+  --stage-top: #111536;
+  --stage-bottom: #0b0e22;
+  --shade: rgb(8, 10, 26);
+  --gold-light: #f7d47f;
+  --raised: #1c2150;
   --bg-2: #141838;
   --surface: rgba(255, 255, 255, 0.045);
   --surface-strong: rgba(255, 255, 255, 0.08);
@@ -14,14 +34,30 @@
   --serif: 'Fraunces', Georgia, serif;
   --sans: 'Nunito Sans', system-ui, -apple-system, sans-serif;
   color-scheme: dark;
+  transition: --bg 1.6s, --glow-1 1.6s, --glow-2 1.6s, --stage-top 1.6s, --stage-bottom 1.6s, --shade 1.6s,
+    --gold 1.6s, --gold-light 1.6s, --gold-deep 1.6s, --raised 1.6s;
+}
+:root[data-universe="embers"] {
+  --bg: #120a08;
+  --glow-1: #4a1d10;
+  --glow-2: #2a120c;
+  --stage-top: #1c0e0a;
+  --stage-bottom: #0d0706;
+  --shade: rgb(18, 8, 6);
+  --gold: #ffa24d;
+  --gold-light: #ffc27a;
+  --gold-deep: #e0662c;
+  --raised: #33170f;
+  --ink: #210c04;
+  --border: rgba(255, 214, 180, 0.1);
 }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body {
   background:
-    radial-gradient(1200px 700px at 80% -10%, #262a5e 0%, transparent 60%),
-    radial-gradient(900px 600px at -10% 30%, #1d1a3f 0%, transparent 55%),
+    radial-gradient(1200px 700px at 80% -10%, var(--glow-1) 0%, transparent 60%),
+    radial-gradient(900px 600px at -10% 30%, var(--glow-2) 0%, transparent 55%),
     var(--bg);
   background-attachment: fixed;
   color: var(--text);
@@ -45,7 +81,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
 .brand-mark {
   width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
-  background: linear-gradient(145deg, #2b2f6b, #171a3d); border: 1px solid var(--border);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--glow-1) 90%, white 5%), var(--stage-top)); border: 1px solid var(--border);
   color: var(--gold); font-size: 26px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 .brand-name { font-family: var(--serif); font-size: 22px; font-weight: 650; }
@@ -65,7 +101,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 /* ---------------- stage ---------------- */
 .stage {
   position: relative; border-radius: 28px; overflow: hidden; min-height: 560px;
-  background: linear-gradient(180deg, #111536 0%, #0b0e22 100%);
+  background: linear-gradient(180deg, var(--stage-top) 0%, var(--stage-bottom) 100%);
   border: 1px solid var(--border);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   display: flex; flex-direction: column; justify-content: flex-end;
@@ -83,11 +119,11 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 .start-button {
   display: inline-flex; align-items: center; gap: 12px; border: 0; border-radius: 999px;
   padding: 18px 34px 18px 28px; font-size: 20px; font-weight: 700;
-  background: linear-gradient(180deg, #f7d47f, var(--gold-deep)); color: var(--ink);
-  box-shadow: 0 12px 40px rgba(243, 201, 105, 0.35); transition: transform 0.15s, box-shadow 0.15s;
+  background: linear-gradient(180deg, var(--gold-light), var(--gold-deep)); color: var(--ink);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--gold) 35%, transparent); transition: transform 0.15s, box-shadow 0.15s;
 }
 .start-button svg { font-size: 26px; }
-.start-button:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(243, 201, 105, 0.45); }
+.start-button:hover { transform: translateY(-2px); box-shadow: 0 16px 48px color-mix(in srgb, var(--gold) 45%, transparent); }
 .start-hint { color: var(--muted); margin: 0; max-width: 460px; }
 
 .loading-note {
@@ -99,7 +135,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 
 .now {
   position: relative; z-index: 1; padding: 80px 36px 30px;
-  background: linear-gradient(180deg, transparent 0%, rgba(8, 10, 26, 0.7) 30%, rgba(8, 10, 26, 0.9) 100%);
+  background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--shade) 70%, transparent) 30%, color-mix(in srgb, var(--shade) 90%, transparent) 100%);
 }
 .kicker { margin: 0 0 6px; color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 #title { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.08; font-weight: 650; }
@@ -136,8 +172,8 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 .fav.on { color: #ff8fab; }
 .play-btn {
   width: 64px; height: 64px; border-radius: 50%; border: 0; display: grid; place-items: center; font-size: 30px;
-  background: linear-gradient(180deg, #f7d47f, var(--gold-deep)); color: var(--ink);
-  box-shadow: 0 8px 26px rgba(243, 201, 105, 0.3);
+  background: linear-gradient(180deg, var(--gold-light), var(--gold-deep)); color: var(--ink);
+  box-shadow: 0 8px 26px color-mix(in srgb, var(--gold) 30%, transparent);
 }
 .play-btn .when-playing, .play-btn.playing .when-paused { display: none; }
 .play-btn.playing .when-playing { display: block; }
@@ -149,7 +185,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
   background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
   background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%; background-size: 5px 5px; background-repeat: no-repeat;
 }
-.timer select option, .field select option { background: #1a1e44; color: var(--text); }
+.timer select option, .field select option { background: var(--raised); color: var(--text); }
 .timer-left { font-size: 13px; color: var(--gold); }
 
 /* ---------------- panels ---------------- */
@@ -162,7 +198,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 .field select { width: 100%; font-weight: 600; }
 .primary {
   margin-top: 20px; width: 100%; border: 0; border-radius: 12px; padding: 14px; font-size: 16px; font-weight: 700;
-  background: linear-gradient(180deg, #f7d47f, var(--gold-deep)); color: var(--ink);
+  background: linear-gradient(180deg, var(--gold-light), var(--gold-deep)); color: var(--ink);
 }
 .primary:hover { filter: brightness(1.05); }
 
@@ -177,7 +213,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 .row { display: flex; align-items: center; gap: 8px; padding: 4px 4px 4px 0; border-radius: 12px; }
 .row + .row { margin-top: 2px; }
 .row:hover { background: rgba(255, 255, 255, 0.03); }
-.row.current { background: rgba(243, 201, 105, 0.08); }
+.row.current { background: color-mix(in srgb, var(--gold) 8%, transparent); }
 .row-main { flex: 1; min-width: 0; border: 0; background: none; text-align: left; padding: 8px 10px; display: flex; flex-direction: column; }
 .row-title { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .row.current .row-title { color: var(--gold); }
@@ -198,7 +234,7 @@ footer p { color: var(--muted); }
 
 .toast {
   position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
-  background: #22275a; border: 1px solid var(--border); padding: 10px 18px; border-radius: 999px; font-weight: 600;
+  background: var(--raised); border: 1px solid var(--border); padding: 10px 18px; border-radius: 999px; font-weight: 600;
   transition: opacity 0.2s, transform 0.2s; z-index: 10;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
@@ -207,7 +243,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
 
 .menu {
   position: fixed; z-index: 20; min-width: 230px; padding: 6px; border-radius: 14px;
-  background: #1c2150; border: 1px solid var(--border); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  background: var(--raised); border: 1px solid var(--border); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 .menu[hidden] { display: none; }
 .menu button {
