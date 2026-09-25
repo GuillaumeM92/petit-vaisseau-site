@@ -6,15 +6,16 @@ import { MusicStyle } from '../engine/styles.js';
 import { Leads, Accomps } from '../engine/composer.js';
 import { CinematicLeads } from '../engine/cinematic.js';
 import { ChiptuneLeads } from '../engine/chiptune.js';
+import { AmbientLeads } from '../engine/ambient.js';
 
 // Settings shown for a universe: its soloists, how many moods (major, minor, dorian…), whether the
-// accompaniment and the room can be chosen.
+// accompaniment, the room and the drums can be chosen.
 export const Universes = [
   // The game's six styles: a seed alone picks among them (same pieces as in Le Tapis Vert).
   { id: 'classique', theme: 'lights', styles: [0, 1, 2, 3, 4, 5], leads: Leads, accomps: Accomps, moods: 5, room: true },
   { id: 'cinematique', theme: 'embers', styles: [MusicStyle.Cinematic], leads: CinematicLeads, moods: 2, room: true },
   { id: 'chiptune', theme: 'pixels', styles: [MusicStyle.Chiptune], leads: ChiptuneLeads, moods: 3, room: false },
-  { id: 'ambiance', soon: true },
+  { id: 'ambiance', theme: 'aurora', styles: [MusicStyle.Ambient], leads: AmbientLeads, moods: 5, room: false, drums: false },
   { id: 'fantaisie', soon: true },
   { id: 'lofi', soon: true },
   { id: 'synthwave', soon: true },

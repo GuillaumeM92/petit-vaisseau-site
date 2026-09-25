@@ -39,13 +39,17 @@ export const InstrumentColors = [
   '#ffec27', // square
   '#00e436', // triangle
   '#fff1e8', // noise
+  '#6fe3c8', // pad (the aurora's colours)
+  '#c9b6ff', // glass
+  '#8fd3ff', // soft voice
+  '#3f7fbf', // drone
 ];
 
 // In the embers, the instruments the cinematic style shares with the others take warm colours too.
 const EmberColors = { [I.Strings]: '#ff7a6b', [I.Cello]: '#e8603f', [I.Horn]: '#ffc46b', [I.Violin]: '#ff9a6b' };
 
 export const themeOf = (song) => !song ? 'lights' : song.style === MusicStyle.Cinematic ? 'embers'
-  : song.style === MusicStyle.Chiptune ? 'pixels' : 'lights';
+  : song.style === MusicStyle.Chiptune ? 'pixels' : song.style === MusicStyle.Ambient ? 'aurora' : 'lights';
 export const colorOf = (instrument, theme) =>
   (theme === 'embers' && EmberColors[instrument]) || InstrumentColors[instrument];
 
@@ -121,6 +125,7 @@ export class Visualizer {
     const theme = themeOf(this.song);
     if (theme === 'embers') return this.drawEmbers();
     if (theme === 'pixels') return this.drawPixels();
+    if (theme === 'aurora') return this.drawAurora();
 
     // Breathing glow from the low end of the spectrum.
     const energy = this.energy();
@@ -183,6 +188,110 @@ export class Visualizer {
       ctx.arc(x, y, radius * 3, 0, Math.PI * 2);
       ctx.fill();
     }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  // Aurora: a night sky. Veils of light wave slowly across it, brighter while the pad holds its chord
+  // (and with the bass), the glass notes are stars that light up and fade, the voice leaves a soft
+  // trail; a few faint stars are always there.
+  drawAurora() {
+    const { ctx, canvas } = this;
+    const W = canvas.width, H = canvas.height, dpr = this.dpr;
+    const t = this.player.currentTime, clock = performance.now() / 1000;
+    const energy = this.energy();
+    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const song = this.song;
+
+    // how much the pad is sounding now (its notes overlap: attack, hold, release)
+    let pad = 0;
+    if (song) for (const n of song.notes) {
+      if (n.time > t) break;
+      if (n.instrument !== I.Pad || t > n.time + n.duration + 4) continue;
+      const age = t - n.time;
+      pad += (age < 2.5 ? age / 2.5 : age < n.duration ? 1 : Math.exp(-(age - n.duration) / 1.5)) * n.gain;
+    }
+    const glow = Math.min(1, pad / 0.12);
+
+    ctx.globalCompositeOperation = 'lighter';
+    // curtains of light, bright along their waving lower edge and fading upwards, drawn small and
+    // enlarged smoothly (a soft blur for free)
+    const sw = Math.max(16, Math.round(W / 8)), sh = Math.max(8, Math.round(free / 8));
+    this.aurora ??= document.createElement('canvas');
+    const off = this.aurora;
+    if (off.width !== sw || off.height !== sh) { off.width = sw; off.height = sh; }
+    const a = off.getContext('2d');
+    a.clearRect(0, 0, sw, sh);
+    a.globalCompositeOperation = 'lighter';
+    const bands = [['111, 227, 200', 0.52, 1], ['143, 125, 255', 0.4, 1.6], ['89, 184, 255', 0.64, 0.7]];
+    bands.forEach(([rgb, at, f], k) => {
+      const base = sh * at, height = sh * (0.45 - 0.06 * k);
+      const alpha = (0.12 + 0.35 * glow + 0.2 * energy) * (k === 1 ? 0.7 : 1);
+      const g = a.createLinearGradient(0, base + sh * 0.08, 0, base - height);
+      g.addColorStop(0, `rgba(${rgb}, 0)`);
+      g.addColorStop(0.15, `rgba(${rgb}, ${alpha})`);
+      g.addColorStop(0.5, `rgba(${rgb}, ${alpha * 0.3})`);
+      g.addColorStop(1, `rgba(${rgb}, 0)`);
+      a.fillStyle = g;
+      for (let x = 0; x < sw; x++) {
+        const u = x / sw;
+        const edge = base + Math.sin(u * Math.PI * 2 * f + clock * 0.12 * (k + 1) + k) * sh * 0.08
+          + Math.sin(u * 11 + clock * 0.3 + k * 2) * sh * 0.025;
+        const h = height * (0.75 + 0.25 * Math.sin(u * 9 + clock * 0.2 + k * 3));
+        a.globalAlpha = 0.55 + 0.45 * Math.sin(u * 23 + clock * 0.15 * (k + 1) + k) ** 2;
+        a.fillRect(x, edge - h, 1, h + sh * 0.08);
+      }
+    });
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(off, 0, 0, W, free);
+
+    // the fixed faint stars
+    const star = this.sprite('#e8f4ff');
+    for (let k = 0; k < 40; k++) {
+      const r = (0.8 + 1.2 * hash(k, 21)) * dpr;
+      ctx.globalAlpha = 0.12 + 0.12 * Math.sin(clock * (0.5 + hash(k, 22)) + k);
+      ctx.drawImage(star, hash(k, 23) * W - r * 3, hash(k, 24) * free * 0.9 - r * 3, r * 6, r * 6);
+    }
+
+    if (song) {
+      const speed = (W * NowX) / PastSeconds;
+      const notes = song.notes;
+      const past = PastSeconds * 1.6;
+      let lo = 0, hi = notes.length;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (notes[mid].time < t - past) lo = mid + 1; else hi = mid; }
+      for (let i = lo; i < notes.length; i++) {
+        const n = notes[i];
+        if (n.time > t) break;
+        if (n.instrument === I.Pad || n.instrument === I.Drone) continue;
+        const age = t - n.time;
+        const x = W * NowX - age * speed * 0.6;
+        const y = free * (0.88 - (Math.min(Math.max(n.midi, 55), 100) - 55) / 45 * 0.8);
+        const color = colorOf(n.instrument, 'aurora');
+        if (n.instrument === I.SoftVoice) {
+          const len = Math.min(n.duration, age) * speed * 0.6;
+          const sounding = age < n.duration + 1.5;
+          ctx.globalAlpha = (sounding ? 0.5 : 0.25) * Math.max(0, 1 - age / past);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 3 * dpr;
+          ctx.lineCap = 'round';
+          ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + len, y); ctx.stroke();
+          const r = 10 * dpr;
+          ctx.globalAlpha = sounding ? 0.9 : 0.3 * Math.max(0, 1 - age / past);
+          ctx.drawImage(this.sprite(color), x + len - r * 3, y - r * 3, r * 6, r * 6);
+          continue;
+        }
+        // a star: lights up with the note (brighter the louder), then fades while it twinkles
+        const bright = Math.min(1, n.gain / 0.08) * Math.exp(-age / 3.5);
+        const r = (3 + 5 * bright) * dpr;
+        ctx.globalAlpha = Math.min(1, bright * (0.75 + 0.25 * Math.sin(clock * 6 + i)));
+        ctx.drawImage(this.sprite(color), x - r * 3, y - r * 3, r * 6, r * 6);
+        if (age < 0.4) {
+          ctx.globalAlpha = (1 - age / 0.4) * bright;
+          ctx.drawImage(star, x - r * 1.2, y - r * 1.2, r * 2.4, r * 2.4);
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
   }
 

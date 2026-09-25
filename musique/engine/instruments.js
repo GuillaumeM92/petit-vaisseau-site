@@ -8,9 +8,11 @@ export const InstrumentId = {
   Timpani: 22, TimpaniRoll: 23, Cymbals: 24, Drums: 25,
   // Synthesized (engine/synth.js, no file): the 8-bit console's voices.
   Pulse12: 26, Pulse25: 27, Square: 28, Triangle: 29, Noise: 30,
+  // Synthesized too: the ambient universe.
+  Pad: 31, Glass: 32, SoftVoice: 33, Drone: 34,
 };
 
-export const InstrumentCount = 31;
+export const InstrumentCount = 35;
 
 // Gain: level matching (includes the files' headroom); Attack/Release in seconds (Attack 0 keeps
 // the recording's own); MelodyShift: semitones added to the melody when it leads; Pan, Send: default
@@ -52,4 +54,9 @@ export const Instruments = [
   { Name: 'Square', Synth: 'pulse50', Gain: 1, Attack: 0.002, Release: 0.012, Pan: 0.05, Send: 0.3, MelodyShift: 0 },
   { Name: 'Triangle', Synth: 'triangle', Gain: 1, Attack: 0.002, Release: 0.015, Pan: 0, Send: 0.1, MelodyShift: 0 },
   { Name: 'Noise', Synth: 'noise', Gain: 1, Attack: 0, Release: 0.02, Pan: 0, Send: 0.15, MelodyShift: 0 },
+  // The ambient universe: slow attacks and long releases (a chord fades into the next).
+  { Name: 'Pad', Synth: 'pad', Gain: 1, Attack: 2.5, Release: 4, Pan: 0, Send: 0.5, MelodyShift: 0 },
+  { Name: 'Glass', Synth: 'glass', Gain: 1, Attack: 0, Release: 2, Pan: 0.2, Send: 0.5, MelodyShift: 0 },
+  { Name: 'SoftVoice', Synth: 'soft', Gain: 1, Attack: 0.35, Release: 1.5, Pan: -0.15, Send: 0.5, MelodyShift: 0 },
+  { Name: 'Drone', Synth: 'sub', Gain: 1, Attack: 1.5, Release: 3, Pan: 0, Send: 0.15, MelodyShift: 0 },
 ];

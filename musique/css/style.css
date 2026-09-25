@@ -37,6 +37,20 @@
   transition: --bg 1.6s, --glow-1 1.6s, --glow-2 1.6s, --stage-top 1.6s, --stage-bottom 1.6s, --shade 1.6s,
     --gold 1.6s, --gold-light 1.6s, --gold-deep 1.6s, --raised 1.6s;
 }
+:root[data-theme="aurora"] {
+  --bg: #06121a;
+  --glow-1: #0e3d4a;
+  --glow-2: #1c1a4a;
+  --stage-top: #081a24;
+  --stage-bottom: #040b10;
+  --shade: rgb(4, 12, 18);
+  --gold: #7fe3d6;
+  --gold-light: #c2f6ef;
+  --gold-deep: #3fb4a6;
+  --raised: #0f2a36;
+  --ink: #032019;
+  --border: rgba(190, 245, 235, 0.1);
+}
 :root[data-theme="pixels"] {
   --bg: #0b0a1a;
   --glow-1: #2a1c63;

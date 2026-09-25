@@ -7,6 +7,7 @@ export const titleOf = (song, language) => title(song.seed, song.style, language
 
 export const title = (seed, style, language) => style === MusicStyle.Cinematic ? cinematic(seed, language)
   : style === MusicStyle.Chiptune ? chiptune(seed, language)
+  : style === MusicStyle.Ambient ? ambient(seed, language)
   : language === 'en' ? english(seed, style) : french(seed, style);
 
 // Templates 1-3 use the style word; the styles with a strong name use them half the time.
@@ -260,6 +261,50 @@ function chiptune(seed, language) {
     case 1: s = word + ' ' + of(place); break;
     case 2: s = the(place); break;
     default: s = rng.pick(FrGameAlone);
+  }
+  return s[0].toUpperCase() + s.substring(1);
+}
+
+// ---------------- Ambient (site only): quiet words, light and weather ----------------
+
+const FrCalmNouns = [
+  F('brume'), F('lumière lente'), F('marée basse'), F('aube'), F('lueur'), F('pluie fine'), F('neige'), F('aurore'),
+  F('onde'), F('dérive'), F('veille'), F('cime'), F('clairière'), F('heure calme'), F('respiration'), F('rive'),
+  M('nuage'), M('horizon'), M('silence'), M('lac'), M('souffle'), M('ciel d’hiver'), M('givre'), M('reflet'), M('grand large'),
+];
+const FrCalmAdj = [['lointain', 'lointaine'], ['immobile', 'immobile'], ['pâle', 'pâle'], ['suspendu', 'suspendue'],
+  ['clair', 'claire'], ['lent', 'lente'], ['tranquille', 'tranquille'], ['bleu', 'bleue'], ['infini', 'infinie'], ['doux', 'douce']];
+const FrCalmWords = ['Étude pour', 'Nappe pour', 'Méditation sur', 'Paysage avec', 'Lumière sur'];
+const EnCalmNouns = ['Mist', 'Slow Light', 'Low Tide', 'Dawn', 'Glow', 'Fine Rain', 'Snow', 'Aurora', 'Wave', 'Drift',
+  'Vigil', 'Summit', 'Clearing', 'Quiet Hour', 'Breath', 'Shore', 'Cloud', 'Horizon', 'Silence', 'Lake', 'Pale Sky',
+  'Frost', 'Reflection', 'Open Sea'];
+const EnCalmAdj = ['Distant', 'Still', 'Pale', 'Suspended', 'Clear', 'Slow', 'Quiet', 'Blue', 'Endless', 'Soft'];
+const EnCalmWords = ['Study for', 'Pad for', 'Meditation on', 'Landscape with', 'Light on'];
+
+function ambient(seed, language) {
+  const rng = new MusicRng(seed * 31 + 13);
+  const t = rng.range(0, 4);
+  if (language === 'en') {
+    const noun = rng.pick(EnCalmNouns), adj = rng.pick(EnCalmAdj), word = rng.pick(EnCalmWords);
+    let other = rng.pick(EnCalmNouns);
+    while (other === noun) other = rng.pick(EnCalmNouns);
+    switch (t) {
+      case 0: return adj + ' ' + noun;
+      case 1: return word + ' ' + noun;
+      case 2: return noun + ' and ' + other;
+      default: return noun;
+    }
+  }
+  const noun = rng.pick(FrCalmNouns), adj = rng.pick(FrCalmAdj), word = rng.pick(FrCalmWords);
+  let other = rng.pick(FrCalmNouns);
+  while (other.word === noun.word) other = rng.pick(FrCalmNouns);
+  const art = (n) => n.vowel ? "l'" + n.word : (n.feminine ? 'la ' : 'le ') + n.word;
+  let s;
+  switch (t) {
+    case 0: s = noun.word + ' ' + adjOf(noun, adj); break;
+    case 1: s = word + ' ' + art(noun); break;
+    case 2: s = art(noun) + ' et ' + art(other); break;
+    default: s = noun.word;
   }
   return s[0].toUpperCase() + s.substring(1);
 }

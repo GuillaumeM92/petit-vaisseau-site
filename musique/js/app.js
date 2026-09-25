@@ -178,11 +178,11 @@ const ChipOf = { [InstrumentId.Tap]: InstrumentId.Kick, [InstrumentId.TimpaniRol
 const chipOf = (i) => ChipOf[i] ?? i;
 
 // Each universe has its theme (colours and visualizer): Classique the lights, Cinématique the embers,
-// 8-bit the pixels.
+// 8-bit the pixels, Ambiance the aurora.
 function setTheme(theme) {
   if (document.documentElement.dataset.theme === theme) return;
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]').content = { embers: '#140b09', pixels: '#0b0a1a' }[theme] || '#0d1024';
+  document.querySelector('meta[name="theme-color"]').content = { embers: '#140b09', pixels: '#0b0a1a', aurora: '#06121a' }[theme] || '#0d1024';
 }
 
 function renderNow(id) {
@@ -348,6 +348,7 @@ function buildForm() {
   if (choices.lead !== undefined && !u.leads.includes(choices.lead)) delete choices.lead;
   if (!u.accomps) delete choices.accomp;
   if (!u.room) delete choices.room;
+  if (u.drums === false) delete choices.drums;
   if (u.styles.length === 1) delete choices.style;
   if (choices.mode >= u.moods) delete choices.mode;
   store.set('choices', state.choices);
@@ -358,7 +359,7 @@ function buildForm() {
     ['lead', L('lead'), u.leads.map((id) => [id, leadName(id)])],
     ...(u.accomps ? [['accomp', L('accomp'), u.accomps.map((id) => [id, S.instruments[id]])]] : []),
     ['tempo', L('tempo'), [['s', L('slower')], ['f', L('faster')]]],
-    ['drums', L('drums'), [['y', L('with')], ['n', L('without')]]],
+    ...(u.drums === false ? [] : [['drums', L('drums'), [['y', L('with')], ['n', L('without')]]]]),
     ...(u.room ? [['room', L('room'), S.rooms.slice(0, 5).map((s, i) => [i, s])]] : []),
   ];
   const form = $('#fields');
@@ -464,6 +465,9 @@ function renderUniverses() {
     }
     (u.soon ? soon : cards).append(card);
   }
+  // on a narrow screen the switch scrolls: the current universe in view (the page itself stays still)
+  const current = nav.querySelector('[aria-pressed="true"]');
+  if (current) nav.scrollLeft = current.offsetLeft - nav.offsetLeft - 16;
   $('#composeHint').textContent = L('composeHint', S.universes[state.universe][0]);
   const shared = sharedId();
   $('#shared').hidden = !shared;

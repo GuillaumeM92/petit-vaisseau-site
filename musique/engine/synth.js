@@ -1,8 +1,8 @@
 // Synthesized instruments, made into note banks when first needed (no file to download): the voices of
-// an 8-bit console (the chiptune universe). Each tone note is one period of 32 steps, like the console's
-// sequencers, stored at the sample rate that makes that period exact (f × 32), and looped on that
-// period: a note is always perfectly in tune and its loop never clicks. The mixer plays them like the
-// recorded ones.
+// an 8-bit console (the chiptune universe) and the ambient universe's pad, glass, soft voice and drone.
+// The console's tone notes are one period of 32 steps, like its sequencers, stored at the sample rate
+// that makes that period exact (f × 32) and looped on it: always in tune, a loop that never clicks.
+// The mixer plays them like the recorded ones.
 import { newBank, addNote, finishBank, StoredScale } from './notebank.js';
 
 const Steps = 32;
@@ -96,9 +96,92 @@ function drumBank() {
   return bank;
 }
 
+// ---------------- the ambient universe's instruments ----------------
+
+// One cycle of a wave made of these harmonics' amplitudes, in a table read with interpolation.
+function cycle(amps, size = 4096) {
+  const t = new Float32Array(size + 1);
+  for (let i = 0; i <= size; i++) {
+    let v = 0;
+    for (let h = 0; h < amps.length; h++) v += amps[h] * Math.sin(2 * Math.PI * (h + 1) * i / size);
+    t[i] = v;
+  }
+  return t;
+}
+const read = (t, phase) => { const x = phase * (t.length - 1), i = x | 0; return t[i] + (t[i + 1] - t[i]) * (x - i); };
+
+// Stores a note at the common level (its RMS over [from, to) matched), looped over all of it when `loop`.
+function store(bank, midi, f, rate, loop, from = 0, to = f.length) {
+  let e = 0;
+  for (let i = from; i < to; i++) e += f[i] * f[i];
+  const scale = Full * 0.35 / Math.sqrt(e / (to - from));
+  const data = new Int16Array(f.length + (loop ? 1 : 0));
+  for (let i = 0; i < f.length; i++) data[i] = Math.round(f[i] * scale);
+  if (loop) data[f.length] = data[0];
+  addNote(bank, midi, data, rate, 0, loop ? f.length : 0);
+}
+
+// The pad: three voices of a soft saw a few cents apart and a quiet octave above, breathing slowly.
+// The loop lasts exactly 4 s and every voice makes a whole number of cycles in it (its frequency is
+// rounded to a quarter of a hertz: under 4 cents off), so it loops without a seam.
+function padBank() {
+  const bank = newBank(), rate = 22050, T = 4, n = rate * T;
+  for (let midi = 36; midi <= 84; midi += 3) {
+    // a soft saw, its harmonics stopping below half the sample rate (no aliasing), even an octave up
+    const top = Math.floor((rate / 2 - 1500) / (freq(midi + 12) * 1.01));
+    const saw = cycle(Array.from({ length: Math.min(14, top) }, (_, h) => Math.pow(h + 1, -1.6) * Math.exp(-h / 7)));
+    const voices = [[-7, 1], [6, 1], [0, 0.8], [1202, 0.22]].map(([cents, g]) => [Math.round(freq(midi) * Math.pow(2, cents / 1200) * T) / T, g]);
+    const f = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const t = i / rate;
+      let v = 0;
+      for (const [hz, g] of voices) v += g * read(saw, (hz * t) % 1);
+      f[i] = v * (1 + 0.08 * Math.sin(2 * Math.PI * t / 2)); // a slow breath, two per loop
+    }
+    store(bank, midi, f, rate, true);
+  }
+  finishBank(bank);
+  return bank;
+}
+
+// Glass: a soft bell whose partials (slightly stretched, like a real one) die away one after another.
+function glassBank() {
+  const bank = newBank(), rate = 32000, n = rate * 4;
+  const partials = [[1, 1, 3.2], [2, 0.3, 1.7], [3.01, 0.14, 1.1], [4.07, 0.1, 0.6], [5.43, 0.05, 0.4]];
+  for (let midi = 60; midi <= 99; midi += 3) {
+    const f = new Float32Array(n);
+    for (const [ratio, g, tau] of partials) {
+      const hz = freq(midi) * ratio;
+      if (hz > rate / 2 - 1000) continue;
+      for (let i = 0; i < n; i++) f[i] += g * Math.sin(2 * Math.PI * hz * i / rate) * Math.exp(-i / rate / tau);
+    }
+    for (let i = 0; i < 128; i++) f[i] *= i / 128; // a soft strike
+    store(bank, midi, f, rate, false, 0, Math.round(rate * 0.6)); // level matched on the strike
+  }
+  finishBank(bank);
+  return bank;
+}
+
+// A sine with a little of its harmonics, one exact period per note (as the console's): the soft voice
+// and the deep drone.
+function sineBank(lo, hi, amps) {
+  const bank = newBank(), wave = cycle(amps, 64);
+  for (let midi = lo; midi <= hi; midi++) {
+    const f = new Float32Array(64);
+    for (let i = 0; i < 64; i++) f[i] = wave[i];
+    store(bank, midi, f, Math.round(freq(midi) * 64), true);
+  }
+  finishBank(bank);
+  return bank;
+}
+
 // The bank of a synthesized instrument (Instruments[].Synth).
 export function synthBank(kind) {
   switch (kind) {
+    case 'pad': return padBank();
+    case 'glass': return glassBank();
+    case 'soft': return sineBank(52, 91, [1, 0.12, 0.05, 0.02]);
+    case 'sub': return sineBank(24, 60, [1, 0.1]);
     case 'pulse12': return toneBank('pulse12', 36, 108, 0.55);
     case 'pulse25': return toneBank('pulse25', 36, 108, 0.55);
     case 'pulse50': return toneBank('pulse50', 36, 108, 0.5);

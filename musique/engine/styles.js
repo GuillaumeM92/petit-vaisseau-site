@@ -1,12 +1,12 @@
 // The six styles and five rooms, converted from the game's MusicStyles.cs (keep in sync). Styles from
-// 6 on exist only on the site and have their own composer (engine/cinematic.js, chiptune.js); a seed alone still
+// 6 on exist only on the site and have their own composer (engine/cinematic.js, chiptune.js, ambient.js); a seed alone still
 // picks among the first six (parity with the game), the new ones are asked for by the piece's id.
-export const MusicStyle = { Ballad: 0, Waltz: 1, Classical: 2, Relaxing: 3, Cozy: 4, Contemplative: 5, Cinematic: 6, Chiptune: 7 };
-export const StyleNames = ['Ballad', 'Waltz', 'Classical', 'Relaxing', 'Cozy', 'Contemplative', 'Cinematic', 'Chiptune'];
+export const MusicStyle = { Ballad: 0, Waltz: 1, Classical: 2, Relaxing: 3, Cozy: 4, Contemplative: 5, Cinematic: 6, Chiptune: 7, Ambient: 8 };
+export const StyleNames = ['Ballad', 'Waltz', 'Classical', 'Relaxing', 'Cozy', 'Contemplative', 'Cinematic', 'Chiptune', 'Ambient'];
 export const MusicMode = { Major: 0, Minor: 1, Dorian: 2, Mixolydian: 3, Lydian: 4 };
 export const ModeNames = ['Major', 'Minor', 'Dorian', 'Mixolydian', 'Lydian'];
-export const MusicRoom = { Studio: 0, Salon: 1, Hall: 2, Warm: 3, Open: 4, Dry: 5 };
-export const RoomNames = ['Studio', 'Salon', 'Hall', 'Warm', 'Open', 'Dry'];
+export const MusicRoom = { Studio: 0, Salon: 1, Hall: 2, Warm: 3, Open: 4, Dry: 5, Space: 6 };
+export const RoomNames = ['Studio', 'Salon', 'Hall', 'Warm', 'Open', 'Dry', 'Space'];
 export const AccompPattern = { Arpeggio: 0, SlowArpeggio: 1, Rolled: 2, Held: 3, Waltz: 4, Alberti: 5 };
 export const ColorLayer = { None: 0, Sparkles: 1, HarpSweep: 2, Countermelody: 3 };
 export const DrumsMode = { None: 0, FromA: 1, FromB: 2 };
@@ -27,6 +27,7 @@ const RoomDefs = [
   { RoomSize: .7, Damping: .7, Wet: .9, ToneHz: 4500, Width: .9, Gain: 1.06 },    // warm: soft, muffled treble
   { RoomSize: .6, Damping: .3, Wet: .55, ToneHz: 0, Width: 1.2, Gain: 1.06 },     // open: dry, wide and clear
   { RoomSize: .35, Damping: .6, Wet: .18, ToneHz: 0, Width: 1, Gain: 1 },          // dry: the console's (site only)
+  { RoomSize: .96, Damping: .4, Wet: 1, ToneHz: 11000, Width: 1.3, Gain: 1 },      // space: vast and soft (site only)
 ];
 
 const Defaults = {
@@ -179,6 +180,8 @@ const Defs = [
     { TempoMin: 80, TempoMax: 124 },
     // Chiptune: composed by engine/chiptune.js; only its tempo range is read from here.
     { TempoMin: 116, TempoMax: 156 },
+    // Ambient: composed by engine/ambient.js; only its tempo range is read from here.
+    { TempoMin: 56, TempoMax: 72 },
 ].map(d => ({ ...Defaults, ...d }));
 
 export const getStyle = (style) => Defs[style];
