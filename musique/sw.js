@@ -1,7 +1,7 @@
 // Keeps La Boîte à Musique on the device so it opens and plays without a connection: the pages
 // and scripts on install (fresh from the network when online, from the cache otherwise), the
 // notes as they are used, or all of them when the listener asks for offline listening.
-const VERSION = '95035c6'; // replaced by the deploy script, so a new version replaces the old cache
+const VERSION = '8667768'; // replaced by the deploy script, so a new version replaces the old cache
 const SHELL = `lbam-shell-${VERSION}`;
 const NOTES = 'lbam-notes'; // notes never change for a given file name: kept across versions
 
