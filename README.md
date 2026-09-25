@@ -80,7 +80,7 @@ git add -A && git commit -m "Site: …" && git push
 ## 4. Le domaine
 
 Le site est servi sur **petitvaisseau.com** (domaine acheté chez OVH et branché le 16/09/2026).
-Avant, il était sur `petitvaisseau.guillaume-merle.fr` : cette ancienne adresse ne sert plus le site.
+Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne sert plus le site.
 
 - **Côté DNS (OVH)**, dans la zone de `petitvaisseau.com` :
   - quatre lignes `A` sur `@` : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (GitHub Pages) ;
@@ -88,7 +88,7 @@ Avant, il était sur `petitvaisseau.guillaume-merle.fr` : cette ancienne adresse
   - les lignes `NS`, `MX` et `SPF` servent l'e-mail OVH : ne pas y toucher.
 - **Côté GitHub**, le fichier `CNAME` à la racine contient le domaine. Settings → Pages doit
   afficher « DNS check successful » et la case **Enforce HTTPS** cochée.
-- La ligne `CNAME petitvaisseau` de la zone `guillaume-merle.fr` ne sert plus : elle peut être supprimée.
+- L'ancienne ligne `CNAME petitvaisseau` dans la zone DNS du site perso ne sert plus : elle peut être supprimée.
 
 ---
 
