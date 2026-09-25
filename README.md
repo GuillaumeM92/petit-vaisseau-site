@@ -88,7 +88,7 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
   - les lignes `NS`, `MX` et `SPF` servent l'e-mail OVH : ne pas y toucher.
 - **Côté GitHub**, le fichier `CNAME` à la racine contient le domaine. Settings → Pages doit
   afficher « DNS check successful » et la case **Enforce HTTPS** cochée.
-- L'ancienne ligne `CNAME petitvaisseau` dans la zone DNS du site perso ne sert plus : elle peut être supprimée.
+- L'ancienne ligne `CNAME petitvaisseau` de la zone DNS du site perso a été supprimée le 26/09/2026.
 
 ---
 
