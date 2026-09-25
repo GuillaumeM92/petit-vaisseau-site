@@ -1,14 +1,14 @@
 // Keeps La Boîte à Musique on the device so it opens and plays without a connection: the pages
 // and scripts on install (fresh from the network when online, from the cache otherwise), the
 // notes as they are used, or all of them when the listener asks for offline listening.
-const VERSION = '153dc47'; // replaced by the deploy script, so a new version replaces the old cache
+const VERSION = '3194340'; // replaced by the deploy script, so a new version replaces the old cache
 const SHELL = `lbam-shell-${VERSION}`;
 const NOTES = 'lbam-notes'; // notes never change for a given file name: kept across versions
 
 const ShellFiles = [
   './', 'index.html', 'manifest.webmanifest', 'css/fonts.css', 'css/style.css',
   'js/app.js', 'js/player.js', 'js/pieces.js', 'js/universes.js', 'js/i18n.js', 'js/visualizer.js', 'js/mp3-worker.js',
-  'audio-worklet.js', 'engine/composer.js', 'engine/cinematic.js', 'engine/chiptune.js', 'engine/ambient.js', 'engine/fantasy.js', 'engine/synth.js', 'engine/freeverb.js', 'engine/instruments.js', 'engine/mixer.js',
+  'audio-worklet.js', 'engine/composer.js', 'engine/cinematic.js', 'engine/chiptune.js', 'engine/ambient.js', 'engine/fantasy.js', 'engine/lofi.js', 'engine/synth.js', 'engine/freeverb.js', 'engine/instruments.js', 'engine/mixer.js',
   'engine/notebank.js', 'engine/rng.js', 'engine/styles.js', 'engine/titles.js',
   'vendor/lamejs/lame.min.js', 'notes/manifest.json', 'icons/icon-192.png', 'icons/icon-512.png',
   'fonts/Fraunces-latin-63f165.woff2', 'fonts/Fraunces-latin-ext-1fba8b.woff2',

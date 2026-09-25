@@ -9,6 +9,7 @@ export const title = (seed, style, language) => style === MusicStyle.Cinematic ?
   : style === MusicStyle.Chiptune ? chiptune(seed, language)
   : style === MusicStyle.Ambient ? ambient(seed, language)
   : style === MusicStyle.Fantasy ? fantasy(seed, language)
+  : style === MusicStyle.Lofi ? lofi(seed, language)
   : language === 'en' ? english(seed, style) : french(seed, style);
 
 // Templates 1-3 use the style word; the styles with a strong name use them half the time.
@@ -346,4 +347,31 @@ function fantasy(seed, language) {
     case 2: return rng.pick(FrDances) + ' ' + of(rng.pick(FrTaverns));
     default: return rng.pick(FrFantasyAlone);
   }
+}
+
+// ---------------- Lo-fi (site only): late hours, rain and small places ----------------
+
+const FrLofiThings = [F('pluie sur la vitre'), F('tasse froide'), F('lampe de bureau'), F('cassette'), F('nuit blanche'),
+  F('fenêtre ouverte'), F('dernière rame'), F('chambre'), M('café de minuit'), M('carnet'), M('néon'), M('toit'),
+  M('dimanche gris'), M('bus de nuit'), M('vinyle'), M('radiateur'), M('chat qui dort'), M('lampadaire')];
+const FrLofiAdj = [['tardif', 'tardive'], ['tranquille', 'tranquille'], ['usé', 'usée'], ['bleu', 'bleue'], ['lent', 'lente'],
+  ['endormi', 'endormie'], ['brumeux', 'brumeuse'], ['doux', 'douce']];
+const FrLofiAlone = ['Réviser à 2 h', 'Encore cinq minutes', 'Il pleut dehors', 'Pause café', 'Face B', 'Rien ne presse',
+  'Devoirs du soir', 'Retour à pied'];
+const EnLofiThings = ['Rain on the Window', 'Cold Cup', 'Desk Lamp', 'Cassette', 'Sleepless Night', 'Open Window', 'Last Train',
+  'Bedroom', 'Midnight Café', 'Notebook', 'Neon', 'Rooftop', 'Grey Sunday', 'Night Bus', 'Vinyl', 'Radiator', 'Sleeping Cat', 'Streetlight'];
+const EnLofiAdj = ['Late', 'Quiet', 'Worn', 'Blue', 'Slow', 'Sleepy', 'Hazy', 'Soft'];
+const EnLofiAlone = ['Studying at 2 AM', 'Five More Minutes', "It's Raining Outside", 'Coffee Break', 'Side B', 'No Rush',
+  'Evening Homework', 'Walking Home'];
+
+function lofi(seed, language) {
+  const rng = new MusicRng(seed * 31 + 15);
+  const t = rng.range(0, 3);
+  if (language === 'en') {
+    const thing = rng.pick(EnLofiThings), adj = rng.pick(EnLofiAdj);
+    return t === 0 ? adj + ' ' + thing : t === 1 ? thing : rng.pick(EnLofiAlone);
+  }
+  const thing = rng.pick(FrLofiThings), adj = rng.pick(FrLofiAdj);
+  const s = t === 0 ? thing.word + ' ' + adjOf(thing, adj) : t === 1 ? thing.word : rng.pick(FrLofiAlone);
+  return s[0].toUpperCase() + s.substring(1);
 }

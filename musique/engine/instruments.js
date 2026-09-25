@@ -12,9 +12,11 @@ export const InstrumentId = {
   Pad: 31, Glass: 32, SoftVoice: 33, Drone: 34,
   // The fantasy (tavern) universe, from VSCO 2 CE (tools/bake-notes.py).
   Fiddle: 35, FluteStac: 36, Piccolo: 37, Bassoon: 38, BassoonStac: 39, Folk: 40,
+  // Synthesized: the lo-fi universe.
+  EPiano: 41, LofiKit: 42, Vinyl: 43,
 };
 
-export const InstrumentCount = 41;
+export const InstrumentCount = 44;
 
 // Gain: level matching (includes the files' headroom); Attack/Release in seconds (Attack 0 keeps
 // the recording's own); MelodyShift: semitones added to the melody when it leads; Pan, Send: default
@@ -69,4 +71,9 @@ export const Instruments = [
   { Name: 'Bassoon', Gain: 0.476, Attack: 0.05, Release: 0.2, Pan: 0.1, Send: 0.3, MelodyShift: 0 },
   { Name: 'BassoonStac', Gain: 1.075, Attack: 0, Release: 0, Pan: 0.1, Send: 0.25, MelodyShift: 0 },
   { Name: 'Folk', Gain: 2.165, Attack: 0, Release: 0, Pan: 0.05, Send: 0.3, MelodyShift: 0 },
+  // The lo-fi universe (synthesized): an FM electric piano, the drums (36 kick, 37 rim, 38 snare, 42/46
+  // hats, 70 shaker) and the record's crackle.
+  { Name: 'EPiano', Synth: 'epiano', Gain: 1, Attack: 0, Release: 0.35, Pan: -0.1, Send: 0.3, MelodyShift: 0 },
+  { Name: 'LofiKit', Synth: 'lofikit', Gain: 1, Attack: 0, Release: 0.05, Pan: 0, Send: 0.1, MelodyShift: 0 },
+  { Name: 'Vinyl', Synth: 'vinyl', Gain: 1, Attack: 1.5, Release: 2, Pan: 0, Send: 0, MelodyShift: 0 },
 ];

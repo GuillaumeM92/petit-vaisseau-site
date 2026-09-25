@@ -37,6 +37,20 @@
   transition: --bg 1.6s, --glow-1 1.6s, --glow-2 1.6s, --stage-top 1.6s, --stage-bottom 1.6s, --shade 1.6s,
     --gold 1.6s, --gold-light 1.6s, --gold-deep 1.6s, --raised 1.6s;
 }
+:root[data-theme="rain"] {
+  --bg: #0d0b16;
+  --glow-1: #2a2346;
+  --glow-2: #172838;
+  --stage-top: #121022;
+  --stage-bottom: #07060d;
+  --shade: rgb(9, 8, 16);
+  --gold: #eaa6cf;
+  --gold-light: #f8d4ea;
+  --gold-deep: #b56b9f;
+  --raised: #1f1a33;
+  --ink: #1d0a17;
+  --border: rgba(240, 210, 235, 0.1);
+}
 :root[data-theme="lanterns"] {
   --bg: #0b110c;
   --glow-1: #2c3a1c;
@@ -215,7 +229,10 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
     radial-gradient(circle at 78% 46%, #ffe2a0 0 4px, #f2c46b88 6px, transparent 16px), radial-gradient(circle at 38% 70%, #d8f08a 0 1.5px, transparent 3px),
     radial-gradient(circle at 66% 64%, #d8f08a 0 1.5px, transparent 3px), radial-gradient(90% 60% at 50% 120%, #6a3a14aa, transparent 70%),
     linear-gradient(180deg, #16241a, #0a110b); }
-.u-lofi { --accent: #f2a7c3; --art: radial-gradient(60% 70% at 30% 40%, #f2a7c366, transparent 70%), linear-gradient(135deg, #3a2a45, #22303f); }
+.u-lofi { --accent: #eaa6cf;
+  --art: repeating-linear-gradient(100deg, #0000 0 14px, #ffffff14 14px 15px), radial-gradient(circle at 26% 46%, #ffd6a0aa 0 6px, transparent 22px),
+    radial-gradient(circle at 60% 38%, #eaa6cf88 0 8px, transparent 26px), radial-gradient(circle at 80% 60%, #9fb4ff77 0 7px, transparent 24px),
+    linear-gradient(135deg, #2a2240, #141c2c); }
 .u-synthwave { --accent: #ff5fd2; --art: repeating-linear-gradient(0deg, #0000 0 9px, #ff5fd255 9px 10px), linear-gradient(180deg, #2a0f4a 0%, #7a1f6b 60%, #ff8a4c 100%); }
 .tagline { font-family: var(--serif); font-size: clamp(26px, 4vw, 44px); line-height: 1.15; max-width: 720px; margin: 0; }
 .start-button {

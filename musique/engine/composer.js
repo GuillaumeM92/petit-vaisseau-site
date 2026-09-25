@@ -14,6 +14,7 @@ import { composeCinematic } from './cinematic.js';
 import { composeChiptune } from './chiptune.js';
 import { composeAmbient } from './ambient.js';
 import { composeFantasy } from './fantasy.js';
+import { composeLofi } from './lofi.js';
 
 export const NoteRole = { Accompaniment: 1, Bass: 2, Pad: 3, Melody: 4, Color: 5, Drums: 6 };
 
@@ -136,6 +137,7 @@ export function compose(seed, overrides) {
   if (o.Style === MusicStyle.Chiptune) return composeChiptune(seed, o);
   if (o.Style === MusicStyle.Ambient) return composeAmbient(seed, o);
   if (o.Style === MusicStyle.Fantasy) return composeFantasy(seed, o);
+  if (o.Style === MusicStyle.Lofi) return composeLofi(seed, o);
   const plan = new MusicRng(seed);
   const song = { seed, uses: new Array(InstrumentCount).fill(false) };
 

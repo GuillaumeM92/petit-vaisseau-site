@@ -8,6 +8,7 @@ import { CinematicLeads } from '../engine/cinematic.js';
 import { ChiptuneLeads } from '../engine/chiptune.js';
 import { AmbientLeads } from '../engine/ambient.js';
 import { FantasyLeads } from '../engine/fantasy.js';
+import { LofiLeads } from '../engine/lofi.js';
 
 // Settings shown for a universe: its soloists, how many moods (major, minor, dorian…), whether the
 // accompaniment, the room and the drums can be chosen, its variants (the style menu of a one-style universe).
@@ -18,7 +19,7 @@ export const Universes = [
   { id: 'chiptune', theme: 'pixels', styles: [MusicStyle.Chiptune], leads: ChiptuneLeads, moods: 3, room: false },
   { id: 'ambiance', theme: 'aurora', styles: [MusicStyle.Ambient], leads: AmbientLeads, moods: 5, room: false, drums: false },
   { id: 'fantaisie', theme: 'lanterns', styles: [MusicStyle.Fantasy], variants: 3, leads: FantasyLeads, moods: 4, room: true },
-  { id: 'lofi', soon: true },
+  { id: 'lofi', theme: 'rain', styles: [MusicStyle.Lofi], variants: 2, leads: LofiLeads, moods: 4, room: false },
   { id: 'synthwave', soon: true },
 ];
 

@@ -178,11 +178,11 @@ const ChipOf = { [InstrumentId.Tap]: InstrumentId.Kick, [InstrumentId.TimpaniRol
 const chipOf = (i) => ChipOf[i] ?? i;
 
 // Each universe has its theme (colours and visualizer): Classique the lights, Cinématique the embers,
-// 8-bit the pixels, Ambiance the aurora, Fantaisie the lanterns.
+// 8-bit the pixels, Ambiance the aurora, Fantaisie the lanterns, Lo-fi a rainy night.
 function setTheme(theme) {
   if (document.documentElement.dataset.theme === theme) return;
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]').content = { embers: '#140b09', pixels: '#0b0a1a', aurora: '#06121a', lanterns: '#0c120d' }[theme] || '#0d1024';
+  document.querySelector('meta[name="theme-color"]').content = { embers: '#140b09', pixels: '#0b0a1a', aurora: '#06121a', lanterns: '#0c120d', rain: '#0d0b16' }[theme] || '#0d1024';
 }
 
 function renderNow(id) {

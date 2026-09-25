@@ -49,6 +49,9 @@ export const InstrumentColors = [
   '#c98b4a', // bassoon
   '#c98b4a', // bassoon (staccato)
   '#f4dcb0', // frame drum and tambourine
+  '#eaa6cf', // electric piano (city lights through the rain)
+  '#9fb4ff', // lo-fi drums
+  '#6b5a7a', // vinyl
 ];
 
 // In the embers, the instruments the cinematic style shares with the others take warm colours too.
@@ -56,11 +59,14 @@ const EmberColors = { [I.Strings]: '#ff7a6b', [I.Cello]: '#e8603f', [I.Horn]: '#
 
 export const themeOf = (song) => !song ? 'lights' : song.style === MusicStyle.Cinematic ? 'embers'
   : song.style === MusicStyle.Chiptune ? 'pixels' : song.style === MusicStyle.Ambient ? 'aurora'
-  : song.style === MusicStyle.Fantasy ? 'lanterns' : 'lights';
+  : song.style === MusicStyle.Fantasy ? 'lanterns' : song.style === MusicStyle.Lofi ? 'rain' : 'lights';
 // In the lanterns, those it shares with the others take lantern colours.
 const LanternColors = { [I.Harp]: '#e6c98a', [I.Bass]: '#b98552', [I.Flute]: '#d8f08a', [I.Oboe]: '#ffc27a' };
+// On a rainy night, the piano is the desk lamp and the bass a deep blue.
+const RainColors = { [I.Piano]: '#ffd6a0', [I.Bass]: '#8a7fd6' };
 export const colorOf = (instrument, theme) =>
-  (theme === 'embers' && EmberColors[instrument]) || (theme === 'lanterns' && LanternColors[instrument]) || InstrumentColors[instrument];
+  (theme === 'embers' && EmberColors[instrument]) || (theme === 'lanterns' && LanternColors[instrument])
+  || (theme === 'rain' && RainColors[instrument]) || InstrumentColors[instrument];
 
 // A fixed pseudo-random number in [0, 1) for a note and a purpose, so the embers move the same way
 // on every frame without keeping any state.
@@ -136,6 +142,7 @@ export class Visualizer {
     if (theme === 'pixels') return this.drawPixels();
     if (theme === 'aurora') return this.drawAurora();
     if (theme === 'lanterns') return this.drawLanterns();
+    if (theme === 'rain') return this.drawRain();
 
     // Breathing glow from the low end of the spectrum.
     const energy = this.energy();
@@ -199,6 +206,67 @@ export class Visualizer {
       ctx.fill();
     }
     ctx.globalCompositeOperation = 'source-over';
+  }
+
+  // Rain: a window at night. Drops run down the glass; behind it the notes are the city's lights, out
+  // of focus (big soft discs that drift away); the desk lamp's glow in the corner breathes with the kick.
+  drawRain() {
+    const { ctx, canvas } = this;
+    const W = canvas.width, H = canvas.height, dpr = this.dpr;
+    const t = this.player.currentTime, clock = performance.now() / 1000;
+    const energy = this.energy();
+    const free = Math.max(H * 0.3, H - (this.cover ? this.cover.offsetHeight * dpr * 0.8 : 0));
+    const song = this.song;
+
+    let kick = 0;
+    if (song) for (const n of song.notes) {
+      if (n.time > t) break;
+      if (n.instrument === I.LofiKit && n.midi === 36 && t - n.time < 0.3) kick = Math.max(kick, 1 - (t - n.time) / 0.3);
+    }
+    const lamp = ctx.createRadialGradient(W * 0.08, free * 0.95, 0, W * 0.08, free * 0.95, Math.max(W * 0.45, free));
+    lamp.addColorStop(0, `rgba(255, 190, 120, ${0.1 + energy * 0.12 + kick * 0.06})`);
+    lamp.addColorStop(1, 'rgba(255, 150, 90, 0)');
+    ctx.fillStyle = lamp;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.globalCompositeOperation = 'lighter';
+    // the city's lights, out of focus behind the glass
+    if (song) {
+      const speed = (W * NowX) / PastSeconds;
+      const notes = song.notes;
+      let lo = 0, hi = notes.length;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (notes[mid].time < t - PastSeconds) lo = mid + 1; else hi = mid; }
+      for (let i = lo; i < notes.length; i++) {
+        const n = notes[i];
+        if (n.time > t) break;
+        if (n.role === NoteRole.Drums || n.role === NoteRole.Color) continue;
+        const age = t - n.time;
+        const fade = Math.max(0, 1 - age / PastSeconds);
+        const x = W * NowX - age * speed * 0.8 + (hash(i, 31) - 0.5) * 30 * dpr;
+        const y = free * (0.86 - (Math.min(Math.max(n.midi, 30), 96) - 30) / 66 * 0.76) + (hash(i, 32) - 0.5) * 20 * dpr;
+        const lead = n.role === NoteRole.Melody;
+        const lit = age < n.duration + 0.3;
+        const r = (lead ? 28 : n.role === NoteRole.Bass ? 30 : 20) * dpr * (1 + 0.15 * Math.min(1, age));
+        ctx.globalAlpha = (lit ? 0.7 : 0.3) * fade * (lead ? 1 : 0.75);
+        ctx.drawImage(this.sprite(colorOf(n.instrument, 'rain')), x - r, y - r, r * 2, r * 2);
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    // drops running down the glass: a head and a thin trail, each at its own pace
+    for (let k = 0; k < 45; k++) {
+      const sp = 0.05 + 0.12 * hash(k, 41), life = (clock * sp + hash(k, 42)) % 1;
+      const x = hash(k, 43) * W + Math.sin(life * 9 + k) * 2 * dpr;
+      const y = life * (free * 1.1) - free * 0.05;
+      const len = (8 + 26 * hash(k, 44)) * dpr;
+      ctx.globalAlpha = 0.1 + 0.12 * hash(k, 45);
+      ctx.strokeStyle = '#cfd8ff';
+      ctx.lineWidth = Math.max(1, (0.6 + hash(k, 46)) * dpr);
+      ctx.beginPath(); ctx.moveTo(x, y - len); ctx.lineTo(x, y); ctx.stroke();
+      ctx.globalAlpha = 0.35;
+      ctx.fillStyle = '#e8eeff';
+      ctx.beginPath(); ctx.arc(x, y, (1.2 + hash(k, 47)) * dpr, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
   }
 
   // Lanterns: a tavern's garden at night. The tune's notes are paper lanterns hanging on a string,

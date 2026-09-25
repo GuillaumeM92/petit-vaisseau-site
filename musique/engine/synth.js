@@ -1,5 +1,6 @@
 // Synthesized instruments, made into note banks when first needed (no file to download): the voices of
-// an 8-bit console (the chiptune universe) and the ambient universe's pad, glass, soft voice and drone.
+// an 8-bit console (the chiptune universe), the ambient universe's pad, glass, soft voice and drone,
+// the lo-fi universe's electric piano, drums and vinyl crackle.
 // The console's tone notes are one period of 32 steps, like its sequencers, stored at the sample rate
 // that makes that period exact (f × 32) and looped on it: always in tune, a loop that never clicks.
 // The mixer plays them like the recorded ones.
@@ -175,9 +176,81 @@ function sineBank(lo, hi, amps) {
   return bank;
 }
 
+// ---------------- the lo-fi universe's instruments ----------------
+
+// A small deterministic noise (the banks must be the same everywhere).
+function rand(seed) { let x = seed >>> 0 || 1; return () => ((x = (x * 1664525 + 1013904223) >>> 0) / 4294967296) * 2 - 1; }
+
+// The electric piano: frequency modulation, as the digital ones of the 80s. A 1:1 pair gives the body
+// (its brightness dying away), a 14:1 pair the tine's short ping; each note decays over 3 s.
+function epianoBank() {
+  const bank = newBank(), rate = 32000, n = rate * 3;
+  for (let midi = 36; midi <= 90; midi += 3) {
+    const f0 = freq(midi), f = new Float32Array(n);
+    let pc = 0, pm = 0, pt = 0, pmt = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / rate;
+      pm += f0 / rate; pc += f0 / rate; pmt += f0 * 14 / rate; pt += f0 / rate;
+      const index = 1.8 * Math.exp(-t * 2.2) + 0.25;
+      const body = Math.sin(2 * Math.PI * pc + index * Math.sin(2 * Math.PI * pm)) * Math.exp(-t * (0.9 + midi / 90));
+      const tine = Math.sin(2 * Math.PI * pt + 1.2 * Math.exp(-t * 18) * Math.sin(2 * Math.PI * pmt)) * 0.35 * Math.exp(-t * 6);
+      f[i] = (body + tine) * Math.min(1, i / 48);
+    }
+    store(bank, midi, f, rate, false, 0, Math.round(rate * 0.3));
+  }
+  finishBank(bank);
+  return bank;
+}
+
+// A one-pole low-pass, in place.
+function lowpass(f, hz, rate) { const a = Math.exp(-2 * Math.PI * hz / rate); let y = 0; for (let i = 0; i < f.length; i++) f[i] = y = f[i] + (y - f[i]) * a; return f; }
+function highpass(f, hz, rate) { const a = Math.exp(-2 * Math.PI * hz / rate); let y = 0, px = 0; for (let i = 0; i < f.length; i++) { y = a * (y + f[i] - px); px = f[i]; f[i] = y; } return f; }
+// The dusty sound: a little saturation and 12-bit steps.
+const grit = (f) => { for (let i = 0; i < f.length; i++) f[i] = Math.round(Math.tanh(f[i] * 1.4) * 2048) / 2048; return f; };
+
+// The lo-fi drums (hits by midi number): a round kick, a snare, a rimshot, closed and open hats, a shaker.
+function lofiDrumBank() {
+  const bank = newBank(), rate = 32000;
+  const make = (seconds, fn) => { const f = new Float32Array(Math.round(seconds * rate)); for (let i = 0; i < f.length; i++) f[i] = fn(i / rate, i); return f; };
+  const r = rand(7);
+  let phase = 0;
+  const kick = make(0.45, (t) => { phase += (45 + 75 * Math.exp(-t * 22)) / rate; return Math.sin(2 * Math.PI * phase) * Math.exp(-t * 7) + (t < 0.004 ? r() * 0.4 : 0); });
+  let sp = 0;
+  const snare = highpass(make(0.28, (t) => { sp += 185 / rate; return (r() * 0.8 * Math.exp(-t * 16) + Math.sin(2 * Math.PI * sp) * 0.5 * Math.exp(-t * 28)); }), 180, rate);
+  const rim = highpass(make(0.08, (t) => (r() * 0.5 + Math.sin(2 * Math.PI * 1700 * t)) * Math.exp(-t * 60)), 400, rate);
+  const hat = highpass(make(0.06, (t) => r() * Math.exp(-t * 70)), 6000, rate);
+  const open = highpass(make(0.3, (t) => r() * Math.exp(-t * 11)), 5500, rate);
+  const shaker = highpass(make(0.09, (t) => r() * Math.min(1, t / 0.02) * Math.exp(-t * 40)), 4000, rate);
+  for (const [midi, f, g] of [[36, lowpass(kick, 900, rate), 1], [38, lowpass(snare, 5000, rate), 0.8], [37, rim, 0.5],
+    [42, hat, 0.35], [46, open, 0.3], [70, shaker, 0.3]]) {
+    grit(f);
+    const data = new Int16Array(f.length);
+    for (let i = 0; i < f.length; i++) data[i] = Math.round(f[i] * Full * g);
+    addNote(bank, midi, data, rate);
+  }
+  finishBank(bank);
+  return bank;
+}
+
+// The record's crackle: soft noise and a few pops, looped over exactly 6 s.
+function vinylBank() {
+  const bank = newBank(), rate = 22050, n = rate * 6, r = rand(11);
+  const f = lowpass(new Float32Array(n).map(() => r() * 0.08), 3000, rate);
+  for (let k = 0; k < 40; k++) {
+    const at = Math.floor((r() * 0.5 + 0.5) * (n - 200)), g = 0.3 + 0.7 * Math.abs(r());
+    for (let i = 0; i < 60; i++) f[at + i] += g * Math.exp(-i / 8) * (i % 2 ? -1 : 1);
+  }
+  store(bank, 60, f, rate, true);
+  finishBank(bank);
+  return bank;
+}
+
 // The bank of a synthesized instrument (Instruments[].Synth).
 export function synthBank(kind) {
   switch (kind) {
+    case 'epiano': return epianoBank();
+    case 'lofikit': return lofiDrumBank();
+    case 'vinyl': return vinylBank();
     case 'pad': return padBank();
     case 'glass': return glassBank();
     case 'soft': return sineBank(52, 91, [1, 0.12, 0.05, 0.02]);
