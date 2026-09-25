@@ -1,1 +1,0 @@
-lamejs 1.2.1 (https://github.com/zhuker/lamejs), a JavaScript port of LAME (https://lame.sourceforge.io), LGPL-3.0. Unmodified, loaded as a separate file by js/mp3-worker.js.
