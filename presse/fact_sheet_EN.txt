@@ -4,7 +4,7 @@ Studio                  Petit Vaisseau — Guillaume Merle (solo developer, Fran
 Genre                   Top-down space shooter with RPG progression
 Platforms               Windows and macOS (Steam)
 Early Access            May 2025
-Full release (1.0)      September 24, 2026, 10am PT / 7pm CEST
+Full release (1.0)      September 25, 2026
 Price                   $9.99 / €9.99
 Languages               English, French, Spanish
 Controls                Mouse and keyboard, full controller support
@@ -30,7 +30,7 @@ KEY FEATURES
 - Wingmen: recruit pilots at stations, give them ships from your hangar, fly with up to three of them; downed wingmen eject in rescue pods
 - 13 contract types with modifiers (asteroid fields, elite leaders, reinforcements, time limits)
 - Enemies with distinct behaviours: snipers, minelayers, carriers, missile jammers, shield-support hulls, elites and packs
-- 12 ships and over 60 pieces of equipment: lasers, pulse cannons, railguns, flak cannons, guided missiles, turrets, shields, generators, batteries
+- 13 ships and over 60 pieces of equipment: lasers, pulse cannons, railguns, flak cannons, guided missiles, turrets, shields, generators, batteries
 - Energy management: every fitted item changes how the ship flies and fights
 - A three-act story campaign (13 story missions) with Admiral Voss, Ilse Marin and ARIA, ending with the battle against the Nexus
 - Ranks from Recruit to Admiral, a research tree, a mission journal, three difficulty modes
