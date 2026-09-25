@@ -1,13 +1,13 @@
 // Keeps La Boîte à Musique on the device so it opens and plays without a connection: the pages
 // and scripts on install (fresh from the network when online, from the cache otherwise), the
 // notes as they are used, or all of them when the listener asks for offline listening.
-const VERSION = '7590db7'; // replaced by the deploy script, so a new version replaces the old cache
+const VERSION = 'df8d974'; // replaced by the deploy script, so a new version replaces the old cache
 const SHELL = `lbam-shell-${VERSION}`;
 const NOTES = 'lbam-notes'; // notes never change for a given file name: kept across versions
 
 const ShellFiles = [
   './', 'index.html', 'manifest.webmanifest', 'css/fonts.css', 'css/style.css',
-  'js/app.js', 'js/player.js', 'js/pieces.js', 'js/i18n.js', 'js/visualizer.js', 'js/mp3-worker.js',
+  'js/app.js', 'js/player.js', 'js/pieces.js', 'js/universes.js', 'js/i18n.js', 'js/visualizer.js', 'js/mp3-worker.js',
   'audio-worklet.js', 'engine/composer.js', 'engine/cinematic.js', 'engine/freeverb.js', 'engine/instruments.js', 'engine/mixer.js',
   'engine/notebank.js', 'engine/rng.js', 'engine/styles.js', 'engine/titles.js',
   'vendor/lamejs/lame.min.js', 'notes/manifest.json', 'icons/icon-192.png', 'icons/icon-512.png',

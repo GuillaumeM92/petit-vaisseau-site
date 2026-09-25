@@ -1,8 +1,9 @@
 // La Boîte à Musique: the page. Plays an endless stream of generated pieces, lets the listener
 // compose a playlist from a few quick choices, keep favourites, download and share pieces.
 import { Player } from './player.js';
-import { Visualizer, colorOf, universeOf } from './visualizer.js';
-import { songFor, pieceId, parsePieceId, randomSeed, pieceTitle, surpriseStyle } from './pieces.js';
+import { Visualizer, colorOf, themeOf } from './visualizer.js';
+import { songFor, pieceId, parsePieceId, randomSeed, pieceTitle } from './pieces.js';
+import { Universes, universe, universeOfSong } from './universes.js';
 import { Strings, t } from './i18n.js';
 import { InstrumentId, InstrumentCount, Instruments } from '../engine/instruments.js';
 import { Leads, Accomps } from '../engine/composer.js';
@@ -20,13 +21,24 @@ const state = {
   favorites: store.get('favorites', []),
   history: store.get('history', []),
   heard: store.get('heard', 0),
-  choices: store.get('choices', {}),
+  universe: universe(store.get('universe', 'classique')).id,
+  choices: loadChoices(), // per universe: { classique: {...}, cinematique: {...} }
   count: store.get('count', 10),
   playlist: [],
   index: -1,
   tab: 'playlist',
   timerEnd: 0,
 };
+
+// Choices were one set before the universes: they go to the universe their style belongs to.
+function loadChoices() {
+  const saved = store.get('choices', {});
+  if (saved.classique || saved.cinematique) return saved;
+  const { style, ...rest } = saved;
+  return style === MusicStyle.Cinematic ? { classique: {}, cinematique: rest }
+    : { classique: style === undefined ? rest : { ...rest, style }, cinematique: {} };
+}
+const choicesOf = (id) => (state.choices[id] ??= {});
 
 const player = new Player();
 player.setVolume(store.get('volume', 0.8));
@@ -35,10 +47,14 @@ const L = (key, ...args) => t(state.lang, key, ...args);
 
 // ---------------- pieces ----------------
 
+// A new piece of the current universe with the listener's settings. In Classique, no style chosen
+// lets the seed pick among the six (as in the game); the other universes write their style in the id.
 function newPiece() {
   const choices = {};
-  for (const [k, v] of Object.entries(state.choices)) if (v !== '' && v !== null && v !== undefined) choices[k] = v;
-  return pieceId(randomSeed(), surpriseStyle(choices));
+  for (const [k, v] of Object.entries(choicesOf(state.universe))) if (v !== '' && v !== null && v !== undefined) choices[k] = v;
+  const u = universe(state.universe);
+  if (u.styles.length === 1) choices.style = u.styles[0];
+  return pieceId(randomSeed(), choices);
 }
 
 function generatePlaylist() {
@@ -54,9 +70,9 @@ async function playIndex(i, start = 0) {
   await playId(state.playlist[i], start);
 }
 
-async function playId(id, start = 0) {
+async function playId(id, start = 0, fade = 0.4) {
   showLoading(true);
-  try { await player.play(id, 0.4, start); } finally { showLoading(false); }
+  try { await player.play(id, fade, start); } finally { showLoading(false); }
   renderNow(id);
   renderLists();
 }
@@ -163,12 +179,11 @@ const ChipOf = { [InstrumentId.Tap]: InstrumentId.Kick, [InstrumentId.TimpaniRol
   [InstrumentId.CellosSpic]: InstrumentId.Cello };
 const chipOf = (i) => ChipOf[i] ?? i;
 
-// Each family of styles has its universe (colours and visualizer): the acoustic lights, the
-// cinematic embers.
-function setUniverse(universe) {
-  if (document.documentElement.dataset.universe === universe) return;
-  document.documentElement.dataset.universe = universe;
-  document.querySelector('meta[name="theme-color"]').content = universe === 'embers' ? '#140b09' : '#0d1024';
+// Each universe has its theme (colours and visualizer): Classique the lights, Cinématique the embers.
+function setTheme(theme) {
+  if (document.documentElement.dataset.theme === theme) return;
+  document.documentElement.dataset.theme = theme;
+  document.querySelector('meta[name="theme-color"]').content = theme === 'embers' ? '#140b09' : '#0d1024';
 }
 
 function renderNow(id) {
@@ -176,8 +191,11 @@ function renderNow(id) {
   const song = songFor(id);
   const p = parsePieceId(id);
   viz.setSong(song);
-  const universe = universeOf(song);
-  setUniverse(universe);
+  const theme = themeOf(song);
+  setTheme(theme);
+  // a favourite or a shared piece from another universe: the page follows it
+  const u = universeOfSong(song);
+  if (u.id !== state.universe) { state.universe = u.id; store.set('universe', u.id); buildForm(); renderUniverses(); }
   $('#kicker').textContent = `${L('nowPlaying')} · ${L('number', p.seed)}`;
   $('#title').textContent = pieceTitle(id, state.lang);
   $('#details').textContent = describe(song);
@@ -199,7 +217,7 @@ function renderNow(id) {
     const chip = document.createElement('span');
     chip.className = 'chip';
     chip.dataset.instrument = c;
-    chip.style.setProperty('--c', colorOf(c, universe));
+    chip.style.setProperty('--c', colorOf(c, theme));
     chip.textContent = Strings[state.lang].instruments[c];
     chips.append(chip);
   }
@@ -321,20 +339,20 @@ function option(value, label) {
   return o;
 }
 
+// The settings of the current universe. Cinématique: its own soloists, no accompaniment to choose
+// (its strings' ostinato), only a bright (major) or melancholic (minor) mood.
 function buildForm() {
   const S = Strings[state.lang];
-  // The cinematic style has its own soloists and no accompaniment to choose (its strings' ostinato).
-  const cinematic = state.choices.style === MusicStyle.Cinematic;
+  const u = universe(state.universe);
+  const choices = choicesOf(u.id);
+  const cinematic = u.id === 'cinematique';
   const leads = cinematic ? CinematicLeads : Leads;
-  if (state.choices.lead !== undefined && !leads.includes(state.choices.lead)) delete state.choices.lead;
-  if (cinematic) {
-    delete state.choices.accomp;
-    if (state.choices.mode > 1) delete state.choices.mode; // only major (bright) or minor (melancholic)
-  }
+  if (choices.lead !== undefined && !leads.includes(choices.lead)) delete choices.lead;
+  if (cinematic) { delete choices.accomp; delete choices.style; if (choices.mode > 1) delete choices.mode; }
   store.set('choices', state.choices);
   const leadName = (id) => cinematic && id === InstrumentId.Strings ? S.instruments[InstrumentId.ViolinsSpic] : S.instruments[id];
   const fields = [
-    ['style', L('style'), S.styles.map((s, i) => [i, s])],
+    ...(u.styles.length > 1 ? [['style', L('style'), u.styles.map((i) => [i, S.styles[i]])]] : []),
     ['mode', L('mood'), (cinematic ? S.moods.slice(0, 2) : S.moods).map((s, i) => [i, s])],
     ['lead', L('lead'), leads.map((id) => [id, leadName(id)])],
     ...(cinematic ? [] : [['accomp', L('accomp'), Accomps.map((id) => [id, S.instruments[id]])]]),
@@ -352,14 +370,13 @@ function buildForm() {
     const select = document.createElement('select');
     select.append(option('', L('surprise')));
     for (const [v, text] of options) select.append(option(v, text));
-    const current = state.choices[name];
+    const current = choices[name];
     select.value = current === undefined ? '' : String(current);
     select.addEventListener('change', () => {
       const v = select.value;
-      if (v === '') delete state.choices[name];
-      else state.choices[name] = name === 'tempo' || name === 'drums' ? v : Number(v);
+      if (v === '') delete choices[name];
+      else choices[name] = name === 'tempo' || name === 'drums' ? v : Number(v);
       store.set('choices', state.choices);
-      if (name === 'style') buildForm();
     });
     wrap.append(select);
     form.append(wrap);
@@ -394,6 +411,7 @@ function applyTexts() {
   $('#timer').replaceChildren(option(0, L('timerOff')), ...[15, 30, 60, 90].map((m) => option(m, L('minutes', m))));
   for (const b of document.querySelectorAll('.lang button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang);
   buildForm();
+  renderUniverses();
   renderOffline();
   renderNow(player.current);
   renderLists();
@@ -411,16 +429,83 @@ function toast(text) {
   toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
 }
 
-async function start() {
+// ---------------- universes ----------------
+
+const sharedId = () => { const id = /#p=([\w.-]+)/.exec(location.hash)?.[1]; return id && parsePieceId(id) ? id : null; };
+
+// The universe cards (start screen) and the switch above the player; the ones to come greyed out.
+function renderUniverses() {
+  const S = Strings[state.lang];
+  const nav = $('#universes'), cards = $('#cards'), soon = $('#soonCards');
+  nav.replaceChildren(); cards.replaceChildren(); soon.replaceChildren();
+  nav.setAttribute('aria-label', L('universe'));
+  for (const u of Universes) {
+    const [name, text] = S.universes[u.id];
+    const pill = document.createElement('button');
+    pill.className = `universe-pill u-${u.id}`;
+    pill.disabled = !!u.soon;
+    pill.setAttribute('aria-pressed', u.id === state.universe);
+    pill.innerHTML = '<span class="dot"></span><span class="name"></span>';
+    pill.querySelector('.name').textContent = name;
+    if (u.soon) { pill.insertAdjacentHTML('beforeend', `<span class="soon-tag"></span>`); pill.lastChild.textContent = L('soon'); }
+    else pill.addEventListener('click', () => switchUniverse(u.id));
+    nav.append(pill);
+
+    const card = document.createElement('button');
+    card.className = `universe-card u-${u.id}`;
+    card.disabled = !!u.soon;
+    card.innerHTML = '<span class="art"></span><span class="card-name"></span><span class="card-text"></span>';
+    card.querySelector('.card-name').textContent = name;
+    card.querySelector('.card-text').textContent = u.soon ? L('soon') : text;
+    if (!u.soon) {
+      card.insertAdjacentHTML('beforeend', '<span class="card-play"><svg aria-hidden="true"><use href="#i-play"/></svg></span>');
+      card.addEventListener('click', () => start(u.id));
+    }
+    (u.soon ? soon : cards).append(card);
+  }
+  $('#composeHint').textContent = L('composeHint', S.universes[state.universe][0]);
+  const shared = sharedId();
+  $('#shared').hidden = !shared;
+  if (shared) {
+    $('#sharedTitle').textContent = pieceTitle(shared, state.lang);
+    $('#shared .shared-kicker').textContent = `${L('sharedTitle')} · ${L('number', parsePieceId(shared).seed)}`;
+  }
+}
+
+// Another universe: its theme fades in while the piece playing fades out, then a new piece starts.
+async function switchUniverse(id) {
+  if (id === state.universe && player.current) return;
+  state.universe = id;
+  store.set('universe', id);
+  setTheme(universe(id).theme);
+  buildForm();
+  renderUniverses();
+  if (!player.ctx) return start(id);
+  state.playlist = [newPiece()];
+  state.index = 0;
+  await playId(state.playlist[0], 0, 1.5);
+  renderPlayButton();
+}
+
+async function start(id = state.universe, piece = null) {
   $('#start').hidden = true;
-  const shared = /#p=([\w.-]+)/.exec(location.hash)?.[1];
-  const first = shared && parsePieceId(shared) ? shared : newPiece();
-  state.playlist = [first];
+  $('#universes').hidden = false;
+  if (!piece) {
+    state.universe = id;
+    store.set('universe', id);
+    setTheme(universe(id).theme);
+    buildForm();
+    renderUniverses();
+  }
+  state.playlist = [piece || newPiece()];
   await playIndex(0);
   renderPlayButton();
 }
 
-$('#startButton').addEventListener('click', start);
+// A shared link opens in its piece's universe (without changing the listener's own).
+{ const shared = sharedId(); if (shared) state.universe = universeOfSong(songFor(shared)).id; }
+setTheme(universe(state.universe).theme);
+$('#sharedButton').addEventListener('click', () => start(state.universe, sharedId()));
 $('#play').addEventListener('click', togglePlay);
 $('#next').addEventListener('click', () => player.ctx ? playIndex(state.index + 1) : start());
 $('#prev').addEventListener('click', () => {
@@ -432,7 +517,13 @@ $('#fav').addEventListener('click', () => player.current && toggleFavorite(playe
 $('#dl').addEventListener('click', (e) => { e.stopPropagation(); if (player.current) openDownloadMenu(player.current, e.currentTarget); });
 document.addEventListener('click', (e) => { if (!e.target.closest('#dlMenu, .icon-btn')) closeDownloadMenu(); });
 $('#share').addEventListener('click', () => player.current && share(player.current));
-$('#generate').addEventListener('click', async () => { await player.start(); $('#start').hidden = true; generatePlaylist(); renderPlayButton(); });
+$('#generate').addEventListener('click', async () => {
+  await player.start();
+  $('#start').hidden = true;
+  $('#universes').hidden = false;
+  generatePlaylist();
+  renderPlayButton();
+});
 $('#volume').value = String(player.volume);
 $('#volume').addEventListener('input', (e) => { player.setVolume(Number(e.target.value)); store.set('volume', player.volume); });
 $('#timer').addEventListener('change', (e) => { const m = Number(e.target.value); state.timerEnd = m ? Date.now() + m * 60000 : 0; });

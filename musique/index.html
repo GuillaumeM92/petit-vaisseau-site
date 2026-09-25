@@ -45,15 +45,22 @@
   </header>
 
   <main>
+    <nav class="universes" id="universes" aria-label="Univers" hidden></nav>
+
     <section class="stage" id="stage">
       <canvas id="viz" aria-hidden="true"></canvas>
 
       <div class="start" id="start">
         <p class="tagline" data-t="tagline"></p>
-        <button class="start-button" id="startButton">
-          <svg aria-hidden="true"><use href="#i-play"/></svg><span data-t="listen"></span>
-        </button>
         <p class="start-hint" data-t="listenHint"></p>
+        <div class="shared" id="shared" hidden>
+          <span class="shared-kicker"></span>
+          <button class="start-button" id="sharedButton">
+            <svg aria-hidden="true"><use href="#i-play"/></svg><span id="sharedTitle"></span>
+          </button>
+        </div>
+        <div class="cards" id="cards"></div>
+        <div class="cards soon-cards" id="soonCards"></div>
       </div>
 
       <div class="loading-note" data-t="loading"></div>
@@ -101,7 +108,7 @@
     <section class="panels">
       <div class="card compose">
         <h2 data-t="composeTitle"></h2>
-        <p class="hint" data-t="composeHint"></p>
+        <p class="hint" id="composeHint"></p>
         <div class="fields" id="fields"></div>
         <button class="primary" id="generate" data-t="generate"></button>
       </div>

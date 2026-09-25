@@ -1,7 +1,7 @@
 // The visualizer: every note of the piece becomes a soft light, its height the pitch, its colour
 // the instrument, drifting left as the music moves on; the low end of the spectrum breathes in
 // the background. Drawn from the composed notes themselves, so it is exactly in time.
-// Each family of styles has its universe: the acoustic ones these lights, the cinematic one embers
+// Each universe has its theme: Classique these lights, Cinématique embers
 // (notes rise and cool down like sparks over a fire, the drums throw out bursts).
 import { NoteRole } from '../engine/composer.js';
 import { Instruments, InstrumentId as I } from '../engine/instruments.js';
@@ -39,9 +39,9 @@ export const InstrumentColors = [
 // In the embers, the instruments the cinematic style shares with the others take warm colours too.
 const EmberColors = { [I.Strings]: '#ff7a6b', [I.Cello]: '#e8603f', [I.Horn]: '#ffc46b', [I.Violin]: '#ff9a6b' };
 
-export const universeOf = (song) => song && song.style === MusicStyle.Cinematic ? 'embers' : 'lights';
-export const colorOf = (instrument, universe) =>
-  (universe === 'embers' && EmberColors[instrument]) || InstrumentColors[instrument];
+export const themeOf = (song) => song && song.style === MusicStyle.Cinematic ? 'embers' : 'lights';
+export const colorOf = (instrument, theme) =>
+  (theme === 'embers' && EmberColors[instrument]) || InstrumentColors[instrument];
 
 // A fixed pseudo-random number in [0, 1) for a note and a purpose, so the embers move the same way
 // on every frame without keeping any state.
@@ -112,7 +112,7 @@ export class Visualizer {
     const W = canvas.width, H = canvas.height, dpr = this.dpr;
     ctx.globalCompositeOperation = 'source-over';
     ctx.clearRect(0, 0, W, H);
-    if (universeOf(this.song) === 'embers') return this.drawEmbers();
+    if (themeOf(this.song) === 'embers') return this.drawEmbers();
 
     // Breathing glow from the low end of the spectrum.
     const energy = this.energy();

@@ -37,7 +37,7 @@
   transition: --bg 1.6s, --glow-1 1.6s, --glow-2 1.6s, --stage-top 1.6s, --stage-bottom 1.6s, --shade 1.6s,
     --gold 1.6s, --gold-light 1.6s, --gold-deep 1.6s, --raised 1.6s;
 }
-:root[data-universe="embers"] {
+:root[data-theme="embers"] {
   --bg: #120a08;
   --glow-1: #4a1d10;
   --glow-2: #2a120c;
@@ -109,12 +109,68 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
 #viz { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 .start {
-  position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 22px; padding: 32px; text-align: center;
-  background: radial-gradient(600px 400px at 50% 45%, rgba(20, 24, 60, 0.4), rgba(11, 14, 34, 0.92));
+  position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px; padding: 48px 32px; text-align: center; min-height: 560px;
+  background: radial-gradient(600px 400px at 50% 40%, color-mix(in srgb, var(--stage-top) 40%, transparent), color-mix(in srgb, var(--stage-bottom) 92%, transparent));
 }
 .start[hidden] { display: none; }
-.stage:has(.start:not([hidden])) .now { visibility: hidden; }
+.stage:has(.start:not([hidden])) .now { display: none; }
+
+/* the universes: cards on the start screen, a switch above the player */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 300px)); gap: 16px; justify-content: center; width: 100%; margin-top: 8px; }
+.universe-card {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left;
+  padding: 0 0 18px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); background: var(--surface);
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+}
+.universe-card:not(:disabled):hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 55%, transparent); box-shadow: 0 16px 40px color-mix(in srgb, var(--accent) 22%, transparent); }
+.universe-card .art { display: block; width: 100%; height: 118px; margin-bottom: 10px; background: var(--art); }
+.card-name { font-family: var(--serif); font-size: 24px; font-weight: 650; padding: 0 18px; }
+.card-text { font-size: 14px; color: var(--muted); padding: 0 18px; line-height: 1.4; }
+.card-play {
+  position: absolute; top: 90px; right: 16px; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 24px; color: #1b1004; background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 70%, white), var(--accent));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.soon-cards { grid-template-columns: repeat(5, minmax(0, 116px)); gap: 10px; margin-top: 4px; }
+.soon-cards .universe-card { padding-bottom: 10px; border-radius: 14px; cursor: default; filter: grayscale(0.75); opacity: 0.5; }
+.soon-cards .art { height: 44px; margin-bottom: 6px; }
+.soon-cards .card-name { font-size: 15px; padding: 0 10px; }
+.soon-cards .card-text { font-size: 11px; padding: 0 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+.shared { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.shared[hidden] { display: none; }
+.shared-kicker { color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.universes { display: flex; gap: 8px; margin: 0 0 14px; overflow-x: auto; scrollbar-width: none; padding: 2px; }
+.universes[hidden] { display: none; }
+.universes::-webkit-scrollbar { display: none; }
+.universe-pill {
+  display: inline-flex; align-items: center; gap: 8px; flex: none; border: 1px solid var(--border); background: var(--surface);
+  border-radius: 999px; padding: 8px 16px 8px 12px; font-weight: 700; font-size: 14px; color: var(--muted);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.universe-pill .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.universe-pill:not(:disabled):hover { color: var(--text); background: var(--surface-strong); }
+.universe-pill[aria-pressed="true"] { color: var(--text); border-color: color-mix(in srgb, var(--accent) 60%, transparent); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.universe-pill:disabled { cursor: default; opacity: 0.45; filter: grayscale(0.8); }
+.universe-pill .soon-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--faint); }
+
+/* each universe's colour and a small picture of its theme */
+.u-classique { --accent: #f3c969;
+  --art: radial-gradient(circle at 22% 38%, #fff3c4 0 2px, #f3c96999 3px, transparent 10px), radial-gradient(circle at 48% 62%, #b69cff 0 2px, #b69cff88 3px, transparent 12px),
+    radial-gradient(circle at 70% 30%, #5fd4c4 0 2px, #5fd4c488 3px, transparent 11px), radial-gradient(circle at 84% 58%, #f3c969 0 3px, #f3c96988 4px, transparent 16px),
+    radial-gradient(120% 90% at 80% 0%, #2b3070, transparent 70%), linear-gradient(180deg, #151a44, #0b0e22); }
+.u-cinematique { --accent: #ff9a4a;
+  --art: radial-gradient(circle at 30% 50%, #ffe2b0 0 1.5px, transparent 3px), radial-gradient(circle at 55% 35%, #ffc27a 0 2px, transparent 4px),
+    radial-gradient(circle at 68% 58%, #fff0d0 0 1.5px, transparent 3px), radial-gradient(circle at 80% 28%, #ffb057 0 1.5px, transparent 3px),
+    radial-gradient(90% 80% at 55% 120%, #ff8a3c 0%, #b8401a 30%, #4a160a 60%, transparent 80%), linear-gradient(180deg, #1c0e0a, #0d0706); }
+.u-chiptune { --accent: #7cf29c;
+  --art: repeating-linear-gradient(90deg, #0000 0 11px, #0006 11px 12px), repeating-linear-gradient(0deg, #0000 0 11px, #0006 11px 12px),
+    linear-gradient(135deg, #3b2a8c, #1f7a5c); }
+.u-ambiance { --accent: #7fd6e8; --art: radial-gradient(80% 60% at 30% 70%, #3fb5a5aa, transparent 70%), radial-gradient(70% 60% at 75% 30%, #7a5cd6aa, transparent 70%), #0c1f2c; }
+.u-fantaisie { --accent: #c9e08a; --art: radial-gradient(40% 50% at 70% 60%, #ffcf7a99, transparent 70%), linear-gradient(180deg, #1f3a26, #0f1f14); }
+.u-lofi { --accent: #f2a7c3; --art: radial-gradient(60% 70% at 30% 40%, #f2a7c366, transparent 70%), linear-gradient(135deg, #3a2a45, #22303f); }
+.u-synthwave { --accent: #ff5fd2; --art: repeating-linear-gradient(0deg, #0000 0 9px, #ff5fd255 9px 10px), linear-gradient(180deg, #2a0f4a 0%, #7a1f6b 60%, #ff8a4c 100%); }
 .tagline { font-family: var(--serif); font-size: clamp(26px, 4vw, 44px); line-height: 1.15; max-width: 720px; margin: 0; }
 .start-button {
   display: inline-flex; align-items: center; gap: 12px; border: 0; border-radius: 999px;
@@ -266,6 +322,9 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
   .top { padding: 16px; }
   .brand-name { font-size: 19px; }
   .stage { min-height: 620px; border-radius: 22px; }
+  .start { padding: 36px 16px; min-height: 620px; }
+  .cards { grid-template-columns: minmax(0, 1fr); }
+  .soon-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .now { padding: 90px 18px 22px; }
   .controls { justify-content: center; }
   .settings { width: 100%; justify-content: center; flex-wrap: wrap; }

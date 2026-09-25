@@ -3,8 +3,6 @@
 // links store only that.
 import { compose, styleOf, defaultOverrides, Off } from '../engine/composer.js';
 import { getStyle, DrumsMode, MusicStyle } from '../engine/styles.js';
-import { CinematicLeads } from '../engine/cinematic.js';
-import { InstrumentId } from '../engine/instruments.js';
 import { titleOf } from '../engine/titles.js';
 
 export const MaxSeed = 1000000;
@@ -54,17 +52,6 @@ export function overridesFor(seed, choices) {
     o.Tempo = choices.tempo === 's' ? style.TempoMin : style.TempoMax;
   }
   return o;
-}
-
-// "Surprise" as the style: the seed picks among the game's six, and now and then the box asks for one
-// of the site's own styles instead (written in the id), when the other choices suit it.
-const NewStyleShare = 0.15;
-const suitsCinematic = (c) => c.accomp === undefined
-  && (c.lead === undefined || c.lead === InstrumentId.Horn || CinematicLeads.includes(c.lead));
-
-export function surpriseStyle(choices) {
-  if (choices.style !== undefined || !suitsCinematic(choices) || Math.random() >= NewStyleShare) return choices;
-  return { ...choices, style: MusicStyle.Cinematic };
 }
 
 const cache = new Map();
