@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Boîte à Musique</title>
+  <meta name="description" content="Une musique d'ambiance infinie, composée à la volée dans ton navigateur, sans IA. Gratuite et libre de droits.">
+  <meta name="theme-color" content="#0d1024">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d1024'/%3E%3Cpath d='M12 22.5a3 3 0 1 1-2-2.83V9l12-2.5v12a3 3 0 1 1-2-2.83V10.2l-8 1.7z' fill='%23f3c969'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <svg hidden aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 5h2.2v14H6zM19 5.5v13L9.5 12z" fill="currentColor"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M15.8 5H18v14h-2.2zM5 5.5v13L14.5 12z" fill="currentColor"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.1A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-heart-on" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.1A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z" fill="currentColor"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v10m0 0l-4-4m4 4l4-4M5 18.5h14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.6 4.5 4.5 0 0 0 7 18.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 10.5v5m0 0l-2.2-2.2m2.2 2.2l2.2-2.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-install" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v6m0 0l-2.5-2.5M12 14l2.5-2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-box" viewBox="0 0 32 32"><path d="M12 22.5a3 3 0 1 1-2-2.83V9l12-2.5v12a3 3 0 1 1-2-2.83V10.2l-8 1.7z" fill="currentColor"/></symbol>
+  </svg>
+
+  <header class="top">
+    <a class="brand" href="./">
+      <span class="brand-mark"><svg aria-hidden="true"><use href="#i-box"/></svg></span>
+      <span class="brand-name">La Boîte à Musique</span>
+    </a>
+    <div class="top-actions">
+      <button class="pill" id="installBtn" hidden><svg aria-hidden="true"><use href="#i-install"/></svg><span data-t="install"></span></button>
+      <button class="pill" id="offlineBtn" hidden><svg aria-hidden="true"><use href="#i-offline"/></svg><span id="offlineLabel"></span></button>
+      <div class="lang" role="group" aria-label="Langue / Language">
+        <button data-lang="fr">FR</button><button data-lang="en">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="stage" id="stage">
+      <canvas id="viz" aria-hidden="true"></canvas>
+
+      <div class="start" id="start">
+        <p class="tagline" data-t="tagline"></p>
+        <button class="start-button" id="startButton">
+          <svg aria-hidden="true"><use href="#i-play"/></svg><span data-t="listen"></span>
+        </button>
+        <p class="start-hint" data-t="listenHint"></p>
+      </div>
+
+      <div class="loading-note" data-t="loading"></div>
+
+      <div class="now">
+        <p class="kicker" id="kicker">&nbsp;</p>
+        <h1 id="title">La Boîte à Musique</h1>
+        <p class="details" id="details">&nbsp;</p>
+        <div class="chips" id="chips"></div>
+
+        <div class="progress">
+          <span id="elapsed">0:00</span>
+          <div class="bar" id="bar"><div class="fill" id="fill"></div></div>
+          <span id="total">0:00</span>
+        </div>
+
+        <div class="controls">
+          <div class="transport">
+            <button class="icon-btn" id="prev" data-t-label="previous"><svg aria-hidden="true"><use href="#i-prev"/></svg></button>
+            <button class="play-btn" id="play" data-t-label="play">
+              <svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg>
+              <svg class="when-playing" aria-hidden="true"><use href="#i-pause"/></svg>
+            </button>
+            <button class="icon-btn" id="next" data-t-label="next"><svg aria-hidden="true"><use href="#i-next"/></svg></button>
+          </div>
+          <div class="actions">
+            <button class="icon-btn fav" id="fav" data-t-label="favorite" aria-pressed="false">
+              <svg class="off" aria-hidden="true"><use href="#i-heart"/></svg>
+              <svg class="on-icon" aria-hidden="true"><use href="#i-heart-on"/></svg>
+            </button>
+            <button class="icon-btn" id="dl" data-t-label="download"><svg aria-hidden="true"><use href="#i-download"/></svg></button>
+            <button class="icon-btn" id="share" data-t-label="share"><svg aria-hidden="true"><use href="#i-link"/></svg></button>
+          </div>
+          <div class="settings">
+            <label class="volume"><svg aria-hidden="true"><use href="#i-volume"/></svg>
+              <input type="range" id="volume" min="0" max="1" step="0.01" data-t-label="volume"></label>
+            <label class="timer"><svg aria-hidden="true"><use href="#i-moon"/></svg>
+              <select id="timer" data-t-label="timer"></select></label>
+            <span class="timer-left" id="timerLeft"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panels">
+      <div class="card compose">
+        <h2 data-t="composeTitle"></h2>
+        <p class="hint" data-t="composeHint"></p>
+        <div class="fields" id="fields"></div>
+        <button class="primary" id="generate" data-t="generate"></button>
+      </div>
+
+      <div class="card lists">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" data-tab="playlist" aria-selected="true" data-t="playlist"></button>
+          <button class="tab" role="tab" data-tab="favorites" aria-selected="false"><span data-t="favorites"></span><span id="favCount"></span></button>
+          <button class="tab" role="tab" data-tab="history" aria-selected="false" data-t="history"></button>
+        </div>
+        <ol class="list" id="list"></ol>
+        <p class="heard" id="heard"></p>
+      </div>
+    </section>
+
+    <section class="why">
+      <h2 data-t="whyTitle"></h2>
+      <ul id="whyList"></ul>
+    </section>
+
+    <footer>
+      <h2 data-t="licenseTitle"></h2>
+      <p data-t="license"></p>
+      <p class="credits" data-t="credits"></p>
+    </footer>
+  </main>
+
+  <div class="menu" id="dlMenu" role="menu" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
