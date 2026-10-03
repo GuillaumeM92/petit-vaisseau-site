@@ -18,7 +18,7 @@ En ligne : **https://petitvaisseau.com**
 │                           bouton Google Play à activer le jour de la sortie
 ├── sourcebound-confidentialite.html  Confidentialité de Sourcebound (liée depuis Google Play) ;
 │                           le texte vient de Store/privacy-policy.html du dépôt du jeu
-├── eyes-closed-confidentialite.html  Confidentialité d'Eyes Closed (nom provisoire, liée depuis Google Play)
+├── eyes-closed-confidentialite.html  Confidentialité de Rêverie (ex-Eyes Closed ; liée depuis Google Play et l’App Store)
 ├── confidentialite.html    Politique de confidentialité FR/EN (liée depuis Steam et Google Play)
 ├── 404.html                Page d'erreur, volontairement autonome (son style est dedans)
 ├── robots.txt              Autorise l'indexation, pointe le sitemap
