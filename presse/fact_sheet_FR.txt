@@ -6,7 +6,7 @@ Plateformes             Windows et macOS (Steam)
 Accès anticipé          mai 2025
 Sortie 1.0              25 septembre 2026
 Prix                    9,99 €
-Langues                 français, anglais, espagnol
+Langues                 français, anglais, allemand, espagnol, russe, chinois simplifié (interface et voix)
 Contrôles               clavier et souris, compatibilité manette complète
 Site                    https://petitvaisseau.com
 Steam                   https://store.steampowered.com/app/1731170/
@@ -32,7 +32,7 @@ POINTS FORTS
 - Des ennemis aux comportements distincts : tireurs d'élite, poseurs de mines, porte-chasseurs, brouilleurs de missiles, vaisseaux de soutien, élites et meutes
 - 13 vaisseaux et plus de 60 équipements : lasers, canons à impulsion, railguns, canons flak, missiles guidés, tourelles, boucliers, générateurs, batteries
 - Gestion de l'énergie : chaque équipement change la façon dont le vaisseau vole et combat
-- Une campagne en trois actes (13 missions d'histoire) avec l'amiral Voss, Ilse Marin et ARIA, jusqu'à la bataille contre le Nexus
+- Une campagne en trois actes (13 missions d'histoire) avec l'amiral Voss, Élise Martin et ARIA, jusqu'à la bataille contre le Nexus
 - Des grades de Recrue à Amiral, un arbre de recherche, un journal de mission, trois modes de difficulté
 
 HISTORIQUE
@@ -41,7 +41,10 @@ Space Defender est le premier jeu de Guillaume, développé seul à côté d'un 
 CRÉDITS
 Conception, programmation, écriture : Guillaume Merle
 Musique : Alkakrab (Sci-Fi Music Packs, alkakrab.itch.io)
-Visuels des vaisseaux, stations, objets et portraits : générés avec des outils d'IA à partir des références du développeur, puis sélectionnés et retouchés par lui
+Vaisseaux, stations, tourelles, icônes et décors : générés de manière procédurale par le code du développeur
+Portraits des personnages et certaines illustrations (intérieurs des spatioports, scènes d'expédition, écrans de chargement, cartes de fin) : outils d'IA générative, d'après la direction artistique du développeur, puis sélectionnés et retouchés par lui
+Voix des personnages : synthèse vocale par IA, dirigée et retouchée par le développeur
+Des outils d'IA ont aussi servi d'aide pour le code, les traductions et quelques effets sonores ; tout a été revu et intégré à la main
 Planètes : 2D Space Kit de Brett Gregory
 Effets sonores : ZapSplat
 Police : Exo 2 de Natanael Gama (SIL Open Font License)
