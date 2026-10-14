@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rêverie: Audio Stories — Petit Vaisseau</title>
+<meta name="description" content="Rêverie: Audio Stories, des histoires audio illustrées où vous décidez de la suite : une voix raconte, les personnages répondent, les ambiances sonores vous entourent, et vos choix mènent à plusieurs fins. Gratuit sur PC, Mac, iPhone, iPad et Android, avec deux histoires complètes. Sortie le 22 octobre 2026.">
+<meta name="theme-color" content="#0A0E1C">
+
+<!-- Adresse de référence du site (voir README.md §4) -->
+<link rel="canonical" href="https://petitvaisseau.com/reverie.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Petit Vaisseau">
+<meta property="og:title" content="Rêverie: Audio Stories">
+<meta property="og:description" content="Des histoires audio illustrées où vous décidez de la suite. Gratuit, avec deux histoires complètes : Le Messager de Corbeval et Le Roi qui ne dormait plus. Sortie le 22 octobre 2026.">
+<meta property="og:image" content="https://petitvaisseau.com/assets/img/reverie/og-cover.jpg">
+<meta property="og:url" content="https://petitvaisseau.com/reverie.html">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<!-- Les deux polices du jeu : Exo 2 pour le titre, Atkinson Hyperlegible pour les textes. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<!-- data-sortie : « avant » jusqu'au 22 octobre 2026, puis « apres » (voir README.md, « Sortie de Rêverie »).
+     Tout ce qui porte la classe « avant » disparaît alors, tout ce qui porte « apres » apparaît. -->
+<body class="theme-reverie" data-sortie="avant">
+
+<header class="console">
+  <div class="wrap">
+    <a href="index.html" aria-label="Petit Vaisseau — accueil" style="display:flex">
+      <svg class="lockup" viewBox="58 46 470 118" role="img" aria-label="Petit Vaisseau">
+        <defs>
+          <linearGradient id="lk-hull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(24,35) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#lk-hull)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+          <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+          <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Exo 2','Avenir Next',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="var(--accent-ink)" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="var(--ink)" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="index.html">Studio</a>
+      <a href="space-defender.html">Space Defender</a>
+      <a href="le-tapis-vert.html">Le Tapis Vert</a>
+      <a href="sourcebound.html">Sourcebound</a>
+      <a href="reverie.html" aria-current="page">Rêverie</a>
+      <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button id="lang-fr" type="button" aria-pressed="true">FR</button>
+      <button id="lang-en" type="button" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap gamehead">
+    <img class="banner" src="assets/img/reverie/capsule.jpg" alt="Rêverie: Audio Stories — des lanternes allumées sur un sentier de colline, sous un ciel étoilé" width="920" height="430">
+    <h1 class="visually-hidden">Rêverie: Audio Stories</h1>
+    <div class="stack-tight">
+      <span class="pill avant"><span class="dot"></span><span class="fr">Gratuit · sortie le 22 octobre 2026 sur PC, Mac, iPhone, iPad et Android</span><span class="en">Free · out October 22, 2026 on PC, Mac, iPhone, iPad and Android</span></span>
+      <span class="pill apres"><span class="dot"></span><span class="fr">Gratuit · disponible sur PC, Mac, iPhone, iPad et Android</span><span class="en">Free · out now on PC, Mac, iPhone, iPad and Android</span></span>
+      <p class="lede">
+        <span class="fr">Mettez votre casque, ou montez le son : l'histoire commence. Rêverie, ce sont des histoires audio illustrées où c'est vous qui décidez de la suite. Une voix vous raconte, les personnages lui répondent, la pluie et le vent vous entourent — et à chaque moment clé, vous choisissez. Deux histoires complètes sont offertes, avec plusieurs fins chacune.</span>
+        <span class="en">Put on your headphones, or turn up the sound: the story begins. Rêverie brings you illustrated audio stories where you decide what happens next. A voice tells the tale, the characters answer, the rain and the wind close in around you — and at every turning point, you choose. Two complete stories are free, each with several endings.</span>
+      </p>
+    </div>
+    <div class="buyrow">
+      <!-- Avant le 22/10 : seule la page Steam est publique (« Prochainement ») ; les pages App Store
+           et Google Play affichent « introuvable » à tout le monde. Les vrais liens sont déjà là,
+           dans les blocs « apres », qui s'affichent quand <body data-sortie="apres">. -->
+      <a class="btn btn-primary avant" href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener"><span class="fr">Ajouter à ma liste de souhaits sur Steam</span><span class="en">Wishlist on Steam</span></a>
+      <span class="btn btn-ghost avant" aria-disabled="true"><span class="fr">App Store — le 22 octobre</span><span class="en">App Store — October 22</span></span>
+      <span class="btn btn-ghost avant" aria-disabled="true"><span class="fr">Google Play — le 22 octobre</span><span class="en">Google Play — October 22</span></span>
+      <a class="btn btn-primary apres" href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener"><span class="fr">Jouer gratuitement sur Steam</span><span class="en">Play free on Steam</span></a>
+      <a class="btn btn-ghost apres" href="https://apps.apple.com/app/id6818850240" target="_blank" rel="noopener"><span class="fr">Télécharger sur l'App Store</span><span class="en">Download on the App Store</span></a>
+      <a class="btn btn-ghost apres" href="https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed" target="_blank" rel="noopener">Google Play</a>
+      <a class="btn btn-ghost" href="#faq">FAQ</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap pitch">
+      <div>
+        <h2><span class="fr">Écoutez. Choisissez.</span><span class="en">Listen. Choose.</span></h2>
+        <p>
+          <span class="fr">Rêverie se lit avec les oreilles. Un narrateur et les voix des personnages portent l'histoire, et autour d'eux, tout un monde sonore : l'orage sur les remparts, le marteau de la forge, les chansons d'un conte. À l'écran, chaque lieu a son illustration, qui s'anime doucement à la lueur des chandelles et des lanternes.</span>
+          <span class="en">Rêverie is read with your ears. A narrator and the characters' voices carry the story, and around them, a whole world of sound: the storm over the ramparts, the hammer at the forge, the songs of a fairy tale. On screen, every place has its own illustration, gently brought to life by the glow of candles and lanterns.</span>
+        </p>
+        <p>
+          <span class="fr">Quand l'histoire vous laisse la main, deux grandes cartes s'affichent, à gauche et à droite, et sont lues à voix haute. Montrer le sceau du roi au garde, ou vous dire simple marchand ? Vos décisions changent la suite, et la fin.</span>
+          <span class="en">When the story hands control to you, two large cards appear, left and right, and are read aloud. Show the guard the king's seal, or say you are a mere merchant? Your decisions change what happens next, and how it ends.</span>
+        </p>
+        <p>
+          <span class="fr">Deux histoires complètes sont gratuites dès la sortie. D'autres viendront régulièrement s'ajouter à la bibliothèque.</span>
+          <span class="en">Two complete stories are free from day one. More will join the library regularly.</span>
+        </p>
+      </div>
+      <div class="feats">
+        <div class="feat">
+          <span class="k"><span class="fr">Vous choisissez</span><span class="en">You choose</span></span>
+          <span class="v"><span class="fr">À chaque moment clé, deux cartes. Vos choix ouvrent des chemins différents et mènent à des fins différentes : sept dans la première histoire, cinq dans la seconde.</span><span class="en">At every turning point, two cards. Your choices open different paths and lead to different endings: seven in the first story, five in the second.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Un livre audio illustré</span><span class="en">An illustrated audio book</span></span>
+          <span class="v"><span class="fr">Chaque lieu a son illustration, chaque chapitre son titre. Les sous-titres sont en option, pour suivre le texte ou pour écouter dans une autre langue.</span><span class="en">Every place has its illustration, every chapter its title. Subtitles are optional, to follow the text or to listen in another language.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Rejouer pour une autre fin</span><span class="en">Replay for another ending</span></span>
+          <span class="v"><span class="fr">L'avance rapide passe les répliques déjà entendues : on retourne vite au choix qu'on veut refaire.</span><span class="en">Fast-forward skips the lines you have already heard: you are quickly back at the choice you want to make again.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Au casque ou sur haut-parleurs</span><span class="en">Headphones or speakers</span></span>
+          <span class="v"><span class="fr">Seul au casque, ou en famille autour du téléphone, de la tablette ou de l'ordinateur. Au toucher sur mobile ; au clavier, à la souris ou à la manette sur ordinateur.</span><span class="en">Alone on headphones, or with the family around a phone, a tablet or a computer. Touch controls on mobile; keyboard, mouse or gamepad on computers.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Huit langues</span><span class="en">Eight languages</span></span>
+          <span class="v"><span class="fr">Voix en français et en anglais. Sous-titres en français, anglais, allemand, espagnol, italien, portugais, russe et chinois.</span><span class="en">Voices in English and French. Subtitles in English, French, German, Spanish, Italian, Portuguese, Russian and Chinese.</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">Deux histoires gratuites</span><span class="en">Two free stories</span></p>
+      <div class="stories">
+        <article class="story">
+          <img src="assets/img/reverie/corbeval.jpg" alt="Un messager en cape devant la porte du château de Corbeval, sous la pluie, face à un garde qui tient une lanterne" width="960" height="640" loading="lazy">
+          <div class="body">
+            <h3><span class="fr">Le Messager de Corbeval</span><span class="en">The Messenger of Corbeval</span></h3>
+            <p class="meta"><span class="fr">Moyen Âge · nuit d'orage · tendu</span><span class="en">Middle Ages · stormy night · tense</span><span class="fr">environ 25 min · 7 fins</span><span class="en">about 25 min · 7 endings</span></p>
+            <p>
+              <span class="fr">Il pleut sur la route de Corbeval. Vous êtes messager du roi, et contre votre poitrine, une lettre scellée doit être remise au seigneur avant minuit. Quelqu'un, dans ses murs, ne veut pas qu'il la lise.</span>
+              <span class="en">Rain falls on the road to Corbeval. You are the king's messenger, and against your chest is a sealed letter that must reach the lord before midnight. Someone inside his walls does not want him to read it.</span>
+            </p>
+          </div>
+        </article>
+        <article class="story">
+          <img src="assets/img/reverie/berceuse.jpg" alt="Une petite fille au foulard rouge, de dos, regarde un château sur sa colline, sous la pleine lune" width="960" height="640" loading="lazy">
+          <div class="body">
+            <h3><span class="fr">Le Roi qui ne dormait plus</span><span class="en">The King Who Could Not Sleep</span></h3>
+            <p class="meta"><span class="fr">Conte · pour petits et grands · avec des chansons</span><span class="en">Fairy tale · for young and old · with songs</span><span class="fr">environ 25 min · 5 fins</span><span class="en">about 25 min · 5 endings</span></p>
+            <p>
+              <span class="fr">Le vieux roi ne dort plus, et tout le royaume s'en inquiète. Une petite fille en sabots se met en route. Un conte doux, ponctué de chansons, à écouter au lit ou en famille.</span>
+              <span class="en">The old king can no longer sleep, and the whole kingdom worries. A little girl in wooden clogs sets off. A gentle fairy tale, sprinkled with songs, to listen to in bed or with the family.</span>
+            </p>
+          </div>
+        </article>
+      </div>
+      <p class="muted small"><span class="fr">D'autres histoires arriveront ensuite, régulièrement.</span><span class="en">More stories will follow, regularly.</span></p>
+    </div>
+  </section>
+
+  <!-- Emplacement de la bande-annonce (aucune vidéo pour l'instant) : reprendre le bloc
+       <div class="player" data-youtube="…"> de space-defender.html, dans une <section>, ici. -->
+
+  <section>
+    <div class="wrap stack">
+      <!-- Ce sont les illustrations du jeu (Assets/Resources/Illustrations), pas des captures d'écran :
+           l'interface a changé depuis les captures v1 du 05/10. Les vraies captures viendront après. -->
+      <p class="eyebrow"><span class="fr">Images des histoires</span><span class="en">From the stories</span></p>
+      <div class="shots">
+        <figure>
+          <img src="assets/img/reverie/shots/01.jpg" alt="Un messager encapuchonné sur une route boueuse, de nuit, devant les remparts éclairés de Corbeval" width="1280" height="720" loading="lazy">
+          <figcaption><b>01</b> — <span class="fr">Le Messager de Corbeval : la route sous la pluie, et les murs de Corbeval au bout.</span><span class="en">The Messenger of Corbeval: the road in the rain, and the walls of Corbeval ahead.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/reverie/shots/02.jpg" alt="La cour du château la nuit, une fontaine au milieu des pavés mouillés" width="1280" height="720" loading="lazy">
+          <figcaption><b>02</b> — <span class="fr">La cour du château, la nuit de l'orage.</span><span class="en">The castle courtyard, on the night of the storm.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/reverie/shots/03.jpg" alt="Un forgeron au travail devant son feu, la porte ouverte sur la ville" width="1280" height="720" loading="lazy">
+          <figcaption><b>03</b> — <span class="fr">La forge, l'un des lieux où vous pouvez vous rendre.</span><span class="en">The forge, one of the places you can go.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/reverie/shots/04.jpg" alt="Un vieux roi en chemise de nuit sur son trône, entouré de moutons endormis" width="1280" height="720" loading="lazy">
+          <figcaption><b>04</b> — <span class="fr">Le Roi qui ne dormait plus : autour de lui, même les moutons dorment.</span><span class="en">The King Who Could Not Sleep: all around him, even the sheep are asleep.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/reverie/shots/05.jpg" alt="Une petite fille en sabots, son baluchon sur l'épaule, sur un chemin de campagne" width="1280" height="720" loading="lazy">
+          <figcaption><b>05</b> — <span class="fr">Une petite fille en sabots se met en route.</span><span class="en">A little girl in wooden clogs sets off.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/reverie/shots/06.jpg" alt="Une chouette dans le creux d'un vieux chêne, une chandelle à ses pieds" width="1280" height="720" loading="lazy">
+          <figcaption><b>06</b> — <span class="fr">La chouette du vieux chêne.</span><span class="en">The owl in the old oak.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/reverie/shots/07.jpg" alt="Un renard assis à l'entrée de son terrier, sous les fougères" width="1280" height="720" loading="lazy">
+          <figcaption><b>07</b> — <span class="fr">Le renard, au seuil de son terrier.</span><span class="en">The fox, at the mouth of its den.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">En bref</span><span class="en">At a glance</span></p>
+      <div class="factsheet">
+        <div class="row"><span class="k">Studio</span><span class="v">Petit Vaisseau — Guillaume Merle, <span class="fr">développeur solo, France</span><span class="en">solo developer, France</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Genre</span><span class="en">Genre</span></span><span class="v"><span class="fr">Histoires audio interactives · fiction interactive</span><span class="en">Interactive audio stories · interactive fiction</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Plateformes</span><span class="en">Platforms</span></span><span class="v"><span class="fr">Windows et Mac (Steam), iPhone et iPad (App Store), Android (Google Play)</span><span class="en">Windows and Mac (Steam), iPhone and iPad (App Store), Android (Google Play)</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Sortie</span><span class="en">Release</span></span><span class="v"><span class="fr">22 octobre 2026</span><span class="en">October 22, 2026</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Prix</span><span class="en">Price</span></span><span class="v"><span class="fr">Gratuit, avec deux histoires complètes. Aucune publicité</span><span class="en">Free, with two complete stories. No ads</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Histoires</span><span class="en">Stories</span></span><span class="v"><span class="fr">Le Messager de Corbeval (environ 25 min, 7 fins) · Le Roi qui ne dormait plus (environ 25 min, 5 fins)</span><span class="en">The Messenger of Corbeval (about 25 min, 7 endings) · The King Who Could Not Sleep (about 25 min, 5 endings)</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Langues</span><span class="en">Languages</span></span><span class="v"><span class="fr">voix : français, anglais · sous-titres : français, anglais, allemand, espagnol, italien, portugais, russe, chinois</span><span class="en">voices: English, French · subtitles: English, French, German, Spanish, Italian, Portuguese, Russian, Chinese</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Moteur</span><span class="en">Engine</span></span><span class="v">Unity</span></div>
+        <div class="row"><span class="k">Steam</span><span class="v"><a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">store.steampowered.com/app/5382570</a></span></div>
+        <div class="row"><span class="k">Contact</span><span class="v"><a href="mailto:contact@petitvaisseau.com">contact@petitvaisseau.com</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap stack">
+      <p class="eyebrow">FAQ</p>
+      <div class="faq">
+        <div class="qa">
+          <h3><span class="fr">C'est vraiment gratuit ?</span><span class="en">Is it really free?</span></h3>
+          <p><span class="fr">Oui. Le jeu est gratuit sur Steam, l'App Store et Google Play, avec deux histoires complètes : Le Messager de Corbeval et Le Roi qui ne dormait plus. Il n'y a aucune publicité.</span><span class="en">Yes. The game is free on Steam, the App Store and Google Play, with two complete stories: The Messenger of Corbeval and The King Who Could Not Sleep. There are no ads.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Comment joue-t-on ?</span><span class="en">How do you play?</span></h3>
+          <p><span class="fr">On écoute. Quand vient un choix, deux cartes s'affichent à gauche et à droite, et sont lues à voix haute : on touche celle qu'on veut sur téléphone et tablette, on clique ou on utilise le clavier ou la manette sur ordinateur. Dans certains lieux, on choisit aussi où aller.</span><span class="en">You listen. When a choice comes, two cards appear left and right, and are read aloud: tap the one you want on a phone or tablet, or click, use the keyboard or a gamepad on a computer. In some places, you also choose where to go next.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Faut-il un casque ?</span><span class="en">Do I need headphones?</span></h3>
+          <p><span class="fr">Non. Au casque ou sur les haut-parleurs du téléphone ou de l'ordinateur, comme vous préférez. Le casque rapproche l'orage ; le haut-parleur permet d'écouter à plusieurs.</span><span class="en">No. On headphones or through the phone or computer speakers, as you like. Headphones bring the storm closer; speakers let several people listen together.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Pour quel âge ?</span><span class="en">What age is it for?</span></h3>
+          <p><span class="fr">Le Roi qui ne dormait plus est un conte doux, pour petits et grands, à écouter ensemble. Le Messager de Corbeval est plus tendu : une nuit d'orage, des secrets et des menaces, plutôt pour les grands.</span><span class="en">The King Who Could Not Sleep is a gentle fairy tale for young and old, to listen to together. The Messenger of Corbeval is tenser: a stormy night, secrets and threats, better suited to older listeners.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Le jeu collecte-t-il des données ?</span><span class="en">Does the game collect any data?</span></h3>
+          <p><span class="fr">Non. Ni publicité, ni outil de mesure d'audience, ni donnée personnelle : votre progression reste sur votre appareil. Le détail est dans la <a href="eyes-closed-confidentialite.html">politique de confidentialité</a>.</span><span class="en">No. No ads, no analytics, no personal data: your progress stays on your device. The details are in the <a href="eyes-closed-confidentialite.html?lang=en">privacy policy</a>.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Sur quelles plateformes ?</span><span class="en">On which platforms?</span></h3>
+          <p><span class="fr">Sur Windows et Mac par <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, sur iPhone et iPad par l'App Store, et sur Android par Google Play, à partir du 22 octobre 2026.</span><span class="en">On Windows and Mac through <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, on iPhone and iPad through the App Store, and on Android through Google Play, from October 22, 2026.</span></p>
+        </div>
+        <div class="qa">
+          <h3><span class="fr">Une idée, un bug, une fin préférée ?</span><span class="en">An idea, a bug, a favourite ending?</span></h3>
+          <p><span class="fr">Écrivez-moi à <a href="mailto:contact@petitvaisseau.com">contact@petitvaisseau.com</a> : je lis tout et je réponds moi-même.</span><span class="en">Write to me at <a href="mailto:contact@petitvaisseau.com">contact@petitvaisseau.com</a>: I read everything and answer myself.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footrow">
+      <p class="colophon">Petit Vaisseau — <a href="https://github.com/GuillaumeM92" target="_blank" rel="noopener">Guillaume Merle</a>, France<br>petitvaisseau.com · contact@petitvaisseau.com</p>
+      <div class="footlinks">
+        <a href="index.html">Studio</a>
+        <a href="space-defender.html">Space Defender</a>
+        <a href="le-tapis-vert.html">Le Tapis Vert</a>
+        <a href="sourcebound.html">Sourcebound</a>
+        <a href="reverie.html">Rêverie</a>
+        <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+        <a href="https://store.steampowered.com/developer/petitvaisseau" target="_blank" rel="noopener">Steam</a>
+        <a href="https://discord.com/invite/AUMtECDCx8" target="_blank" rel="noopener">Discord</a>
+        <a href="eyes-closed-confidentialite.html"><span class="fr">Confidentialité</span><span class="en">Privacy</span></a>
+        <a href="https://github.com/GuillaumeM92" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <p class="colophon">
+      <span class="fr">Rêverie — Voix : ElevenLabs · Polices : Exo 2 et Atkinson Hyperlegible (SIL OFL) · Moteur : Unity</span>
+      <span class="en">Rêverie — Voices: ElevenLabs · Fonts: Exo 2 and Atkinson Hyperlegible (SIL OFL) · Engine: Unity</span>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

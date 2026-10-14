@@ -18,6 +18,8 @@ En ligne : **https://petitvaisseau.com**
 │                           bouton Google Play à activer le jour de la sortie
 ├── sourcebound-confidentialite.html  Confidentialité de Sourcebound (liée depuis Google Play) ;
 │                           le texte vient de Store/privacy-policy.html du dépôt du jeu
+├── reverie.html            Page de Rêverie: Audio Stories (bandeau, deux histoires gratuites, 7 illustrations,
+│                           fiche, FAQ) ; boutons App Store et Google Play à basculer le 22/10 (voir §7)
 ├── eyes-closed-confidentialite.html  Confidentialité de Rêverie (ex-Eyes Closed ; liée depuis Google Play et l’App Store)
 ├── confidentialite.html    Politique de confidentialité FR/EN (liée depuis Steam et Google Play)
 ├── 404.html                Page d'erreur, volontairement autonome (son style est dedans)
@@ -31,8 +33,10 @@ En ligne : **https://petitvaisseau.com**
 │   ├── img/                Capsule, key art, logo du jeu, 5 captures, favicons
 │   │   ├── le-tapis-vert/  Capsules FR/EN, image de partage, captures NN-fr/NN-en (générées depuis
 │   │   │                   StoreAssets/steam du dépôt Le Tapis Vert, avec « 24 jeux »)
-│   │   └── sourcebound/    Bandeaux FR/EN, image de partage, captures NN-fr/NN-en (générés depuis
-│   │                       Store/ du dépôt Sourcebound, voir §6)
+│   │   ├── sourcebound/    Bandeaux FR/EN, image de partage, captures NN-fr/NN-en (générés depuis
+│   │   │                   Store/ du dépôt Sourcebound, voir §6)
+│   │   └── reverie/        Bandeau, image de partage, couvertures des deux histoires, illustrations
+│   │                       shots/01-07 (depuis le dépôt Rêverie, voir §6)
 │   └── video/              Bande-annonce 720p, servant de secours si le JS ne charge pas
 └── presse/                 Dossier de presse en ligne (copie de Marketing/PressKit)
     ├── index.html          Page du kit presse, en anglais
@@ -148,3 +152,42 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
   `Marketing/PressKit/index.html` (les liens vers le site et l'archive sont en adresses absolues,
   donc le même fichier marche dans le zip et en ligne). Après une modification dans `Marketing/`,
   regénérer le zip (§5) puis recopier `index.html`, les deux fiches et le zip ici.
+- **Les visuels de Rêverie** viennent du dépôt du jeu (`Unity Projects/Reverie`), une seule version
+  pour les deux langues (le logo du jeu est le même partout) :
+  - `capsule.jpg` (920×430) et `og-cover.jpg` (1200×630) : l'image de l'écran-titre
+    `Assets/UI/Resources/UI/Art/title_landscape.jpg` recadrée, un voile sombre à gauche, et le logo
+    transparent `Store/steam/library_logo.png` posé dessus (avec un léger halo ambré) ;
+  - `corbeval.jpg`, `berceuse.jpg` (960×640) : les couvertures de bibliothèque `Assets/UI/Resources/UI/Art/` ;
+  - `shots/01.jpg` à `07.jpg` (1280×720, recadrage 16:9, JPEG 70) : des illustrations
+    `Assets/Resources/Illustrations/` (road, courtyard, forge, berceuse_trone, berceuse_chemin,
+    berceuse_chene, berceuse_terrier). Ce ne sont pas des captures d'écran : l'interface a changé
+    depuis les captures v1 ; les vraies captures (et une bande-annonce, emplacement commenté dans
+    la page) viendront plus tard. Pour une illustration :
+    ```bash
+    sips -c 720 1280 Assets/Resources/Illustrations/forge.jpg --out /tmp/f.jpg
+    sips -s format jpeg -s formatOptions 70 /tmp/f.jpg --out assets/img/reverie/shots/03.jpg
+    ```
+
+---
+
+## 7. Sortie de Rêverie, le 22 octobre 2026
+
+Avant la sortie, seule la page Steam est publique (« Prochainement ») ; les pages App Store et
+Google Play affichent « introuvable » à tout le monde. Les deux versions sont donc déjà écrites dans
+le HTML : les éléments de classe `avant` (« Sortie le 22 octobre », « Ajouter à ma liste de souhaits »,
+boutons grisés « App Store — le 22 octobre ») et ceux de classe `apres` (« Disponible », « Jouer
+gratuitement sur Steam », vrais liens App Store et Google Play). Le CSS n'affiche que les uns ou les
+autres, selon l'attribut `data-sortie` de `<body>`.
+
+**Le jour de la sortie, dès que les deux magasins affichent le jeu :**
+
+1. dans `reverie.html` et dans `index.html`, remplacer `data-sortie="avant"` par
+   `data-sortie="apres"` (une ligne par fichier) ;
+2. vérifier les liens : <https://apps.apple.com/app/id6818850240> et
+   <https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed> ;
+3. pousser.
+
+Si un seul magasin est en ligne, laisser `avant` et retirer la classe `avant`/`apres` à la main sur
+le bouton concerné. Plus tard, on pourra supprimer les éléments `avant` devenus inutiles. Les textes
+qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 2026 ») restent justes après.
+

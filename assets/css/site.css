@@ -105,9 +105,10 @@ section + section{border-top:1px solid var(--line-soft)}
 nav{display:flex;gap:4px;margin-inline-start:auto;flex-wrap:wrap}
 nav a{
   font-family:"IBM Plex Mono",ui-monospace,monospace;
-  font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  font-size:12px;letter-spacing:.06em;text-transform:uppercase;
   color:var(--muted);text-decoration:none;
-  padding:7px 11px;border-radius:3px;border:1px solid transparent;
+  /* Resserré le 14/10 (Rêverie) : sept entrées sur l'accueil tiennent encore sur une ligne à 1000 px. */
+  padding:7px 8px;border-radius:3px;border:1px solid transparent;
 }
 nav a:hover{color:var(--ink);background:var(--accent-wash)}
 nav a[aria-current="page"]{color:var(--ink);border-color:var(--line);background:var(--panel)}
@@ -125,6 +126,8 @@ nav a[aria-current="page"]{color:var(--ink);border-color:var(--line);background:
   nav{order:3;width:100%;margin-inline-start:0;display:grid;grid-template-columns:1fr 1fr;gap:2px}
   nav a{padding:6px 7px;font-size:11px;letter-spacing:.05em;text-align:center}
   nav a[href="#presse"],nav a[href="presse/"],nav a[href="../presse/"]{display:none}
+  /* Pages de jeu : cinq entrées visibles (Presse cachée) ; la cinquième prend toute la ligne. */
+  nav a:nth-child(5):nth-last-child(2){grid-column:1/-1}
   .lang{margin-inline-start:auto}
 }
 
@@ -421,3 +424,84 @@ footer .wrap{padding-block:30px;display:grid;gap:18px}
 .theme-source main .gamehead .banner{border-color:rgba(115,242,255,.3);box-shadow:0 0 60px -30px var(--accent)}
 .theme-source main .shots figure{border-color:rgba(115,242,255,.18);background:#05090D}
 .theme-source main .factsheet{background:#05090D}
+
+/* ---------- sortie de Rêverie, le 22 octobre 2026 ----------
+   <body data-sortie="avant"> dans reverie.html et index.html : les éléments
+   « apres » (liens App Store et Google Play, « Disponible ») restent cachés.
+   Le jour de la sortie, passer l'attribut à « apres » dans les deux pages
+   (voir README.md, « Sortie de Rêverie »). */
+[data-sortie="avant"] .apres,
+[data-sortie="apres"] .avant{display:none}
+
+/* ---------- habillage « lanternes » (reverie.html) ----------
+   Même principe que les deux autres jeux : l'en-tête et le pied de page restent
+   ceux du studio, seul <main> prend l'allure du jeu. Rêverie, c'est le ciel du
+   crépuscule de son écran-titre : bleu nuit, lueur ambrée des lanternes, texte
+   crème. Titres en Exo 2 (le logo du jeu), textes en Atkinson Hyperlegible (la
+   police de l'interface), boutons arrondis comme dans le jeu. Une seule version,
+   sans thème clair/sombre. */
+.theme-reverie main{
+  --bg:#0A0E1C;
+  --panel:#111629;
+  --sunk:#0D1222;
+  --line:rgba(255,190,110,.26);
+  --line-soft:rgba(246,236,222,.09);
+  --ink:#F6ECDE;
+  --muted:#C9BBA8;
+  --accent:#FFBE6E;          /* l'ambre des lanternes */
+  --accent-ink:#FFD6A0;
+  --accent-wash:rgba(255,190,110,.10);
+  --ember:#FFD6A0;
+  --on-accent:#2A1704;
+  --shadow:0 1px 0 rgba(255,255,255,.03), 0 22px 50px -28px rgba(0,0,0,.9);
+  color-scheme:dark;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse 90% 50% at 50% -6%, rgba(255,160,90,.13), transparent 70%),
+    radial-gradient(ellipse 70% 45% at 50% 100%, rgba(80,100,170,.10), transparent 70%),
+    linear-gradient(#0B1020, #080B17);
+  font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;
+}
+.theme-reverie main h1,
+.theme-reverie main h2,
+.theme-reverie main h3{font-family:"Exo 2","Avenir Next",Helvetica,Arial,sans-serif;font-weight:600;letter-spacing:.01em}
+.theme-reverie .pitch h2{font-size:clamp(25px,3.6vw,32px)}
+.theme-reverie .faq h3{font-size:18px}
+.theme-reverie main section + section{border-top-color:var(--line-soft)}
+.theme-reverie main .eyebrow,
+.theme-reverie main .feat .k{font-family:"Exo 2","Avenir Next",Helvetica,Arial,sans-serif;font-weight:600}
+.theme-reverie main .eyebrow{font-size:12px;letter-spacing:.3em}
+.theme-reverie main .feat .k{font-size:12px;letter-spacing:.2em}
+.theme-reverie main .pill,
+.theme-reverie main .factsheet .row,
+.theme-reverie main .shots figcaption,
+.theme-reverie main .meta,
+.theme-reverie main .btn{font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif}
+.theme-reverie main .pill{font-weight:700;letter-spacing:.08em;background:rgba(255,190,110,.08)}
+.theme-reverie main .feat .v,
+.theme-reverie main .faq p{font-size:16px}
+.theme-reverie main .factsheet .row{font-size:14.5px}
+.theme-reverie main .factsheet .k{font-weight:700;font-size:11.5px}
+.theme-reverie main .shots figcaption{font-size:14px}
+.theme-reverie main .shots figcaption b{font-weight:700;color:var(--accent-ink)}
+.theme-reverie main .btn{font-weight:700;font-size:15.5px;letter-spacing:.01em;border-radius:12px}
+.theme-reverie main .btn-primary{box-shadow:0 0 26px -8px rgba(255,190,110,.6)}
+.theme-reverie main .btn-primary:hover{background:#FFCF8F}
+.theme-reverie main .btn-ghost{background:transparent;border-color:var(--accent-ink)}
+.theme-reverie main .btn-ghost:hover{background:var(--accent-wash)}
+.theme-reverie main .btn-ghost[aria-disabled="true"]{opacity:.62;cursor:default;border-color:var(--line)}
+.theme-reverie main .btn-ghost[aria-disabled="true"]:hover{transform:none;background:transparent}
+.theme-reverie main .gamehead .banner{border-color:rgba(255,190,110,.35);box-shadow:0 0 70px -34px var(--accent)}
+.theme-reverie main .shots figure{border-color:rgba(255,190,110,.2)}
+
+/* Les deux histoires gratuites, côte à côte sur grand écran. */
+.stories{display:grid;gap:clamp(16px,3vw,24px)}
+@media (min-width:760px){.stories{grid-template-columns:1fr 1fr}}
+.story{
+  display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  background:var(--panel);box-shadow:var(--shadow);
+}
+.story img{width:100%;aspect-ratio:3/2;object-fit:cover;border-bottom:1px solid var(--line)}
+.story .body{padding:clamp(18px,3vw,24px);display:flex;flex-direction:column;gap:10px}
+.story h3{font-size:clamp(20px,2.6vw,24px)}
+.story p:not(.meta){font-size:15.5px}
