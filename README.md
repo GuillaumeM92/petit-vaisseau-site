@@ -187,7 +187,11 @@ autres, selon l'attribut `data-sortie` de `<body>`.
    <https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed> ;
 3. pousser.
 
-Si un seul magasin est en ligne, laisser `avant` et retirer la classe `avant`/`apres` à la main sur
-le bouton concerné. Plus tard, on pourra supprimer les éléments `avant` devenus inutiles. Les textes
+**Depuis le 23/10 : état `sans-ios`** (sorti sur Steam et Google Play, pas encore sur l'App Store). Les
+deux pages ont `data-sortie="sans-ios"` : seuls les éléments `sans-ios` s'affichent (« Disponible sur PC, Mac
+et Android · bientôt sur iPhone et iPad », « Jouer gratuitement sur Steam », vrai lien Google Play, bouton
+grisé « App Store — bientôt »), et `hors-sans-ios` cache la phrase de FAQ « à partir du 22 octobre » sur les
+trois plateformes. Quand l'App Store affiche le jeu : passer à `apres` dans les deux pages, et remettre les
+deux `<meta name="description">` (qui disent « bientôt sur iPhone et iPad ») sur les trois plateformes. Plus tard, on pourra supprimer les éléments `avant` devenus inutiles. Les textes
 qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 2026 ») restent justes après.
 

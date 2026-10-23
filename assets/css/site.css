@@ -429,9 +429,17 @@ footer .wrap{padding-block:30px;display:grid;gap:18px}
    <body data-sortie="avant"> dans reverie.html et index.html : les éléments
    « apres » (liens App Store et Google Play, « Disponible ») restent cachés.
    Le jour de la sortie, passer l'attribut à « apres » dans les deux pages
-   (voir README.md, « Sortie de Rêverie »). */
+   (voir README.md, « Sortie de Rêverie »).
+   Troisième état, « sans-ios » (depuis le 23/10) : le jeu est sorti sur Steam et Google Play,
+   pas encore sur l'App Store. Seuls les éléments « sans-ios » s'affichent, ni « avant » ni
+   « apres » ; « hors-sans-ios » marque ce qui reste juste avant et après, mais pas dans cet état. */
 [data-sortie="avant"] .apres,
-[data-sortie="apres"] .avant{display:none}
+[data-sortie="apres"] .avant,
+[data-sortie="avant"] .sans-ios,
+[data-sortie="apres"] .sans-ios,
+[data-sortie="sans-ios"] .avant,
+[data-sortie="sans-ios"] .apres,
+[data-sortie="sans-ios"] .hors-sans-ios{display:none}
 
 /* ---------- habillage « lanternes » (reverie.html) ----------
    Même principe que les deux autres jeux : l'en-tête et le pied de page restent

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rêverie: Audio Stories — Petit Vaisseau</title>
-<meta name="description" content="Rêverie: Audio Stories, des histoires audio illustrées où vous décidez de la suite : une voix raconte, les personnages répondent, les ambiances sonores vous entourent, et vos choix mènent à plusieurs fins. Gratuit sur PC, Mac, iPhone, iPad et Android, avec deux histoires complètes. Sortie le 22 octobre 2026.">
+<meta name="description" content="Rêverie: Audio Stories, des histoires audio illustrées où vous décidez de la suite : une voix raconte, les personnages répondent, les ambiances sonores vous entourent, et vos choix mènent à plusieurs fins. Gratuit sur PC, Mac et Android, avec deux histoires complètes ; bientôt sur iPhone et iPad.">
 <meta name="theme-color" content="#0A0E1C">
 
 <!-- Adresse de référence du site (voir README.md §4) -->
@@ -29,9 +29,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
-<!-- data-sortie : « avant » jusqu'au 22 octobre 2026, puis « apres » (voir README.md, « Sortie de Rêverie »).
-     Tout ce qui porte la classe « avant » disparaît alors, tout ce qui porte « apres » apparaît. -->
-<body class="theme-reverie" data-sortie="avant">
+<!-- data-sortie : « avant » jusqu'au 22 octobre 2026, « sans-ios » tant que l'App Store ne l'a pas (Steam et
+     Google Play l'ont), puis « apres » quand l'App Store l'affiche aussi (voir README.md, « Sortie de Rêverie »).
+     Chaque état n'affiche que ses éléments : classes « avant », « sans-ios », « apres ». -->
+<body class="theme-reverie" data-sortie="sans-ios">
 
 <header class="console">
   <div class="wrap">
@@ -82,6 +83,7 @@
     <div class="stack-tight">
       <span class="pill avant"><span class="dot"></span><span class="fr">Gratuit · sortie le 22 octobre 2026 sur PC, Mac, iPhone, iPad et Android</span><span class="en">Free · out October 22, 2026 on PC, Mac, iPhone, iPad and Android</span></span>
       <span class="pill apres"><span class="dot"></span><span class="fr">Gratuit · disponible sur PC, Mac, iPhone, iPad et Android</span><span class="en">Free · out now on PC, Mac, iPhone, iPad and Android</span></span>
+      <span class="pill sans-ios"><span class="dot"></span><span class="fr">Gratuit · disponible sur PC, Mac et Android · bientôt sur iPhone et iPad</span><span class="en">Free · out now on PC, Mac and Android · coming soon to iPhone and iPad</span></span>
       <p class="lede">
         <span class="fr">Mettez votre casque, ou montez le son : l'histoire commence. Rêverie, ce sont des histoires audio illustrées où c'est vous qui décidez de la suite. Une voix vous raconte, les personnages lui répondent, la pluie et le vent vous entourent — et à chaque moment clé, vous choisissez. Deux histoires complètes sont offertes, avec plusieurs fins chacune.</span>
         <span class="en">Put on your headphones, or turn up the sound: the story begins. Rêverie brings you illustrated audio stories where you decide what happens next. A voice tells the tale, the characters answer, the rain and the wind close in around you — and at every turning point, you choose. Two complete stories are free, each with several endings.</span>
@@ -97,6 +99,9 @@
       <a class="btn btn-primary apres" href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener"><span class="fr">Jouer gratuitement sur Steam</span><span class="en">Play free on Steam</span></a>
       <a class="btn btn-ghost apres" href="https://apps.apple.com/app/id6818850240" target="_blank" rel="noopener"><span class="fr">Télécharger sur l'App Store</span><span class="en">Download on the App Store</span></a>
       <a class="btn btn-ghost apres" href="https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed" target="_blank" rel="noopener">Google Play</a>
+      <a class="btn btn-primary sans-ios" href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener"><span class="fr">Jouer gratuitement sur Steam</span><span class="en">Play free on Steam</span></a>
+      <a class="btn btn-ghost sans-ios" href="https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed" target="_blank" rel="noopener">Google Play</a>
+      <span class="btn btn-ghost sans-ios" aria-disabled="true"><span class="fr">App Store — bientôt</span><span class="en">App Store — coming soon</span></span>
       <a class="btn btn-ghost" href="#faq">FAQ</a>
     </div>
   </div>
@@ -259,7 +264,8 @@
         </div>
         <div class="qa">
           <h3><span class="fr">Sur quelles plateformes ?</span><span class="en">On which platforms?</span></h3>
-          <p><span class="fr">Sur Windows et Mac par <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, sur iPhone et iPad par l'App Store, et sur Android par Google Play, à partir du 22 octobre 2026.</span><span class="en">On Windows and Mac through <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, on iPhone and iPad through the App Store, and on Android through Google Play, from October 22, 2026.</span></p>
+          <p class="sans-ios"><span class="fr">Sur Windows et Mac par <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, et sur Android par <a href="https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed" target="_blank" rel="noopener">Google Play</a>. La version iPhone et iPad (App Store) arrive bientôt.</span><span class="en">On Windows and Mac through <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, and on Android through <a href="https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed" target="_blank" rel="noopener">Google Play</a>. The iPhone and iPad version (App Store) is coming soon.</span></p>
+          <p class="hors-sans-ios"><span class="fr">Sur Windows et Mac par <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, sur iPhone et iPad par l'App Store, et sur Android par Google Play, à partir du 22 octobre 2026.</span><span class="en">On Windows and Mac through <a href="https://store.steampowered.com/app/5382570/" target="_blank" rel="noopener">Steam</a>, on iPhone and iPad through the App Store, and on Android through Google Play, from October 22, 2026.</span></p>
         </div>
         <div class="qa">
           <h3><span class="fr">Une idée, un bug, une fin préférée ?</span><span class="en">An idea, a bug, a favourite ending?</span></h3>
