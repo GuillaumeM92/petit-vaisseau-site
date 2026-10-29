@@ -14,10 +14,10 @@ En ligne : **https://petitvaisseau.com**
 ├── space-defender.html     Page du jeu (trailer, description, 5 captures, fiche presse, FAQ)
 ├── le-tapis-vert.html      Page du Tapis Vert (bandeau, 24 jeux, 6 captures FR/EN, FAQ) ; bouton Google Play à activer le jour de la sortie
 ├── le-tapis-vert-confidentialite.html  Confidentialité du Tapis Vert (liée depuis le jeu et Google Play)
-├── sourcebound.html        Page de Sourcebound (bandeau, description, 6 captures FR/EN, fiche presse, FAQ) ;
-│                           bouton Google Play à activer le jour de la sortie
-├── sourcebound-confidentialite.html  Confidentialité de Sourcebound (liée depuis Google Play) ;
-│                           le texte vient de Store/privacy-policy.html du dépôt du jeu
+├── sourcebound-confidentialite.html  Confidentialité de Sourcebound, jeu retiré de la vente :
+│                           gardée pour ses joueurs et la fiche Google Play qui y renvoie, mais en noindex,
+│                           hors sitemap et hors navigation ; le texte vient de Store/privacy-policy.html
+│                           du dépôt du jeu
 ├── reverie.html            Page de Rêverie: Audio Stories (bandeau, deux histoires gratuites, 7 illustrations,
 │                           fiche, FAQ) ; boutons App Store et Google Play à basculer le 22/10 (voir §7)
 ├── eyes-closed-confidentialite.html  Confidentialité de Rêverie (ex-Eyes Closed ; liée depuis Google Play et l’App Store)
@@ -33,8 +33,6 @@ En ligne : **https://petitvaisseau.com**
 │   ├── img/                Capsule, key art, logo du jeu, 5 captures, favicons
 │   │   ├── le-tapis-vert/  Capsules FR/EN, image de partage, captures NN-fr/NN-en (générées depuis
 │   │   │                   StoreAssets/steam du dépôt Le Tapis Vert, avec « 24 jeux »)
-│   │   ├── sourcebound/    Bandeaux FR/EN, image de partage, captures NN-fr/NN-en (générés depuis
-│   │   │                   Store/ du dépôt Sourcebound, voir §6)
 │   │   └── reverie/        Bandeau, image de partage, couvertures des deux histoires, illustrations
 │   │                       shots/01-07 (depuis le dépôt Rêverie, voir §6)
 │   └── video/              Bande-annonce 720p, servant de secours si le JS ne charge pas
@@ -136,15 +134,6 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
   1920×1080 sont dans `Marketing/PressKit/screenshots/` du dépôt du jeu :
   ```bash
   sips -s format jpeg -s formatOptions 78 -Z 1600 source.png --out assets/img/shots/01.jpg
-  ```
-- **Les visuels de Sourcebound** viennent tels quels du dossier `Store/` du dépôt du jeu.
-  Le bandeau est le visuel Google Play 1024×500 recadré en 920×430, les captures sont les
-  captures de la fiche, dans l'ordre d'affichage (sonar, chasseurs, gardien, relique,
-  Résonances, titre) :
-  ```bash
-  sips -c 478 1024 Store/graphics/feature-1024x500-fr.png --out /tmp/cap.png
-  sips -s format jpeg -s formatOptions 88 -Z 920 /tmp/cap.png --out assets/img/sourcebound/capsule-fr.jpg
-  sips -s format jpeg -s formatOptions 85 -Z 1600 Store/screenshots/fr-02-sonar.png --out assets/img/sourcebound/shots/01-fr.jpg
   ```
 - **Le logo animé du studio** dans `index.html` est une copie de
   `Marketing/Logos/petit-vaisseau-splash.svg`. Si tu retouches le SVG d'origine, recopie-le.
