@@ -75,7 +75,7 @@
       button.addEventListener("click", function () {
         var frame = document.createElement("iframe");
         frame.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
-        frame.title = "Space Defender: Frontier Squadron — bande-annonce";
+        frame.title = (player.getAttribute("data-title") || "Space Defender: Frontier Squadron") + " — bande-annonce";
         frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture";
         frame.allowFullscreen = true;
         button.replaceWith(frame);

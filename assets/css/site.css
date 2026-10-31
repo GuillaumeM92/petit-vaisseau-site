@@ -450,3 +450,7 @@ footer .wrap{padding-block:30px;display:grid;gap:18px}
 .story .body{padding:clamp(18px,3vw,24px);display:flex;flex-direction:column;gap:10px}
 .story h3{font-size:clamp(20px,2.6vw,24px)}
 .story p:not(.meta){font-size:15.5px}
+
+/* ---------- listes simples (Waymaker : jouable aujourd'hui / prévu) ---------- */
+.list{margin:0;padding-left:1.15em;display:grid;gap:7px;color:var(--muted)}
+.list li::marker{color:var(--accent-ink)}

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abysses: Meridian — Petit Vaisseau</title>
+<meta name="description" content="Abysses: Meridian, un jeu d'exploration sous-marine à la première personne. Votre capsule a coulé sur Meridian, un monde où la mer a monté de soixante mètres en six ans. Bientôt sur Steam, sortie prévue en 2027.">
+<meta name="theme-color" content="#38D6E0">
+
+<!-- Adresse de référence du site (voir README.md §4) -->
+<link rel="canonical" href="https://petitvaisseau.com/abysses.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Petit Vaisseau">
+<meta property="og:title" content="Abysses: Meridian">
+<meta property="og:description" content="Plus on descend, plus il fait noir. Un jeu d'exploration sous-marine à la première personne, bientôt sur Steam.">
+<meta property="og:image" content="https://petitvaisseau.com/assets/img/abysses/og-cover.jpg">
+<meta property="og:url" content="https://petitvaisseau.com/abysses.html">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<header class="console">
+  <div class="wrap">
+    <a href="index.html" aria-label="Petit Vaisseau — accueil" style="display:flex">
+      <svg class="lockup" viewBox="58 46 470 118" role="img" aria-label="Petit Vaisseau">
+        <defs>
+          <linearGradient id="lk-hull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(24,35) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#lk-hull)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+          <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+          <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Exo 2','Avenir Next',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="var(--accent-ink)" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="var(--ink)" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="index.html">Studio</a>
+      <a href="space-defender.html">Space Defender</a>
+      <a href="le-tapis-vert.html">Le Tapis Vert</a>
+      <a href="reverie.html">Rêverie</a>
+      <a href="abysses.html" aria-current="page">Abysses</a>
+      <a href="waymaker.html">Waymaker</a>
+      <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button id="lang-fr" type="button" aria-pressed="true">FR</button>
+      <button id="lang-en" type="button" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap gamehead">
+    <img class="banner" src="assets/img/abysses/capsule.jpg" alt="Abysses: Meridian — un petit sous-marin, projecteur allumé, devant un anneau immense dans le noir" width="920" height="430">
+    <h1 class="visually-hidden">Abysses: Meridian</h1>
+    <div class="stack-tight">
+      <span class="pill"><span class="dot"></span><span class="fr">Bientôt sur Steam · sortie prévue en 2027</span><span class="en">Coming soon to Steam · planned for 2027</span></span>
+      <p class="lede">
+        <span class="fr">Votre capsule a coulé sur Meridian, un monde où la mer a monté de soixante mètres en six ans. Sortez à la nage, réveillez une station muette, passez d’une capsule qui fuit à un vrai sous-marin et plongez toujours plus bas, vers l’anneau colossal qui a fait monter la mer.</span>
+        <span class="en">Your drop pod sank on Meridian, a world where the sea has risen sixty metres in six years. Swim out, wake a silent station, build your way from a leaking pod to a real submarine, and dive ever deeper toward the vast ring that made the sea rise.</span>
+      </p>
+    </div>
+    <div class="buyrow">
+      <a class="btn btn-primary" href="https://store.steampowered.com/app/5475920/" target="_blank" rel="noopener"><span class="fr">Ajouter à ma liste de souhaits sur Steam</span><span class="en">Wishlist on Steam</span></a>
+      <a class="btn btn-ghost" href="#bande-annonce"><span class="fr">Bande-annonce</span><span class="en">Trailer</span></a>
+    </div>
+  </div>
+
+  <section id="bande-annonce">
+    <div class="wrap">
+      <!-- La vidéo est sur YouTube (chaîne Petit Vaisseau) : site.js remplace l'image par le lecteur au clic. -->
+      <div class="player" data-youtube="iabqWK3gOqA" data-title="Abysses: Meridian">
+        <video controls preload="none" poster="assets/img/abysses/trailer-poster.jpg" playsinline>
+          <p class="cap">
+            <span class="fr"><a href="https://youtu.be/iabqWK3gOqA" target="_blank" rel="noopener">Voir la bande-annonce sur YouTube</a>.</span>
+            <span class="en"><a href="https://youtu.be/iabqWK3gOqA" target="_blank" rel="noopener">Watch the trailer on YouTube</a>.</span>
+          </p>
+        </video>
+        <p class="cap">
+          <span><span class="fr">Bande-annonce — 38 s</span><span class="en">Trailer — 38 s</span></span>
+          <span>Abysses: Meridian</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap pitch">
+      <div>
+        <h2><span class="fr">Plus on descend, plus il fait noir.</span><span class="en">The deeper you go, the darker it gets.</span></h2>
+        <p>
+          <span class="fr">Abysses: Meridian est un jeu d’exploration sous-marine à la première personne, aux commandes d’un petit sous-marin comme dehors, en combinaison de plongée. À quarante mètres, la lumière du soleil s’éteint. En dessous, il n’y a plus que ce que touchent vos projecteurs, et ce qu’entend votre sonar.</span>
+          <span class="en">Abysses: Meridian is a first-person underwater exploration game: at the controls of a small submarine, and out in the water in a diving suit. Sunlight fades by forty metres. Below that, there is only what your searchlights touch, and what your sonar hears.</span>
+        </p>
+        <p>
+          <span class="fr">Abysses: Meridian préfère l’immersion à la simulation : facile à piloter, agréable à manœuvrer, chargé d’atmosphère. Pas de jauge de faim, pas de corvées de survie : juste vous, le noir et la pression.</span>
+          <span class="en">Abysses: Meridian favours immersion over simulation: easy to pilot, fun to fly, heavy with atmosphere. No hunger meters, no survival chores: just you, the dark, and the pressure.</span>
+        </p>
+      </div>
+      <div class="feats">
+        <div class="feat">
+          <span class="k"><span class="fr">Coulez</span><span class="en">Sink</span></span>
+          <span class="v"><span class="fr">Votre capsule s’abîme en mer sur Meridian et sombre, avec une voie d’eau. Colmatez-la, sortez à la nage avec soixante secondes d’air, et trouvez la station qui ne répond plus depuis trois ans.</span><span class="en">Your drop pod splashes down on Meridian and goes under, leaking. Patch it up, swim out with sixty seconds of air, and find the station that stopped answering three years ago.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Réveillez la station</span><span class="en">Wake the station</span></span>
+          <span class="v"><span class="fr">Thétis repose à quarante mètres de fond. Entrez, rétablissez le courant, faites-en votre base, et découvrez ce qu’il est advenu de ses douze occupants.</span><span class="en">Thétis lies forty metres down. Get inside, bring its power back, make it your base, and find out what happened to its twelve crew.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Fabriquez votre descente</span><span class="en">Build your way down</span></span>
+          <span class="v"><span class="fr">Les capsules de fret larguées avec vous ont coulé plus bas encore. Chaque capsule retrouvée, chaque matériau récupéré devient une amélioration au fabricateur : propulseurs, projecteurs, sonar, foreuse, air, profondeur. La capsule laisse la place à un vrai sous-marin, et le noir recule un peu.</span><span class="en">The cargo pods dropped with you sank deeper still. Every pod you recover and every material you salvage becomes an upgrade at the fabricator: thrusters, lights, sonar, drill, air, depth. Your pod gives way to a real submarine, and the dark gets a little further away.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Descendez</span><span class="en">Descend</span></span>
+          <span class="v"><span class="fr">Des forêts de kelp baignées de soleil aux plaines englouties, des failles à pic aux grottes noyées à des centaines de mètres de fond, chaque couche de l’océan est plus sombre, plus étrange et plus hostile que la précédente. La coque grince sous la pression. La profondeur est la frontière.</span><span class="en">From sunlit kelp forests to drowned plains, sheer rifts and flooded caves hundreds of metres down, every layer of the ocean is darker, stranger and more hostile than the last. Your hull creaks under the pressure. Depth is the frontier.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Voyez au projecteur</span><span class="en">See by searchlight</span></span>
+          <span class="v"><span class="fr">Lumière volumétrique, caustiques, particules en suspension, créatures lumineuses : l’eau paraît épaisse et réelle. Éteignez vos projecteurs et vous disparaissez dans le noir… mais vous devenez aveugle.</span><span class="en">Volumetric light, caustics, drifting particles and glowing life make the water feel thick and real. Switch your lights off and you vanish into the black, but you also go blind.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Écoutez</span><span class="en">Listen</span></span>
+          <span class="v"><span class="fr">Un ping sonar révèle tout ce qui vous entoure. Au fond des grottes, quelque chose écoute aussi.</span><span class="en">A sonar ping reveals everything around you. Deep in the caves, something listens back.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Trouvez l’anneau</span><span class="en">Find the ring</span></span>
+          <span class="v"><span class="fr">Quelque chose d’immense repose tout au fond, et depuis son réveil, la mer n’a jamais cessé de monter. Ce n’est l’œuvre de personne que vous connaissiez. Et il appelle.</span><span class="en">Something enormous lies far below, and since it woke, the sea has never stopped rising. It was not built by anyone you know. And it is calling.</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <!-- Les captures de la page Steam (dans le même ordre), en 1600 px. -->
+      <p class="eyebrow"><span class="fr">Captures</span><span class="en">Screenshots</span></p>
+      <div class="shots">
+        <figure><img src="assets/img/abysses/shots/01.jpg" alt="Le petit sous-marin, projecteur allumé, au-dessus d'un fond couvert d'algues" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/abysses/shots/02.jpg" alt="Une forêt de kelp traversée par la lumière du soleil" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/abysses/shots/03.jpg" alt="La station Thétis éclairée, posée sur le sable" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/abysses/shots/04.jpg" alt="Des méduses lumineuses autour du sous-marin, dans le noir" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/abysses/shots/05.jpg" alt="Les parois d'une grotte, éclairées par le projecteur et par des organismes lumineux" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/abysses/shots/06.jpg" alt="L'atelier de Thétis, à la lumière d'une lampe" width="1600" height="900" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">En bref</span><span class="en">At a glance</span></p>
+      <div class="factsheet">
+        <div class="row"><span class="k">Studio</span><span class="v">Petit Vaisseau — Guillaume Merle, <span class="fr">développeur solo, France</span><span class="en">solo developer, France</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Genre</span><span class="en">Genre</span></span><span class="v"><span class="fr">Exploration sous-marine à la première personne · aventure</span><span class="en">First-person underwater exploration · adventure</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Modes</span><span class="en">Modes</span></span><span class="v"><span class="fr">Solo · coopération en ligne</span><span class="en">Single-player · online co-op</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Plateforme</span><span class="en">Platform</span></span><span class="v"><span class="fr">Windows (Steam)</span><span class="en">Windows (Steam)</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Sortie</span><span class="en">Release</span></span><span class="v"><span class="fr">Prévue en 2027</span><span class="en">Planned for 2027</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Commandes</span><span class="en">Controls</span></span><span class="v"><span class="fr">Clavier et souris, ou manette</span><span class="en">Mouse and keyboard or gamepad</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Langues</span><span class="en">Languages</span></span><span class="v"><span class="fr">interface, voix et sous-titres : français, anglais</span><span class="en">interface, voices and subtitles: English, French</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Moteur</span><span class="en">Engine</span></span><span class="v"><span class="fr">Moteur maison, écrit en C++</span><span class="en">In-house engine, written in C++</span></span></div>
+        <div class="row"><span class="k">Steam</span><span class="v"><a href="https://store.steampowered.com/app/5475920/" target="_blank" rel="noopener">store.steampowered.com/app/5475920</a></span></div>
+        <div class="row"><span class="k">Contact</span><span class="v"><a href="mailto:contact@petitvaisseau.com">contact@petitvaisseau.com</a></span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footrow">
+      <p class="colophon">Petit Vaisseau — <a href="https://github.com/GuillaumeM92" target="_blank" rel="noopener">Guillaume Merle</a>, France<br>petitvaisseau.com · contact@petitvaisseau.com</p>
+      <div class="footlinks">
+        <a href="index.html">Studio</a>
+        <a href="space-defender.html">Space Defender</a>
+        <a href="le-tapis-vert.html">Le Tapis Vert</a>
+        <a href="reverie.html">Rêverie</a>
+        <a href="abysses.html">Abysses</a>
+        <a href="waymaker.html">Waymaker</a>
+        <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+        <a href="https://store.steampowered.com/developer/petitvaisseau" target="_blank" rel="noopener">Steam</a>
+        <a href="https://discord.com/invite/AUMtECDCx8" target="_blank" rel="noopener">Discord</a>
+        <a href="confidentialite.html"><span class="fr">Confidentialité</span><span class="en">Privacy</span></a>
+        <a href="https://github.com/GuillaumeM92" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <p class="colophon">
+      <span class="fr">Abysses: Meridian — Musique de la bande-annonce : « Stellar Drift », Alkakrab · Moteur maison</span>
+      <span class="en">Abysses: Meridian — Trailer music: “Stellar Drift” by Alkakrab · In-house engine</span>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

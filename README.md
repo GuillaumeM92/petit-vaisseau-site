@@ -20,6 +20,10 @@ En ligne : **https://petitvaisseau.com**
 │                           du dépôt du jeu
 ├── reverie.html            Page de Rêverie: Audio Stories (bandeau, deux histoires gratuites, 7 illustrations,
 │                           fiche, FAQ) ; boutons App Store et Google Play à basculer le 22/10 (voir §7)
+├── abysses.html            Page d'Abysses: Meridian (Prochainement sur Steam) : bandeau, bande-annonce YouTube,
+│                           description, 6 captures, fiche. Textes repris de la page Steam (FR et EN, déjà relus)
+├── waymaker.html           Page de Waymaker (Prochainement sur Steam) : même plan, plus « Jouable aujourd'hui / Prévu ».
+│                           Les deux jeux tournent sur le moteur maison (dépôt Ancre, privé)
 ├── eyes-closed-confidentialite.html  Confidentialité de Rêverie (ex-Eyes Closed ; liée depuis Google Play et l’App Store)
 ├── confidentialite.html    Politique de confidentialité FR/EN (liée depuis Steam et Google Play)
 ├── 404.html                Page d'erreur, volontairement autonome (son style est dedans)
@@ -33,8 +37,12 @@ En ligne : **https://petitvaisseau.com**
 │   ├── img/                Capsule, key art, logo du jeu, 5 captures, favicons
 │   │   ├── le-tapis-vert/  Capsules FR/EN, image de partage, captures NN-fr/NN-en (générées depuis
 │   │   │                   StoreAssets/steam du dépôt Le Tapis Vert, avec « 24 jeux »)
-│   │   └── reverie/        Bandeau, image de partage, couvertures des deux histoires, illustrations
-│   │                       shots/01-07 (depuis le dépôt Rêverie, voir §6)
+│   │   ├── reverie/        Bandeau, image de partage, couvertures des deux histoires, illustrations
+│   │   │                   shots/01-07 (depuis le dépôt Rêverie, voir §6)
+│   │   ├── abysses/        Bandeau (library_header de Steam, 920×430), image de partage 1200×630, affiche de
+│   │   │                   la bande-annonce, shots/01-06 (captures de la page Steam, 1600 px, JPEG 78)
+│   │   └── waymaker/       Idem. Les captures sont celles de la page Steam au 31/10 : à remplacer quand
+│   │                       elle aura ses nouvelles captures
 │   └── video/              Bande-annonce 720p, servant de secours si le JS ne charge pas
 └── presse/                 Dossier de presse en ligne (copie de Marketing/PressKit)
     ├── index.html          Page du kit presse, en anglais

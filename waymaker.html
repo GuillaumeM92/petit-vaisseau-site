@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Waymaker — Petit Vaisseau</title>
+<meta name="description" content="Waymaker, un jeu d'exploration spatiale : pilotez un vaisseau d'occasion au-delà des étoiles cartographiées, plongez de l'orbite jusqu'au sol sans écran de chargement et sortez par le sas. Bientôt sur Steam, sortie prévue en 2027.">
+<meta name="theme-color" content="#38D6E0">
+
+<!-- Adresse de référence du site (voir README.md §4) -->
+<link rel="canonical" href="https://petitvaisseau.com/waymaker.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Petit Vaisseau">
+<meta property="og:title" content="Waymaker">
+<meta property="og:description" content="Au-delà de la dernière route de saut, la carte est blanche. Un jeu d'exploration spatiale, bientôt sur Steam.">
+<meta property="og:image" content="https://petitvaisseau.com/assets/img/waymaker/og-cover.jpg">
+<meta property="og:url" content="https://petitvaisseau.com/waymaker.html">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<header class="console">
+  <div class="wrap">
+    <a href="index.html" aria-label="Petit Vaisseau — accueil" style="display:flex">
+      <svg class="lockup" viewBox="58 46 470 118" role="img" aria-label="Petit Vaisseau">
+        <defs>
+          <linearGradient id="lk-hull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#EAFEFF"/><stop offset="0.55" stop-color="#8FE8EF"/><stop offset="1" stop-color="#38D6E0"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(24,35) scale(0.62)">
+          <path d="M100 126 L 66 172 C 63 176 66 181 71 179 L 102 164 Z" fill="#1F8E9B"/>
+          <path d="M156 126 L 190 172 C 193 176 190 181 185 179 L 154 164 Z" fill="#1F8E9B"/>
+          <path d="M128 44 C 148 74 158 110 158 146 L 158 158 C 158 167 150 172 128 172 C 106 172 98 167 98 158 L 98 146 C 98 110 108 74 128 44 Z" fill="url(#lk-hull)"/>
+          <circle cx="128" cy="104" r="17" fill="#0B1B2C"/>
+          <circle cx="128" cy="104" r="17" fill="none" stroke="#38D6E0" stroke-width="4"/>
+          <circle cx="122" cy="98" r="4.5" fill="#BFF4F8" opacity=".9"/>
+          <rect x="110" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+          <rect x="132" y="160" width="14" height="12" rx="4" fill="#0E6C79"/>
+        </g>
+        <g font-family="'Exo 2','Avenir Next',Helvetica,Arial,sans-serif">
+          <text x="202" y="82" fill="var(--accent-ink)" font-size="40" font-weight="500" letter-spacing="15">PETIT</text>
+          <text x="202" y="156" fill="var(--ink)" font-size="62" font-weight="800" letter-spacing="3">VAISSEAU</text>
+        </g>
+        <rect x="204" y="98" width="70" height="3" rx="1.5" fill="#38D6E0"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="index.html">Studio</a>
+      <a href="space-defender.html">Space Defender</a>
+      <a href="le-tapis-vert.html">Le Tapis Vert</a>
+      <a href="reverie.html">Rêverie</a>
+      <a href="abysses.html">Abysses</a>
+      <a href="waymaker.html" aria-current="page">Waymaker</a>
+      <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button id="lang-fr" type="button" aria-pressed="true">FR</button>
+      <button id="lang-en" type="button" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap gamehead">
+    <img class="banner" src="assets/img/waymaker/capsule.jpg" alt="Waymaker — un petit vaisseau au milieu d'un champ d'astéroïdes, sous une nébuleuse" width="920" height="430">
+    <h1 class="visually-hidden">Waymaker</h1>
+    <div class="stack-tight">
+      <span class="pill"><span class="dot"></span><span class="fr">Bientôt sur Steam · sortie prévue en 2027</span><span class="en">Coming soon to Steam · planned for 2027</span></span>
+      <p class="lede">
+        <span class="fr">Pilotez seul un vaisseau d’occasion au-delà des étoiles cartographiées. Plongez de l’orbite à travers les nuages d’un monde sans nom, posez-vous où vous voulez et sortez par le sas. Relevez ses fleuves, ses grottes et ses espèces, nommez-le, revendiquez-le… ou allez trop loin pour en revenir.</span>
+        <span class="en">Fly a second-hand ship alone past the edge of the charted stars. Dive from orbit through the clouds of a world nobody has named, land anywhere and step out of the airlock. Chart its rivers, caves and species, name it, claim it… or go too far to ever come back.</span>
+      </p>
+    </div>
+    <div class="buyrow">
+      <a class="btn btn-primary" href="https://store.steampowered.com/app/5496960/" target="_blank" rel="noopener"><span class="fr">Ajouter à ma liste de souhaits sur Steam</span><span class="en">Wishlist on Steam</span></a>
+      <a class="btn btn-ghost" href="#bande-annonce"><span class="fr">Bande-annonce</span><span class="en">Trailer</span></a>
+    </div>
+  </div>
+
+  <section id="bande-annonce">
+    <div class="wrap">
+      <!-- La vidéo est sur YouTube (chaîne Petit Vaisseau) : site.js remplace l'image par le lecteur au clic. -->
+      <div class="player" data-youtube="m2l07Hplekg" data-title="Waymaker">
+        <video controls preload="none" poster="assets/img/waymaker/trailer-poster.jpg" playsinline>
+          <p class="cap">
+            <span class="fr"><a href="https://youtu.be/m2l07Hplekg" target="_blank" rel="noopener">Voir la bande-annonce sur YouTube</a>.</span>
+            <span class="en"><a href="https://youtu.be/m2l07Hplekg" target="_blank" rel="noopener">Watch the trailer on YouTube</a>.</span>
+          </p>
+        </video>
+        <p class="cap">
+          <span><span class="fr">Bande-annonce</span><span class="en">Trailer</span></span>
+          <span>Waymaker</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap pitch">
+      <div>
+        <h2><span class="fr">Au-delà de la dernière route de saut, la carte est blanche.</span><span class="en">Past the last jump route, the map is blank.</span></h2>
+        <p>
+          <span class="fr">La colonisation de l’espace n’a qu’une génération. La Compagnie paie des éclaireurs indépendants pour passer les premiers : relever les systèmes, baliser les concessions, nommer ce qu’ils trouvent. Les convois suivront vos cartes. Vous volez seul, dans un vaisseau d’occasion, avec votre IA de bord et vos dettes pour tout équipage.</span>
+          <span class="en">Humanity has only been settling space for a generation. The Company pays independent scouts to go in first: survey the systems, stake the claims, name whatever they find. The convoys will follow your charts. You fly alone, in a second-hand ship, with your onboard AI and your debts for crew.</span>
+        </p>
+        <p>
+          <span class="fr">Waymaker est en développement, sur son propre moteur. Tout ce qui est montré ici est jouable aujourd’hui ; la liste ci-dessous distingue ce qui existe de ce qui viendra.</span>
+          <span class="en">Waymaker is in development, on its own engine. Everything shown here is playable today; the list below separates what already exists from what is still to come.</span>
+        </p>
+      </div>
+      <div class="feats">
+        <div class="feat">
+          <span class="k"><span class="fr">Pilotez à la main</span><span class="en">Fly it by hand</span></span>
+          <span class="v"><span class="fr">Un vrai cockpit, six axes et une inertie réelle, avec une assistance de vol quand vous la voulez. Traversez un champ d’astéroïdes, glissez-vous dans les entrailles d’un astéroïde géant, sautez d’un système à l’autre.</span><span class="en">A real cockpit, six-axis flight and true inertia, with flight assist when you want it. Thread an asteroid field, slip deep inside a giant asteroid, jump from one system to the next.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">De l’orbite au sol, sans écran de chargement</span><span class="en">From orbit to the ground, no loading screens</span></span>
+          <span class="v"><span class="fr">Choisissez un point sur une planète et plongez. L’air s’embrase autour de la coque, vous crevez les nuages, les montagnes montent vers vous, et vous vous posez où vous voulez.</span><span class="en">Pick a spot on a planet and dive. The atmosphere ignites around the hull, you punch through the clouds, mountains rise to meet you, and you set down wherever you like.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Des mondes qui tiennent debout</span><span class="en">Worlds that make sense</span></span>
+          <span class="v"><span class="fr">Déserts, mondes primordiaux et leurs îles, banquises, champs de lave, océans où l’on plonge. Les fleuves descendent des montagnes, les grottes s’ouvrent au pied des pentes, la météo suit le climat et les saisons suivent l’orbite. Chaque plante, chaque bête vit là où le climat lui convient : pas de baleine dans un lagon.</span><span class="en">Deserts, primordial worlds and their islands, ice sheets, lava fields, oceans you can dive into. Rivers run down from the mountains, caves open at the foot of the slopes, the weather follows the climate and the seasons follow the orbit. Every plant and creature lives where the climate suits it: no whales in a lagoon.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Quittez votre siège</span><span class="en">Leave your seat</span></span>
+          <span class="v"><span class="fr">Levez-vous, même en vol, suivez la coursive, passez le sas, descendez la rampe. Marchez sur un astéroïde en basse gravité, bottes magnétiques aux pieds, ou sur un monde que personne n’a jamais foulé. Prenez le rover ou la moto, explorez une épave, montez à bord des grands vaisseaux.</span><span class="en">Get up, even in flight, walk down the corridor, cycle the airlock, step off the ramp. Cross an asteroid in low gravity on magnetic boots, or a world no one has ever set foot on. Take the rover or the bike, explore a wreck, board the big ships.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Faites votre métier d’éclaireur</span><span class="en">Do what scouts do</span></span>
+          <span class="v"><span class="fr">Analysez chaque espèce au scanner, relevez sa niche et ses mœurs, remplissez votre carnet de terrain. Creusez la roche, rapportez du minerai, fabriquez et améliorez votre équipement.</span><span class="en">Scan every species, record its niche and habits, fill your field journal. Mine the rock, haul back ore, craft and upgrade your gear.</span></span>
+        </div>
+        <div class="feat">
+          <span class="k"><span class="fr">Volez à plusieurs</span><span class="en">Fly together</span></span>
+          <span class="v"><span class="fr">Un ami prend le siège d’à côté, une tourelle ou le volant du rover.</span><span class="en">A friend takes the jump seat, a turret or the rover’s wheel.</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <!-- Les captures de la page Steam, en 1600 px. À remplacer quand la page Steam aura ses nouvelles captures. -->
+      <p class="eyebrow"><span class="fr">Captures</span><span class="en">Screenshots</span></p>
+      <div class="shots">
+        <figure><img src="assets/img/waymaker/shots/01.jpg" alt="Le vaisseau au milieu d'un champ d'astéroïdes, sous une nébuleuse" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/waymaker/shots/02.jpg" alt="Le vaisseau entre dans l'atmosphère d'une planète, au-dessus des nuages" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/waymaker/shots/03.jpg" alt="Le vaisseau posé dans un désert, sa rampe baissée" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/waymaker/shots/04.jpg" alt="Une grotte aux cristaux lumineux" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/waymaker/shots/05.jpg" alt="La coursive du vaisseau, vers le sas" width="1600" height="900" loading="lazy"></figure>
+        <figure><img src="assets/img/waymaker/shots/06.jpg" alt="Le sas ouvert sur un astéroïde, une planète au loin" width="1600" height="900" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <div class="stories">
+        <div class="stack-tight">
+          <p class="eyebrow"><span class="fr">Jouable aujourd’hui (pré-alpha)</span><span class="en">Playable today (pre-alpha)</span></p>
+          <ul class="list">
+            <li><span class="fr">Le vol en cockpit : six axes, inertie, assistance de vol, à la souris ou à la manette.</span><span class="en">Cockpit flight: six axes, inertia, flight assist, mouse or gamepad.</span></li>
+            <li><span class="fr">Des systèmes stellaires générés procéduralement, reliés par des routes de saut.</span><span class="en">Procedurally generated star systems, linked by jump routes.</span></li>
+            <li><span class="fr">Une descente continue de l’espace au sol, sur des planètes à l’échelle réelle et à l’horizon courbe.</span><span class="en">A seamless descent from space to the ground, on real-scale planets with a curved horizon.</span></li>
+            <li><span class="fr">Cinq types de mondes : désertique, primordial (avec ses îles), glacé, de lave, océanique.</span><span class="en">Five world types: desert, primordial (with islands), ice, lava, ocean.</span></li>
+            <li><span class="fr">Le relief, les fleuves, les lacs et les grottes ; la météo et les saisons.</span><span class="en">Terrain, rivers, lakes and caves; weather and seasons.</span></li>
+            <li><span class="fr">Une flore et une faune réparties selon le climat, l’altitude et l’eau.</span><span class="en">Plants and creatures placed by climate, altitude and water.</span></li>
+            <li><span class="fr">À pied : dans le vaisseau, même en vol, sur les astéroïdes et sur les planètes ; la plongée sur les mondes océaniques.</span><span class="en">On foot: aboard your ship, even in flight, on asteroids and on planets; diving on ocean worlds.</span></li>
+            <li><span class="fr">Le rover et la moto, une épave à explorer, des vaisseaux générés que l’on parcourt à pied.</span><span class="en">The rover and the bike, a wreck to explore, generated ships you can walk around.</span></li>
+            <li><span class="fr">Le scanner, le carnet de terrain, le minage, la fabrication et les améliorations.</span><span class="en">The scanner, the field journal, mining, crafting and upgrades.</span></li>
+            <li><span class="fr">Des contrats, des courses, des combats contre des vaisseaux et des tourelles.</span><span class="en">Contracts, races, and combat against ships and turrets.</span></li>
+            <li><span class="fr">La coopération en ligne.</span><span class="en">Online co-op.</span></li>
+          </ul>
+        </div>
+        <div class="stack-tight">
+          <p class="eyebrow"><span class="fr">Prévu</span><span class="en">Planned</span></p>
+          <ul class="list">
+            <li><span class="fr">L’histoire : seize missions, et de vieilles balises qu’aucun registre ne connaît.</span><span class="en">The story: sixteen missions, and old beacons no registry knows about.</span></li>
+            <li><span class="fr">Le carnet complet et les succès Steam.</span><span class="en">The full field journal and Steam achievements.</span></li>
+            <li><span class="fr">D’autres types de mondes, de nouvelles espèces.</span><span class="en">More world types and new species.</span></li>
+            <li><span class="fr">Une flotte et des batailles de grands vaisseaux.</span><span class="en">A fleet and capital-ship battles.</span></li>
+            <li><span class="fr">Et, au bout du voyage, un endroit où s’installer.</span><span class="en">And, at the journey’s end, a place to settle down.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap stack">
+      <p class="eyebrow"><span class="fr">En bref</span><span class="en">At a glance</span></p>
+      <div class="factsheet">
+        <div class="row"><span class="k">Studio</span><span class="v">Petit Vaisseau — Guillaume Merle, <span class="fr">développeur solo, France</span><span class="en">solo developer, France</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Genre</span><span class="en">Genre</span></span><span class="v"><span class="fr">Exploration spatiale · aventure</span><span class="en">Space exploration · adventure</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Modes</span><span class="en">Modes</span></span><span class="v"><span class="fr">Solo · coopération en ligne</span><span class="en">Single-player · online co-op</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Plateforme</span><span class="en">Platform</span></span><span class="v"><span class="fr">Windows (Steam)</span><span class="en">Windows (Steam)</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Sortie</span><span class="en">Release</span></span><span class="v"><span class="fr">Prévue en 2027 · en développement (pré-alpha)</span><span class="en">Planned for 2027 · in development (pre-alpha)</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Commandes</span><span class="en">Controls</span></span><span class="v"><span class="fr">Souris ou manette</span><span class="en">Mouse or gamepad</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Langues</span><span class="en">Languages</span></span><span class="v"><span class="fr">français, anglais</span><span class="en">English, French</span></span></div>
+        <div class="row"><span class="k"><span class="fr">Moteur</span><span class="en">Engine</span></span><span class="v"><span class="fr">Moteur maison, écrit en C++</span><span class="en">In-house engine, written in C++</span></span></div>
+        <div class="row"><span class="k">Steam</span><span class="v"><a href="https://store.steampowered.com/app/5496960/" target="_blank" rel="noopener">store.steampowered.com/app/5496960</a></span></div>
+        <div class="row"><span class="k">Contact</span><span class="v"><a href="mailto:contact@petitvaisseau.com">contact@petitvaisseau.com</a></span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footrow">
+      <p class="colophon">Petit Vaisseau — <a href="https://github.com/GuillaumeM92" target="_blank" rel="noopener">Guillaume Merle</a>, France<br>petitvaisseau.com · contact@petitvaisseau.com</p>
+      <div class="footlinks">
+        <a href="index.html">Studio</a>
+        <a href="space-defender.html">Space Defender</a>
+        <a href="le-tapis-vert.html">Le Tapis Vert</a>
+        <a href="reverie.html">Rêverie</a>
+        <a href="abysses.html">Abysses</a>
+        <a href="waymaker.html">Waymaker</a>
+        <a href="presse/"><span class="fr">Presse</span><span class="en">Press</span></a>
+        <a href="https://store.steampowered.com/developer/petitvaisseau" target="_blank" rel="noopener">Steam</a>
+        <a href="https://discord.com/invite/AUMtECDCx8" target="_blank" rel="noopener">Discord</a>
+        <a href="confidentialite.html"><span class="fr">Confidentialité</span><span class="en">Privacy</span></a>
+        <a href="https://github.com/GuillaumeM92" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <p class="colophon">
+      <span class="fr">Waymaker — Musique de la bande-annonce : « Celestial Echoes », Alkakrab · Moteur maison</span>
+      <span class="en">Waymaker — Trailer music: “Celestial Echoes” by Alkakrab · In-house engine</span>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
