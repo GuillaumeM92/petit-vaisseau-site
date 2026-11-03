@@ -192,3 +192,26 @@ trois plateformes. Quand l'App Store affiche le jeu : passer à `apres` dans les
 deux `<meta name="description">` (qui disent « bientôt sur iPhone et iPad ») sur les trois plateformes. Plus tard, on pourra supprimer les éléments `avant` devenus inutiles. Les textes
 qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 2026 ») restent justes après.
 
+
+---
+
+## 8. Où acheter, mesure du trafic et vente directe (03/11/2026)
+
+- **Section « Acheter le jeu »** de `space-defender.html` (`#acheter`) : trois cartes, Steam PC et Mac, mobile,
+  Supporter Pack. Le bouton du haut n'affiche plus de prix (il était faux pendant chaque promotion) ; le prix de
+  base est dans la carte Steam, avec « les promotions s'affichent sur Steam ».
+- **UTM sur tous les liens vers une page Steam** : `?utm_source=petitvaisseau.com&utm_medium=site&utm_campaign=<page>`
+  (`accueil` pour `index.html`), plus `utm_content` quand une page a plusieurs boutons (`haut`, `acheter`,
+  `supporter-pack`, `valcombe`, `pompei`). Les chiffres sont dans Steamworks > Marketing > « Analyses des
+  statistiques UTM », source `petitvaisseau.com`. Pour un nouveau lien Steam, garder ce format (dans le HTML,
+  les `&` s'écrivent `&amp;`). Rien n'est mesuré sur le site lui-même : pas de cookies, la page de
+  confidentialité reste juste.
+- **Données structurées** (schema.org, JSON-LD dans le `<head>`) : `VideoGame` sur `space-defender.html`,
+  `Organization` sur `index.html`. À vérifier après publication avec le test des résultats enrichis de Google
+  (<https://search.google.com/test/rich-results>). Pas de prix dans le JSON-LD, volontairement.
+- **itch.io (vente sans DRM)** : un bloc prêt est en commentaire à la fin de la section `#acheter`. Le jour où la
+  page itch.io existe : remplacer `0000000` par l'identifiant du jeu, décommenter, et ajouter une phrase sur
+  l'iframe d'itch.io dans `confidentialite.html` (elle dépose ses cookies). Prix et promotions alignés sur Steam
+  (règle de Valve pour les clés Steam).
+- **Search Console** : la propriété est validée par le fichier `google910cb7e54fbcb6d9.html` (ne pas le
+  supprimer). Elle n'est pas rattachée au compte Google ouvert dans Chrome sur le PC : pour lire les chiffres, ouvrir la Search Console avec le compte qui l'a validée.
