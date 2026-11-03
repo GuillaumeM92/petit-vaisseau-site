@@ -119,7 +119,7 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
 - **Confidentialité de Sourcebound** : le texte de référence est `Store/privacy-policy.html`
   dans le dépôt du jeu. La page du site en est la mise en forme ; si l'un des deux change,
   reporter la modification dans l'autre.
-- **itch.io** : pas de lien pour l'instant (décidé le 16/09/2026, le jeu n'y est pas publié).
+- **itch.io** : pas de lien pour l'instant (décidé le 16/09/2026, le jeu n'y est pas publié). Confirmé le 03/11/2026 : pas de vente directe sur le site ni sur itch.io, tout passe par Steam et les magasins mobiles.
   Pour en ajouter un : un `<a class="link" href="…">` de plus dans la section
   « Où nous trouver » d'`index.html`, la grille s'adapte au nombre de blocs.
 
@@ -195,7 +195,7 @@ qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 20
 
 ---
 
-## 8. Où acheter, mesure du trafic et vente directe (03/11/2026)
+## 8. Où acheter et mesure du trafic (03/11/2026)
 
 - **Section « Acheter le jeu »** de `space-defender.html` (`#acheter`) : trois cartes, Steam PC et Mac, mobile,
   Supporter Pack. Le bouton du haut n'affiche plus de prix (il était faux pendant chaque promotion) ; le prix de
@@ -209,9 +209,5 @@ qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 20
 - **Données structurées** (schema.org, JSON-LD dans le `<head>`) : `VideoGame` sur `space-defender.html`,
   `Organization` sur `index.html`. À vérifier après publication avec le test des résultats enrichis de Google
   (<https://search.google.com/test/rich-results>). Pas de prix dans le JSON-LD, volontairement.
-- **itch.io (vente sans DRM)** : un bloc prêt est en commentaire à la fin de la section `#acheter`. Le jour où la
-  page itch.io existe : remplacer `0000000` par l'identifiant du jeu, décommenter, et ajouter une phrase sur
-  l'iframe d'itch.io dans `confidentialite.html` (elle dépose ses cookies). Prix et promotions alignés sur Steam
-  (règle de Valve pour les clés Steam).
 - **Search Console** : la propriété est validée par le fichier `google910cb7e54fbcb6d9.html` (ne pas le
   supprimer). Elle n'est pas rattachée au compte Google ouvert dans Chrome sur le PC : pour lire les chiffres, ouvrir la Search Console avec le compte qui l'a validée.
