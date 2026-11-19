@@ -144,6 +144,8 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
   `<meta name="description">`, `og:title`, `og:description` et les données structurées existent en
   `class="fr"` et `class="en"`. Le script retire l'autre langue, pose `canonical`, `og:url`,
   `og:locale` et les `hreflang`, et change la bascule FR/EN en deux liens vers la page jumelle.
+  Pour un texte d'attribut (`alt`, `aria-label`, `title`, `data-title`), la version anglaise suit
+  directement la française : `alt="Un lac de lave, la nuit" alt-en="A lava lake at night"`.
   Les pages de confidentialité, elles, restent bilingues dans un seul fichier, comme avant.
 - **La langue** : chaque page générée a une seule langue. `site.js` ne redirige que sur `?lang=en`
   (les liens déjà envoyés à la presse, `…/space-defender.html?lang=en`, mènent à `en/space-defender.html`)
