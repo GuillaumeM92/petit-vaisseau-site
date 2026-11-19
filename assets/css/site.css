@@ -118,6 +118,18 @@ nav a[aria-current="page"]{color:var(--ink);border-color:var(--line);background:
   padding:6px 10px;border:0;background:transparent;color:var(--muted);cursor:pointer;
 }
 .lang button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+/* Pages construites par outils/construire.py : la bascule est faite de deux liens vers la page jumelle. */
+.lang a{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;
+  padding:6px 10px;color:var(--muted);text-decoration:none;
+}
+.lang a:hover{color:var(--ink)}
+.lang a[aria-current="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+/* Bandeau discret posé par site.js quand la langue du navigateur n'est pas celle de la page. */
+.lang-offre{background:var(--panel);border-bottom:1px solid var(--line);font-size:14px}
+.lang-offre .wrap{display:flex;align-items:center;justify-content:center;gap:14px;padding-block:8px;flex-wrap:wrap}
+.lang-offre a{color:var(--accent-ink);font-weight:600}
+.lang-offre button{border:0;background:transparent;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:2px 6px}
 @media (max-width:560px){
   .console .wrap{gap:8px 10px}
   .lockup{height:34px}
@@ -141,6 +153,7 @@ nav a[aria-current="page"]{color:var(--ink);border-color:var(--line);background:
   font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);
   display:flex;align-items:center;gap:10px;
 }
+h2.eyebrow{font-weight:400;line-height:inherit}
 .eyebrow::after{content:"";height:1px;flex:1;background:var(--line);min-width:20px}
 .lede{font-size:clamp(17px,2.4vw,19px);color:var(--ink);max-width:62ch}
 .muted{color:var(--muted)}

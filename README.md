@@ -1,7 +1,10 @@
 # Site de Petit Vaisseau
 
-Site statique du studio : une page par jeu, aucune dépendance, aucun outil de build.
-C'est du HTML et du CSS écrits à la main — on ouvre un fichier, on modifie, on pousse.
+Site statique du studio : une page par jeu, aucune dépendance. C'est du HTML et du CSS écrits
+à la main. **Depuis le 19/11/2026, l'accueil et les cinq pages de jeu s'écrivent dans `source/`**
+(les deux langues dans le même fichier), et `python outils/construire.py` en tire une page française
+(`abysses.html`, l'adresse de toujours) et une page anglaise (`en/abysses.html`) : une langue par
+adresse, ce que Google sait indexer (voir §9). **Ne jamais modifier à la main les pages générées.**
 
 En ligne : **https://petitvaisseau.com**
 
@@ -10,7 +13,10 @@ En ligne : **https://petitvaisseau.com**
 ## 1. Ce qu'il y a dans le dépôt
 
 ```
-├── index.html              Accueil du studio (logo animé, 3 lignes, carte du jeu, liens, contact presse)
+├── source/                 LES SOURCES de index.html et des cinq pages de jeu ci-dessous (bilingues, à modifier ici)
+├── outils/construire.py    Construit index.html… waymaker.html (français), en/… (anglais) et sitemap.xml
+├── en/                     Pages anglaises GÉNÉRÉES (ne pas modifier)
+├── index.html              (généré) Accueil du studio (logo animé, 3 lignes, carte du jeu, liens, contact presse)
 ├── space-defender.html     Page du jeu (trailer, description, 5 captures, fiche presse, FAQ)
 ├── le-tapis-vert.html      Page du Tapis Vert (bandeau, 24 jeux, 6 captures FR/EN, FAQ) ; bouton Google Play à activer le jour de la sortie
 ├── le-tapis-vert-confidentialite.html  Confidentialité du Tapis Vert (liée depuis le jeu et Google Play)
@@ -28,7 +34,8 @@ En ligne : **https://petitvaisseau.com**
 ├── confidentialite.html    Politique de confidentialité FR/EN (liée depuis Steam et Google Play)
 ├── 404.html                Page d'erreur, volontairement autonome (son style est dedans)
 ├── robots.txt              Autorise l'indexation, pointe le sitemap
-├── sitemap.xml             Liste des pages, pour Google
+├── sitemap.xml             (généré) Pages FR et EN avec leurs hreflang, et la page presse ; les pages
+│                           de confidentialité n'y sont plus (en ligne, mais sans intérêt pour la recherche)
 ├── .nojekyll               Dit à GitHub Pages de servir les fichiers tels quels
 ├── CNAME                   Le domaine du site, lu par GitHub Pages (voir §4)
 ├── assets/
@@ -79,10 +86,13 @@ Un double-clic sur `index.html` marche aussi, mais le serveur est plus fidèle.
 **Réglage initial, une seule fois :** Settings → Pages → Build and deployment →
 Source = **Deploy from a branch**, branche `main`, dossier `/ (root)` → Save.
 
-Ensuite, **chaque push sur `main` republie le site** dans la minute. Il n'y a pas de workflow,
-pas d'étape de compilation : GitHub sert les fichiers tels quels.
+Ensuite, **chaque push sur `main` republie le site** dans la minute. Il n'y a pas de workflow :
+GitHub sert les fichiers tels quels. Les pages générées sont commitées avec leurs sources, donc on
+construit **avant** de commiter :
 
 ```bash
+python outils/construire.py
+python outils/construire.py --verifier   # « Toutes les pages sont à jour. »
 git add -A && git commit -m "Site: …" && git push
 ```
 
@@ -127,12 +137,17 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
 
 ## 6. Modifier le site au quotidien
 
-- **Les textes** sont directement dans les deux `.html`. Chaque phrase existe en double :
-  `<span class="fr">…</span><span class="en">…</span>`. Le CSS n'affiche que la langue choisie.
-  **Si tu modifies une phrase, modifie les deux.**
-- **La langue par défaut** : `assets/js/site.js`, fonction `initialLang()`. L'ordre est
-  `?lang=en` dans l'URL → choix précédent du visiteur → langue du navigateur. Un lien
-  `…/space-defender.html?lang=en` envoyé à la presse anglophone ouvre donc la page en anglais.
+- **Les textes** de l'accueil et des pages de jeu sont dans `source/*.html`. Chaque phrase existe en
+  double : `<span class="fr">…</span><span class="en">…</span>`. **Si tu modifies une phrase, modifie
+  les deux**, puis lance `python outils/construire.py`. Le `<head>` suit la même règle : `<title>`,
+  `<meta name="description">`, `og:title`, `og:description` et les données structurées existent en
+  `class="fr"` et `class="en"`. Le script retire l'autre langue, pose `canonical`, `og:url`,
+  `og:locale` et les `hreflang`, et change la bascule FR/EN en deux liens vers la page jumelle.
+  Les pages de confidentialité, elles, restent bilingues dans un seul fichier, comme avant.
+- **La langue** : chaque page générée a une seule langue. `site.js` ne redirige que sur `?lang=en`
+  (les liens déjà envoyés à la presse, `…/space-defender.html?lang=en`, mènent à `en/space-defender.html`)
+  ou sur un choix déjà fait par le visiteur ; si son navigateur est dans l'autre langue, un bandeau le
+  lui propose. Jamais de redirection d'après la langue du navigateur : Googlebot doit lire les deux.
 - **Les couleurs** : `assets/css/site.css`, tout en haut. Le cyan `#38D6E0` est la couleur de
   marque, elle ne bouge pas ; `--accent-ink` est sa déclinaison foncée, pour le texte sur fond
   clair. Le thème sombre reprend les mêmes noms de variables juste en dessous.
@@ -188,8 +203,10 @@ autres, selon l'attribut `data-sortie` de `<body>`.
 deux pages ont `data-sortie="sans-ios"` : seuls les éléments `sans-ios` s'affichent (« Disponible sur PC, Mac
 et Android · bientôt sur iPhone et iPad », « Jouer gratuitement sur Steam », vrai lien Google Play, bouton
 grisé « App Store — bientôt »), et `hors-sans-ios` cache la phrase de FAQ « à partir du 22 octobre » sur les
-trois plateformes. Quand l'App Store affiche le jeu : passer à `apres` dans les deux pages, et remettre les
-deux `<meta name="description">` (qui disent « bientôt sur iPhone et iPad ») sur les trois plateformes. Plus tard, on pourra supprimer les éléments `avant` devenus inutiles. Les textes
+trois plateformes. Quand l'App Store affiche le jeu : passer à `apres` dans `source/reverie.html` et
+`source/index.html`, puis lancer `python outils/construire.py`. Le script ne garde que les éléments de l'état
+actif : les descriptions et les données structurées de Rêverie existent déjà dans les deux états (`sans-ios`
+et `apres`), rien d'autre à changer. Les éléments `avant` n'arrivent plus dans les pages publiées. Les textes
 qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 2026 ») restent justes après.
 
 
@@ -206,8 +223,23 @@ qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 20
   statistiques UTM », source `petitvaisseau.com`. Pour un nouveau lien Steam, garder ce format (dans le HTML,
   les `&` s'écrivent `&amp;`). Rien n'est mesuré sur le site lui-même : pas de cookies, la page de
   confidentialité reste juste.
-- **Données structurées** (schema.org, JSON-LD dans le `<head>`) : `VideoGame` sur `space-defender.html`,
-  `Organization` sur `index.html`. À vérifier après publication avec le test des résultats enrichis de Google
+- **Données structurées** (schema.org, JSON-LD dans le `<head>`) : `VideoGame` sur les cinq pages de jeu
+  (une version par langue depuis le 19/11), `Organization` et `WebSite` sur `index.html`. À vérifier après publication avec le test des résultats enrichis de Google
   (<https://search.google.com/test/rich-results>). Pas de prix dans le JSON-LD, volontairement.
 - **Search Console** : la propriété est validée par le fichier `google910cb7e54fbcb6d9.html` (ne pas le
   supprimer). Elle n'est pas rattachée au compte Google ouvert dans Chrome sur le PC : pour lire les chiffres, ouvrir la Search Console avec le compte qui l'a validée.
+
+---
+
+## 9. Référencement (audit du 19/11/2026)
+
+- **Le constat** : Google avait indexé les 10 pages, mais chacune contenait les deux langues (l'une cachée
+  par le CSS). Il affichait Rêverie et Abysses avec leur texte anglais sur des pages déclarées françaises, et
+  « Traduire cette page » sur tous les résultats. D'où les pages d'une seule langue (§6), reliées par `hreflang`
+  (`x-default` = l'anglais).
+- **Titres et descriptions** : un titre qui dit ce qu'est le jeu (« Abysses: Meridian — exploration
+  sous-marine »), une description de 160 caractères au plus (Google coupe au-delà).
+- **Page presse** : `presse/index.html` a reçu son `canonical`, ses balises de partage et un `<h1>` (le logo).
+  Elle diffère donc de `Marketing/PressKit/index.html` : reporter ces lignes là-bas avant la prochaine copie.
+- **Search Console** (avec le compte qui a validé la propriété, pas celui de Chrome) : renvoyer `sitemap.xml`
+  après chaque publication qui ajoute des pages, et suivre l'indexation des pages `en/`.

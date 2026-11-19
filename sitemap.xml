@@ -1,43 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://petitvaisseau.com/</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/"/>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/en/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/"/>
   </url>
   <url>
     <loc>https://petitvaisseau.com/space-defender.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/space-defender.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/space-defender.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/space-defender.html"/>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/en/space-defender.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/space-defender.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/space-defender.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/space-defender.html"/>
   </url>
   <url>
     <loc>https://petitvaisseau.com/le-tapis-vert.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/le-tapis-vert.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/le-tapis-vert.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/le-tapis-vert.html"/>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/en/le-tapis-vert.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/le-tapis-vert.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/le-tapis-vert.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/le-tapis-vert.html"/>
   </url>
   <url>
     <loc>https://petitvaisseau.com/reverie.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/reverie.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/reverie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/reverie.html"/>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/en/reverie.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/reverie.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/reverie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/reverie.html"/>
   </url>
   <url>
     <loc>https://petitvaisseau.com/abysses.html</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/abysses.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/abysses.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/abysses.html"/>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/en/abysses.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/abysses.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/abysses.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/abysses.html"/>
   </url>
   <url>
     <loc>https://petitvaisseau.com/waymaker.html</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/waymaker.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/waymaker.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/waymaker.html"/>
+  </url>
+  <url>
+    <loc>https://petitvaisseau.com/en/waymaker.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://petitvaisseau.com/waymaker.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://petitvaisseau.com/en/waymaker.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://petitvaisseau.com/en/waymaker.html"/>
   </url>
   <url>
     <loc>https://petitvaisseau.com/presse/</loc>
-    <lastmod>2026-09-16</lastmod>
-  </url>
-  <url>
-    <loc>https://petitvaisseau.com/confidentialite.html</loc>
-    <lastmod>2026-09-16</lastmod>
-  </url>
-  <url>
-    <loc>https://petitvaisseau.com/le-tapis-vert-confidentialite.html</loc>
-    <lastmod>2026-09-17</lastmod>
-  </url>
-  <url>
-    <loc>https://petitvaisseau.com/eyes-closed-confidentialite.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-11-19</lastmod>
   </url>
 </urlset>
