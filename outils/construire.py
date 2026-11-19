@@ -113,6 +113,14 @@ def sans_classes_de_langue(html):
     return CLASSE.sub(nettoie, html)
 
 
+ATTRIBUT_EN = re.compile(r'(\s(alt|aria-label|title|data-title)=")([^"]*)("\s+)\2-en="([^"]*)"')
+
+
+def attributs_traduits(html, langue):
+    """alt="…" alt-en="…" (de même aria-label, title, data-title) : garde la valeur de la langue de la page."""
+    return ATTRIBUT_EN.sub(lambda m: m.group(1) + (m.group(5) if langue == "en" else m.group(3)) + '"', html)
+
+
 def lien(valeur, langue):
     """Réécrit un lien relatif pour une page de la langue donnée (en/ est un niveau plus bas)."""
     if valeur == "index.html" or valeur.startswith("index.html#"):
@@ -149,6 +157,8 @@ def construire(page, html, langue):
         a_retirer |= SORTIE[m.group(1)]
     html = retirer(html, a_retirer)
     html = sans_classes_de_langue(html)
+    html = attributs_traduits(html, langue)
+    assert not re.search(r'\s[\w-]+-en="', html), f"{page} : attribut -en mal placé (il suit directement le sien)"
 
     # Liens relatifs (href, src, poster) ; le reste du <head> est en adresses absolues.
     html = re.sub(r'(\s(?:href|src|poster)=")([^"]*)(")',

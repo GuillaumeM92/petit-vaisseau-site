@@ -77,7 +77,8 @@ python3 -m http.server 8000
 ```
 
 Puis <http://localhost:8000>. `Ctrl+C` pour arrêter.
-Un double-clic sur `index.html` marche aussi, mais le serveur est plus fidèle.
+Un double-clic sur `index.html` marche aussi, mais le serveur est plus fidèle (les pages `en/` en ont besoin).
+Avant de regarder, lancer `python outils/construire.py` si une source a changé.
 
 ---
 
@@ -124,14 +125,14 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
   cyan du site — ce sont celles du logo du jeu (« FRONTIER SQUADRON » est en #28D0B0). Le kit
   est signé du studio par la barre du haut et le pied de page (décidé le 16/09/2026).
 - **La phrase « je réponds moi-même »** du bloc contact presse : si tu veux annoncer un délai
-  (« sous 48 heures »), c'est dans `index.html`, section `#presse`.
+  (« sous 48 heures »), c'est dans `source/index.html`, section `#presse`.
 - **La mention Android** dans la FAQ, à ajuster selon ce que tu veux promettre.
 - **Confidentialité de Sourcebound** : le texte de référence est `Store/privacy-policy.html`
   dans le dépôt du jeu. La page du site en est la mise en forme ; si l'un des deux change,
   reporter la modification dans l'autre.
 - **itch.io** : pas de lien pour l'instant (décidé le 16/09/2026, le jeu n'y est pas publié). Confirmé le 03/11/2026 : pas de vente directe sur le site ni sur itch.io, tout passe par Steam et les magasins mobiles.
   Pour en ajouter un : un `<a class="link" href="…">` de plus dans la section
-  « Où nous trouver » d'`index.html`, la grille s'adapte au nombre de blocs.
+  « Où nous trouver » de `source/index.html`, la grille s'adapte au nombre de blocs.
 
 ---
 
@@ -151,14 +152,14 @@ Avant, il était sur un sous-domaine du site perso : cette ancienne adresse ne s
 - **Les couleurs** : `assets/css/site.css`, tout en haut. Le cyan `#38D6E0` est la couleur de
   marque, elle ne bouge pas ; `--accent-ink` est sa déclinaison foncée, pour le texte sur fond
   clair. Le thème sombre reprend les mêmes noms de variables juste en dessous.
-- **La bande-annonce** : `space-defender.html`, attribut `data-youtube` du bloc `.player`.
+- **La bande-annonce** : `source/space-defender.html`, attribut `data-youtube` du bloc `.player`.
   Aujourd'hui `lim5kfn3IAk`. Si tu le vides, la page repasse sur le mp4 du dossier `assets/video/`.
 - **Les captures** : `assets/img/shots/01.jpg` à `05.jpg`, 1600 px de large. Les originaux
   1920×1080 sont dans `Marketing/PressKit/screenshots/` du dépôt du jeu :
   ```bash
   sips -s format jpeg -s formatOptions 78 -Z 1600 source.png --out assets/img/shots/01.jpg
   ```
-- **Le logo animé du studio** dans `index.html` est une copie de
+- **Le logo animé du studio** dans `source/index.html` est une copie de
   `Marketing/Logos/petit-vaisseau-splash.svg`. Si tu retouches le SVG d'origine, recopie-le.
 - **Le dossier de presse** : `presse/index.html` est une copie **à l'identique** de
   `Marketing/PressKit/index.html` (les liens vers le site et l'archive sont en adresses absolues,
@@ -193,8 +194,8 @@ autres, selon l'attribut `data-sortie` de `<body>`.
 
 **Le jour de la sortie, dès que les deux magasins affichent le jeu :**
 
-1. dans `reverie.html` et dans `index.html`, remplacer `data-sortie="avant"` par
-   `data-sortie="apres"` (une ligne par fichier) ;
+1. dans `source/reverie.html` et dans `source/index.html`, remplacer `data-sortie="avant"` par
+   `data-sortie="apres"` (une ligne par fichier), puis `python outils/construire.py` ;
 2. vérifier les liens : <https://apps.apple.com/app/id6818850240> et
    <https://play.google.com/store/apps/details?id=com.petitvaisseau.eyesclosed> ;
 3. pousser.
@@ -214,7 +215,7 @@ qui ne dépendent pas de la date (description, FAQ « à partir du 22 octobre 20
 
 ## 8. Où acheter et mesure du trafic (03/11/2026)
 
-- **Section « Acheter le jeu »** de `space-defender.html` (`#acheter`) : trois cartes, Steam PC et Mac, mobile,
+- **Section « Acheter le jeu »** de `source/space-defender.html` (`#acheter`) : trois cartes, Steam PC et Mac, mobile,
   Supporter Pack. Le bouton du haut n'affiche plus de prix (il était faux pendant chaque promotion) ; le prix de
   base est dans la carte Steam, avec « les promotions s'affichent sur Steam ».
 - **UTM sur tous les liens vers une page Steam** : `?utm_source=petitvaisseau.com&utm_medium=site&utm_campaign=<page>`
