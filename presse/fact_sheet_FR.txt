@@ -5,7 +5,7 @@ Genre                   Shooter spatial vu de dessus avec progression RPG
 Plateformes             Windows et macOS (Steam)
 Accès anticipé          mai 2025
 Sortie 1.0              25 septembre 2026
-Prix                    9,99 €
+Prix                    13,49 €
 Langues                 français, anglais, allemand, espagnol, russe, chinois simplifié (interface et voix)
 Contrôles               clavier et souris, compatibilité manette complète
 Site                    https://petitvaisseau.com
