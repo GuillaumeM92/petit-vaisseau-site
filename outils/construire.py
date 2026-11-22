@@ -27,7 +27,7 @@ RACINE = Path(__file__).resolve().parent.parent
 SOURCE = RACINE / "source"
 SITE = "https://petitvaisseau.com/"
 PAGES = ["index.html", "space-defender.html", "le-tapis-vert.html",
-         "reverie.html", "abysses.html", "waymaker.html"]
+         "reverie.html", "abysses.html", "telluris.html"]
 LANGUES = ("fr", "en")
 LOCALES = {"fr": "fr_FR", "en": "en_US"}
 # Pages d'une seule version, ajoutées telles quelles au sitemap. Les pages de confidentialité
